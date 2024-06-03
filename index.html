@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Haven Hamelin</title>
+    <link rel="icon" type="image/x-icon" href="/images/favicon.png">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="scripts/script.js" defer></script>
+</head>
+<body>
+    <div id="overlay"></div>
+    <div class="nav-wrapper">
+        <div class="name">Haven Hamelin</div>
+        <nav>
+            <!-- Using on-page linking. -->
+            <a href="#home">Home</a>
+            <a href="#projects">Projects</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </div>
+    <section class="hero" id="home">
+        <div class="hero-text-plus-character">
+            <!-- Pixel art character behind the text. -->
+            <img src="images/character.png" alt="Pixel art character." class="hero-character">
+            <div class="hero-text-wrapper">
+                <pre class="hero-text-name">Haven  Hamelin</pre>
+                <div class="hero-text-career">Game Designer</div>
+            </div>
+        </div>
+    </section>
+    <section class="projects" id="projects">
+        <div class="title">Project Showcase</div>
+        <div class="projects-wrapper">
+            <div class="project-single-wrapper">
+                <p>The ROM &quot;Catalogifier&quot;</p>
+                <div title="The ROM &quot;Catalogifier&quot;" class="project-img"></div>
+                <p>A web interface created for those cataloging retro video games in Luddy's &quot;ROM Collection&quot;.</p>
+            </div>
+            <div class="project-single-wrapper">
+                <p>Alchemy Crafting</p>
+                <div title="Alchemy Crafting Simulator" class="project-img" id="alchemy-img" onclick="loadFrame(this)"></div>
+                <p>Here is a complex demonstration of a crafting system from the webcomic Homestuck, it involves bitwise operations on "captchalogue" codes represented with hole punches.</p>
+            </div>
+            <div class="project-single-wrapper">
+                <p>YTMimir</p>
+                <div title="YTMimir" class="project-img"></div>
+                <p>YouTube Music downloader and formatter.</p>
+            </div>
+        </div>
+        <div class="projects-wrapper">
+            <div class="project-single-wrapper">
+                <!-- Using html quotation mark code.-->
+                <p>&quot;Kijete&quot; Platformer</p>
+                <div title="&quot;Kijete&quot; Platformer Game" class="project-img" id="kijete-img"></div>
+                <p>This was a platformer I created, with a close recreation of the physics from the classic Super Mario Bros. 3, and using symbols from the conlang toki pona.</p>
+            </div>
+            <div class="project-single-wrapper">
+                <p>Alchemy Crafting</p>
+                <div class="project-img" title="Alchemy Crafting Simulator"></div>
+                <p>Here is a complex demonstration of a crafting system from the webcomic Homestuck, it involves bitwise operations on "captchalogue" codes represented with hole punches.</p>
+            </div>
+            <div class="project-single-wrapper">
+                <p>2D/3D Top-Down RPG</p>
+                <div title="2D/3D Top-Down RPG" class="project-img" id="jpg-img"></div>
+                <p>And this is a technical demo for a 2D/3D styled RPG, where there are 2D sprites in a 3D environment, and features include a tileset generator, dialog, and object interaction.</p>
+            </div>
+        </div>
+    </section>
+    <section class="about" id="about">
+        <div class="title">About</div>
+        <div class="about-wrapper">
+            <!-- About photo, moved with a negative left property. -->
+            <img src="images/haven.png" alt="An image of me." class="about-img">
+            <p class="about-text">My name is Haven Hamelin, and I am attending IUPUI for Game Design. I have a passion for creative endeavors in the digital space, and have been working with computers for as long as I can remember. Some particular skills of mine to note would be my familiarity with Linux and my knowledge of many programming languages, as well as a blooming skill set in digital artwork (namely pixel art), and a novice understanding of music creation. Some examples of programming languages I am proficient in are: Java, Javascript, Python, C#, and GDscript (for the Godot game engine). I would say I have a very dedicated personality; when something interests me I don't let it go. Relatedly, I value tremendously the spending of time developing one's passions. I feel as though it is easy for people to feel discouraged from dedicating their lives to doing what they love, but I have decided not to let that stop me.
+            </p>
+        </img>
+    </section>
+    <section class="contact" id="contact">
+        <div class="title contact-title">Contact</div>
+        <!-- Contact forms. -->
+        <div class="forms-wrapper">
+        <div class="form">
+            <div class="form-name">Name:</div>
+            <input type="text" name="name" id="name">
+        </div>
+        <div class="form">
+            <div class="form-name">Email:</div>
+            <input type="text" name="name" id="name">
+        </div>
+        <div class="form">
+            <div class="form-name">Comment:</div>
+            <input type="text" name="name" class="contact-comment" id="name">
+        </div>
+        <input type="button" value="Submit" class="submit-button">
+        </div>
+    </section>
+    <footer></footer>
+</body>
+</html>
