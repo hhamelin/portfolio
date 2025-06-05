@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
-<head>
+<html lang="en"><head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haven Hamelin</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
     <link rel="stylesheet" href="css/styles.css">
-    <script src="scripts/script.js" defer></script>
+    <script src="scripts/script.js" defer=""></script>
 </head>
 <body>
-    <div id="overlay"></div>
+    <div id="overlay" onclick="overlayOff()"></div>
     <div class="nav-wrapper">
         <div class="name">Haven Hamelin</div>
         <nav>
             <!-- Using on-page linking. -->
-            <a href="#home">Home</a>
-            <a href="#projects">Projects</a>
-            <a href="#about">About</a>
-            <a href="#contact">Contact</a>
+            <a onClick="scrollToAchor('home')">Home</a>
+            <a onClick="scrollToAchor('projects')">Projects</a>
+            <a onClick="scrollToAchor('about')">About</a>
+            <a onClick="scrollToAchor('contact')">Contact</a>
         </nav>
     </div>
     <section class="hero" id="home">
@@ -27,7 +26,8 @@
             <img src="images/character.png" alt="Pixel art character." class="hero-character">
             <div class="hero-text-wrapper">
                 <pre class="hero-text-name">Haven  Hamelin</pre>
-                <div class="hero-text-career">Game Designer</div>
+                <div class="hero-text-career">Game & Web<br>Developer</div>
+
             </div>
         </div>
     </section>
@@ -35,37 +35,54 @@
         <div class="title">Project Showcase</div>
         <div class="projects-wrapper">
             <div class="project-single-wrapper">
-                <p>The ROM &quot;Catalogifier&quot;</p>
-                <div title="The ROM &quot;Catalogifier&quot;" class="project-img"></div>
-                <p>A web interface created for those cataloging retro video games in Luddy's &quot;ROM Collection&quot;.</p>
+                <h3>Alchemy Calculator</h3>
+                <div title="Alchemy Calculator" class="project-img" id="alchemy-img" onclick="loadFrame('SburbAlchemy')"></div>
+                <p>A recreation of the alchemy crafting system featured in a popular piece of online media. It involves a series of complex math operations that involve a “Captchalogue Code”, used as a unique identifier. This code is then represented as a punch card, which can be combined with other punch cards through bitwise operations. The original only had ‘and’ and ‘or’, but I ended up adding ‘xor’ and ‘abjunction’.
+                    <br>
+                    <br>Tools Used: HTML, JS, Aseprite
+                    <br>Live Demo: <a href="https://wasworld.xyz/projects/SburbAlchemy/" data-label="game:2663233:title" data-action="game_grid">Alchemy Crafting</a>
+                    <br>Source Code: <a href="https://abitofkake.itch.io/shopkeep-keepaway" data-label="game:2663233:title" data-action="game_grid">GitHub</a>
+                </p>
             </div>
             <div class="project-single-wrapper">
-                <p>Alchemy Crafting</p>
-                <div title="Alchemy Crafting Simulator" class="project-img" id="alchemy-img" onclick="loadFrame(this)"></div>
-                <p>Here is a complex demonstration of a crafting system from the webcomic Homestuck, it involves bitwise operations on "captchalogue" codes represented with hole punches.</p>
+                <h3>Jester Jabs</h3>
+                <div title="Jester Jabs" class="project-img" id="jester-img"></div>
+                <p>A multiplayer party game themed around jesters, created with a team for a game jam. It consists of a variety of minigames in which you attempt to best the other players through fun challenges. The minigames are joke-based, like creating the punchline for a set-up, or visa versa. This ended up with a familiar, yet distinct experience to popular party games like Jackbox.
+                    <br>
+                    <br>Tools Used: HTML, JS, Aseprite
+                    <br>Live Demo: <a href="https://wasworld.xyz/projects/SburbAlchemy/" data-label="game:2663233:title" data-action="game_grid">Alchemy Crafting</a>
+                    <br>Source Code: <a href="https://abitofkake.itch.io/shopkeep-keepaway" data-label="game:2663233:title" data-action="game_grid">GitHub</a>
+                </p>
             </div>
             <div class="project-single-wrapper">
-                <p>YTMimir</p>
-                <div title="YTMimir" class="project-img"></div>
-                <p>YouTube Music downloader and formatter.</p>
-            </div>
-        </div>
-        <div class="projects-wrapper">
-            <div class="project-single-wrapper">
-                <!-- Using html quotation mark code.-->
-                <p>&quot;Kijete&quot; Platformer</p>
-                <div title="&quot;Kijete&quot; Platformer Game" class="project-img" id="kijete-img"></div>
-                <p>This was a platformer I created, with a close recreation of the physics from the classic Super Mario Bros. 3, and using symbols from the conlang toki pona.</p>
+                <h3>Shopkeep Keepaway</h3>
+                <div class="project-img" id="shopkeep-img" title=""></div>
+                <p>	A fun arcade-style alt.ctrl game, where the player has to fulfill their “shopping” list without catching the attention of the shopkeep. Move a ruler back and forth (or a mouse if that’s all you’ve got) to take your aim in this wacky game, Shopkeep Keepaway!
+                    <br>
+                    <br>Tools Used: Godot
+                    <br>Live Demo: <a href="https://abitofkake.itch.io/shopkeep-keepaway" data-label="game:2663233:title" data-action="game_grid">Shopkeep Keepaway</a>
+                    <br>Source Code: <a href="https://abitofkake.itch.io/shopkeep-keepaway" data-label="game:2663233:title" data-action="game_grid">Shopkeep Keepaway</a>
+                </p>
             </div>
             <div class="project-single-wrapper">
-                <p>Alchemy Crafting</p>
-                <div class="project-img" title="Alchemy Crafting Simulator"></div>
-                <p>Here is a complex demonstration of a crafting system from the webcomic Homestuck, it involves bitwise operations on "captchalogue" codes represented with hole punches.</p>
+                <h3>Snatching Sorcerers</h3>
+                <div class="project-img" id="sorcerers-img" title="" ></div>
+                <p>A two player infinite arcade-style action game, in which one player controls the character on the top with the mouse and the other player controls the bottom player using the arrow keys. The top player has to do their best to catch the elements falling from the top of the screen, and if they fail then the elements will turn into enemies for the bottom player to avoid.
+                    <br>
+                    <br>Tools Used: Godot
+                    <br>Live Demo: <a href="https://sircatsalot1.itch.io/snatching-sorcerers" data-label="game:2663233:title" data-action="game_grid">Shopkeep Keepaway</a>
+                    <br>Source Code: <a href="https://sircatsalot1.itch.io/snatching-sorcerers" data-label="game:2663233:title" data-action="game_grid">Shopkeep Keepaway</a>
+                </p>
             </div>
             <div class="project-single-wrapper">
-                <p>2D/3D Top-Down RPG</p>
-                <div title="2D/3D Top-Down RPG" class="project-img" id="jpg-img"></div>
-                <p>And this is a technical demo for a 2D/3D styled RPG, where there are 2D sprites in a 3D environment, and features include a tileset generator, dialog, and object interaction.</p>
+                <h3>Voxel Sandbox</h3>
+                <div title="Voxel Sandbox" class="project-img" id="kijete-img" onclick="loadFrame('Kijete')"></div>
+                <p>A 3D voxel-based sandbox simulation, similar in functionality to the game Minecraft. The goal was not to create a fully featured game experience, but instead to illustrate my ability to create such a game within the Godot game engine. Kickstarted by the discovery of an open-source voxel engine that I could implement within the project.
+                <br>
+                <br>Tools Used: Godot
+                <br>Live Demo: <a href="https://abitofkake.itch.io/shopkeep-keepaway" data-label="game:2663233:title" data-action="game_grid">Voxel Sandbox</a>
+                <br>Source Code: <a href="https://abitofkake.itch.io/shopkeep-keepaway" data-label="game:2663233:title" data-action="game_grid">Voxel Sandbox</a>
+                </p>
             </div>
         </div>
     </section>
@@ -76,8 +93,8 @@
             <img src="images/haven.png" alt="An image of me." class="about-img">
             <p class="about-text">My name is Haven Hamelin, and I am attending IUPUI for Game Design. I have a passion for creative endeavors in the digital space, and have been working with computers for as long as I can remember. Some particular skills of mine to note would be my familiarity with Linux and my knowledge of many programming languages, as well as a blooming skill set in digital artwork (namely pixel art), and a novice understanding of music creation. Some examples of programming languages I am proficient in are: Java, Javascript, Python, C#, and GDscript (for the Godot game engine). I would say I have a very dedicated personality; when something interests me I don't let it go. Relatedly, I value tremendously the spending of time developing one's passions. I feel as though it is easy for people to feel discouraged from dedicating their lives to doing what they love, but I have decided not to let that stop me.
             </p>
-        </img>
-    </section>
+        
+    </div></section>
     <section class="contact" id="contact">
         <div class="title contact-title">Contact</div>
         <!-- Contact forms. -->
@@ -97,6 +114,7 @@
         <input type="button" value="Submit" class="submit-button">
         </div>
     </section>
-    <footer></footer>
-</body>
+    <footer>
+    </footer>
+    </body>
 </html>

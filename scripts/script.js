@@ -1,8 +1,14 @@
-function loadFrame(elem) {
+function scrollToAchor(where) {
+  var element = document.getElementById(where);
+  var position = element.offsetTop;
+  window.scrollTo({top:(position-100), behavior: 'smooth'});
+}
+
+function loadFrame(which) {
     overlayOn()
     const iframe = document.createElement("iframe")
-    iframe.className = "frame"
-    iframe.src = "https://wasworld.xyz/projects/SburbAlchemy"
+    iframe.id = "frame"
+    iframe.src = "https://wasworld.xyz/projects/" + which
     iframe.scrolling = "no"
     document.getElementById("overlay").appendChild(iframe)
 }
@@ -12,5 +18,6 @@ function overlayOn() {
   }
 
   function overlayOff() {
-    document.getElementById("overlay").style.display = "none";
+    document.getElementById('overlay').style.display = "none";
+    document.getElementById('frame').remove()
   }

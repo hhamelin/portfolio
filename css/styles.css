@@ -25,6 +25,12 @@
     src: url("../fonts/pixelify-sans/PixelifySans-Regular.ttf");
 }
 
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+
 /* CSS Reset. */
 * {
  margin: 0;
@@ -35,6 +41,14 @@
 html, body {
  height: 100%;
 }
+
+a:link {
+    color: pink;
+  }
+  
+  a:visited {
+    color: pink;
+  }
 
 #overlay {
     position: fixed; /* Sit on top of the page content */
@@ -50,7 +64,7 @@ html, body {
     cursor: pointer; /* Add a pointer on hover */
   }
 
-.frame {
+#frame {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -74,6 +88,7 @@ html, body {
     
 }
 
+
 body {
     font-family: "Roboto";
 }
@@ -86,6 +101,7 @@ body {
 }
 
 nav a {
+    cursor: pointer;
     text-decoration:none;
     margin-right: 40px;
     font-size: 20px;
@@ -148,20 +164,21 @@ nav a {
     /*height: 980px;*/
     background-color: #513d55;
     margin: 0 auto;
+    padding-bottom: 60px;
 }
 
 .title {
     margin: 0 auto;
     width: max-content;
-    padding-top: 100px;
+    padding-top: 50px;
     font-size: 30px;
     color: white;
 }
 
 .projects-wrapper {
     display: flex;
-    justify-content: space-around;
-    width: 1101px;
+    justify-content: space-evenly;
+    width: 1300px;
     flex-wrap: wrap;
     gap: 30px;
     margin: 0 auto;
@@ -169,13 +186,17 @@ nav a {
 }
 
 .project-single-wrapper {
-    width: 300px;
-    font-size: 20px;
+    width: 400px;
+    font-size: 15px;
     color: white;
 }
 
+.project-single-wrapper h3 {
+    font-size: 20px;
+}
+
 .project-img {
-    width: 300px;
+    width: 400px;
     height: 300px;
     border-radius: 15px;
     /* Project image positioning and sizing. */
@@ -185,6 +206,10 @@ nav a {
     background-color: white;
     margin-bottom: 20px;
     cursor: pointer;
+}
+
+#jester-img {
+    background-image: url("../images/jester_jabs.png")
 }
 
 #kijete-img {
@@ -197,13 +222,17 @@ nav a {
     background-image: url("../images/alchemy.png");
 }
 
-#jpg-img {
-    background-image: url("../images/jpg.png");
+#shopkeep-img {
+    background-image: url("../images/shopkeep.png");
+}
+
+#sorcerers-img {
+    background-image: url("../images/sorcerers.png");
 }
 
 .about {
     width: 100%;
-    height: 980px;
+    height: 800px;
     background-color: #45294c;
     margin: 0 auto;
 }
@@ -233,7 +262,7 @@ nav a {
 
 .contact {
     width: 100%;
-    height: 980px;
+    height: 750px;
     background-color: #3c2342;
 }
 
