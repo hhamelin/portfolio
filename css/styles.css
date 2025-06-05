@@ -1,46 +1,11 @@
-/* Font importing. */
-@font-face {
-    font-family: "Roboto";
-    src: url("../fonts/roboto/Roboto-Regular.ttf");
-    font-weight: normal;
-}
-
-@font-face {
-    font-family: "Roboto";
-    src: url("../fonts/roboto/Roboto-Bold.ttf");
-    font-weight: bold;
-}
-
-@font-face {
-    font-family: "Roboto-Light";
-    src: url("../fonts/roboto/Roboto-Light.ttf");}
-
-@font-face {
-    font-family: "Avenixel";
-    src: url("../fonts/avenixel/Avenixel-Regular.ttf");
-}
-
-@font-face {
-    font-family: "Pixelify";
-    src: url("../fonts/pixelify-sans/PixelifySans-Regular.ttf");
+:root {
+    --slideshow-height: 800px;
 }
 
 @keyframes fadeIn {
     0% { opacity: 0; }
     100% { opacity: 1; }
   }
-
-
-/* CSS Reset. */
-* {
- margin: 0;
- padding: 0;
- box-sizing: border-box;
-}
-
-html, body {
- height: 100%;
-}
 
 a:link {
     color: pink;
@@ -60,7 +25,7 @@ a:link {
     right: 0;
     bottom: 0;
     background-color: rgba(211,211,211,0.8); /* White background with opacity */
-    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    z-index: 3; /* Specify a stack order in case you're using a different order for other elements */
     cursor: pointer; /* Add a pointer on hover */
   }
 
@@ -73,21 +38,6 @@ a:link {
     transform: translate(-50%, -50%);
     overflow: hidden;
 }
-
-
-/* Navbar (Fixed position). */
-.nav-wrapper {
-    display: flex;
-    position: fixed;
-    z-index: 2;
-    width: 100%;
-    height: 100px;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #5b575c;
-    
-}
-
 
 body {
     font-family: "Roboto";
@@ -147,14 +97,15 @@ nav a {
     left:-6px;
     width: max-content;
     color: #F1C232;
+    text-align: right;
 }
 
-.hero-text-name {
+.hero-text-header {
     font-family: "Avenixel";
     font-size: 60px;
 }
 
-.hero-text-career {
+.hero-text-body {
     font-family: "Pixelify";
     font-size: 47px;
 }
@@ -212,8 +163,8 @@ nav a {
     background-image: url("../images/jester_jabs.png")
 }
 
-#kijete-img {
-    background-image: url("../images/hero.png");
+#voxel-img {
+    background-image: url("../images/voxel_sandbox.png");
 }
 
 #alchemy-img {
@@ -232,7 +183,7 @@ nav a {
 
 .about {
     width: 100%;
-    height: 800px;
+    height: 420px;
     background-color: #45294c;
     margin: 0 auto;
 }
@@ -264,10 +215,11 @@ nav a {
     width: 100%;
     height: 750px;
     background-color: #3c2342;
+    overflow: hidden;
 }
 
 .contact-title {
-    margin-bottom: 0;
+    margin-bottom: 25px;
 }
 
 .forms-wrapper {
@@ -322,7 +274,91 @@ nav a {
     background-color: #9048a1;
 }
 
+.connections-wrapper {
+    position: relative;
+    top: -225px;
+    left: 1270px;
+    width: 600px;
+}
+
+.connections-flex {
+    display: flex;
+    flex-wrap: wrap;
+    height: 100%;
+    justify-content: space-evenly;
+    margin: 0 auto;
+}
+
+.connect-button {
+    display: inline-block;
+    width: 150px;
+    height: 100%;
+    padding: 10px;
+    background-color: white;
+    border: lightgray solid;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: white;
+    cursor: pointer;
+}
+
+.connect-button img {
+    height: 100%;
+}
+
+
 footer {
     height: 50px;
     background-color: #2a152f;
+}
+
+.click-overrider, .is-active {
+    cursor: initial;
+}
+
+.click-overrider, .is-active, .splide__arrow {
+    
+}
+
+.slideshow-wrapper {
+    z-index: 4;
+    position: relative;
+    top: 100px;
+}
+
+.splide {
+    width: 1000px;
+    margin: 0 auto;
+    mask-image: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(255,255,255,1) 10%, rgba(255,255,255,1) 90%, rgba(255,255,255,0) 100%);
+}
+
+.splide__arrow--prev {
+    left: 12em;
+}
+
+.splide__arrow--next {
+    right: 12em;
+}
+
+.splide__slide {
+    width: 640px;
+    height: 450px;
+}
+
+.splide__slide img {
+    width: 100%;
+    height: auto;
+}
+
+.slideshow-wrapper p {
+    width: 640px;
+    height: 200px;
+    margin: 0 auto;
+    margin-top: 20px;
+    background-color: white;
+    border-radius: 12px;
+    padding: 5px;
 }

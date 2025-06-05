@@ -1,0 +1,312 @@
+@keyframes fadeIn {
+    0% { opacity: 0; }
+    100% { opacity: 1; }
+  }
+
+a:link {
+    color: pink;
+  }
+  
+  a:visited {
+    color: pink;
+  }
+
+#overlay {
+    position: fixed; /* Sit on top of the page content */
+    display: none; /* Hidden by default */
+    width: 100%; /* Full width (cover the whole page) */
+    height: 100%; /* Full height (cover the whole page) */
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: rgba(211,211,211,0.8); /* White background with opacity */
+    z-index: 2; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+  }
+
+#frame {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 1024px;
+    height: 600px;
+    transform: translate(-50%, -50%);
+    overflow: hidden;
+}
+
+body {
+    font-family: "Roboto";
+}
+
+.name {
+    margin-left: 50px;
+    font-size: 64px;
+    font-family: "Avenixel";
+    color: #F1C232;
+}
+
+nav a {
+    cursor: pointer;
+    text-decoration:none;
+    margin-right: 40px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #F1C232;
+}
+
+.hero {
+    width: 100%;
+    min-height: 579px;
+    height: 100vh;
+    padding-top: 100px;
+    background-image: 
+    linear-gradient(
+      rgba(86, 86, 118,.75), 
+      rgba(86, 86, 118,.75)
+    ),
+    url("../images/hero.png");
+    /* Hero image positioning and size. */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    /* Hero image parallax. */
+    background-attachment: fixed;
+    display: flex;
+    justify-content: space-evenly;
+    
+}
+
+.hero-text-plus-character {
+    width: max-content;
+}
+
+.hero-character {
+    position: relative;
+    top: 130px;
+    left: 384px;
+}
+
+.hero-text-wrapper {
+    position: relative;
+    z-index: 1;
+    left:-6px;
+    width: max-content;
+    color: #F1C232;
+    text-align: right;
+}
+
+.hero-text-header {
+    font-family: "Avenixel";
+    font-size: 60px;
+}
+
+.hero-text-body {
+    font-family: "Pixelify";
+    font-size: 47px;
+}
+
+.projects {
+    width: 100%;
+    /*height: 980px;*/
+    background-color: #513d55;
+    margin: 0 auto;
+    padding-bottom: 60px;
+}
+
+.title {
+    margin: 0 auto;
+    width: max-content;
+    padding-top: 50px;
+    font-size: 30px;
+    color: white;
+}
+
+.projects-wrapper {
+    display: flex;
+    justify-content: space-evenly;
+    width: 1300px;
+    flex-wrap: wrap;
+    gap: 30px;
+    margin: 0 auto;
+    margin-top: 50px;
+}
+
+.project-single-wrapper {
+    width: 400px;
+    font-size: 15px;
+    color: white;
+}
+
+.project-single-wrapper h3 {
+    font-size: 20px;
+}
+
+.project-img {
+    width: 400px;
+    height: 300px;
+    border-radius: 15px;
+    /* Project image positioning and sizing. */
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-color: white;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+
+#jester-img {
+    background-image: url("../images/jester_jabs.png")
+}
+
+#voxel-img {
+    background-image: url("../images/voxel_sandbox.png");
+}
+
+#alchemy-img {
+    /* Altered sizing for different aspect ratio image.*/
+    background-size: contain;
+    background-image: url("../images/alchemy.png");
+}
+
+#shopkeep-img {
+    background-image: url("../images/shopkeep.png");
+}
+
+#sorcerers-img {
+    background-image: url("../images/sorcerers.png");
+}
+
+.about {
+    width: 100%;
+    height: 800px;
+    background-color: #45294c;
+    margin: 0 auto;
+}
+
+.about-wrapper {
+    /* Flex Center */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.about-img {
+    position: relative;
+    left: -100px;
+    width: 300px;
+    height: 300px;
+    border-radius: 100%;
+    object-fit: cover;
+}
+
+.about-text {
+    width: 1000px;
+    font-size: 20px;
+    color: white;
+}
+
+.contact {
+    width: 100%;
+    height: 750px;
+    background-color: #3c2342;
+    overflow: hidden;
+}
+
+.contact-title {
+    margin-bottom: 25px;
+}
+
+.forms-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+    flex-direction: column;
+    margin-top: 40px;
+}
+
+.form-name {
+    margin-top: 22px;
+    margin-bottom: 16px;
+    font-size: 16px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    color: white;
+}
+
+.form input {
+    width: 567px;
+    height: 53px;
+    background: none;
+    border: 3px solid white;
+    color: white;
+}
+
+.form .contact-comment {
+    height: 200px;
+}
+
+.submit-button {
+    width: 237px;
+    height: 53px;
+    margin-top: 45px;
+    background: none;
+    border: white solid;
+    border-radius: 27px;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: white;
+    cursor: pointer;
+}
+
+/* Change button color on hover and on click. */
+.submit-button:hover {
+    background-color: #4c2655;
+}
+
+.submit-button:active {
+    background-color: #9048a1;
+}
+
+.connections-wrapper {
+    position: relative;
+    top: -225px;
+    left: 1270px;
+    width: 600px;
+}
+
+.connections-flex {
+    display: flex;
+    flex-wrap: wrap;
+    height: 200px;
+    justify-content: space-evenly;
+    margin: 0 auto;
+}
+
+.connect-button {
+    display: inline-block;
+    width: 280px;
+    height: 75px;
+    padding: 10px;
+    background-color: white;
+    border: lightgray solid;
+    border-radius: 50px;
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold;
+    letter-spacing: 2px;
+    color: white;
+    cursor: pointer;
+}
+
+.connect-button img {
+    height: 100%;
+}
+
+
+footer {
+    height: 50px;
+    background-color: #2a152f;
+}

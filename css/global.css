@@ -1,0 +1,37 @@
+/* Font importing. */
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/roboto/Roboto-Regular.ttf");
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "Roboto";
+    src: url("../fonts/roboto/Roboto-Bold.ttf");
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "Roboto-Light";
+    src: url("../fonts/roboto/Roboto-Light.ttf");}
+
+@font-face {
+    font-family: "Avenixel";
+    src: url("../fonts/avenixel/Avenixel-Regular.ttf");
+}
+
+@font-face {
+    font-family: "Pixelify";
+    src: url("../fonts/pixelify-sans/PixelifySans-Regular.ttf");
+}
+
+/* CSS Reset. */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+   }
+   
+   html, body {
+    height: 100%;
+   }
