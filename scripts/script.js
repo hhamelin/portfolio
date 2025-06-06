@@ -44,8 +44,10 @@ function startSlideshow(slideshow) {
 
 function overlayOn() {
     overlayElement.style.display = "block";
-  }
+    document.body.style.overflow = "hidden";
+}
 
 function overlayOff() {
   overlayElement.style.display = "none";
+  document.body.style.overflow = "";
 }
