@@ -87,36 +87,34 @@ nav {
 
     .text-and-character {
         display: flex;
-    }
 
-    .text {
-        position: relative;
-        z-index: 1;
-        text-align: right;
-        line-height: 1.1;
-        color: #F1C232;
+        .text {
+            text-align: right;
+            line-height: 1.1;
+            color: #F1C232;
 
-        h2 {
-            font-family: "Avenixel";
-            font-size: 60px;
+            h2 {
+                font-family: "Avenixel";
+                font-size: 60px;
+            }
+
+            h3 {
+                font-family: "Pixelify";
+                font-size: 47px;
+            }
         }
 
-        h3 {
-            font-family: "Pixelify";
-            font-size: 47px;
-        }
-    }
+        .character {
+            position: relative;
+            top: -150px;
+            left: calc(((100vw - 100%)/2)*.33);
+            width: 0;
+            height: 0;
+            overflow: visible;
 
-    .character {
-        position: relative;
-        top: -150px;
-        left: 150px;
-        width: 0;
-        height: 0;
-        overflow: visible;
-
-        img {
-            max-width: initial;
+            img {
+                max-width: initial;
+            }
         }
     }
 }
@@ -148,10 +146,12 @@ h2.title {
 
     .projects-grid {
         display: flex;
+        width: 100%;
+        max-width: 1420px;
         justify-content: space-evenly;
         flex-wrap: wrap;
         gap: 30px;
-        margin: 0 250px;
+        margin: 0 auto;
         margin-top: 50px;
 
         .project {
@@ -179,14 +179,17 @@ h2.title {
             }
 
             .text {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                flex-grow: 1;
+
+                .links {
+                    display: flex;
+                    justify-content: space-between;
+                }
 
                 .description {
-                    display: flex;
+                    line-height: 1.5;
+                    max-height: calc(5*1.5em);
                     margin-top: 5px;
+                    overflow: hidden;
                     flex-grow: 1;
                     text-align: center;
                 }
