@@ -1,0 +1,16 @@
+/*
+Device ranges from W3Schools:
+https://www.w3schools.com/css/css_rwd_mediaqueries.asp
+*/
+/* Extra small devices (phones, 600px and down) */
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* Medium devices (landscape tablets, 768px and up) */
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+  .navicon {
+    display: none;
+  }
+}
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+
+/*# sourceMappingURL=responsivity.css.map */

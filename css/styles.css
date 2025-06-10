@@ -1,36 +1,43 @@
 @import url(slides.css);
+@import url(themes.css);
+@import url(responsivity.css);
 :root {
   --navbar-height: 90px;
   --slideshow-height: 800px;
-  --footer-height: 50px;
-}
-
-a :link {
-  color: pink;
-}
-a :visited {
-  color: pink;
+  --footer-height: 75px;
 }
 
 body {
   font-family: "Roboto";
+  color: var(--text-primary);
+}
+
+a:link {
+  color: var(--link-color);
+}
+a:visited {
+  color: var(--link-visited-color);
 }
 
 nav {
+  --text-gap: 40px;
   display: inline;
   position: fixed;
   z-index: 2;
   width: 100vw;
   height: var(--navbar-height);
-  background-color: #767;
+  padding: 0 var(--text-gap);
+  background-color: var(--bg-navbar);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
 }
-nav .name {
+nav h1 {
   float: left;
   line-height: var(--navbar-height);
-  font-size: 64px;
   font-family: "Avenixel";
+  font-size: 60px;
+  font-weight: normal;
   color: #F1C232;
+  text-wrap: nowrap;
 }
 nav ul {
   display: flex;
@@ -38,7 +45,7 @@ nav ul {
   padding: 0;
   align-items: center;
   justify-content: end;
-  gap: 40px;
+  gap: var(--text-gap);
   list-style: none;
 }
 nav ul li a {
@@ -50,133 +57,132 @@ nav ul li a {
 }
 
 .hero {
-  width: 100%;
+  display: flex;
   min-height: 579px;
   height: 100vh;
-  padding-top: 100px;
-  background-image: linear-gradient(rgba(86, 86, 118, 0.75), rgba(86, 86, 118, 0.75)), url("../images/hero.png");
-  /* Hero image positioning and size. */
-  background-repeat: no-repeat;
-  background-size: cover;
-  background-position: top;
+  padding-top: var(--navbar-height);
+  /* Hero image with color overlay */
+  background-image: linear-gradient(var(--bg-section-1), var(--bg-section-1)), url("../images/hero.png");
   /* Hero image parallax. */
+  background-position: top;
+  background-size: cover;
   background-attachment: fixed;
-  display: flex;
-  justify-content: space-evenly;
+  justify-content: center;
+  align-items: center;
 }
 .hero .text-and-character {
-  width: max-content;
-}
-.hero .character {
-  position: relative;
-  top: 130px;
-  left: 384px;
+  display: flex;
 }
 .hero .text {
   position: relative;
   z-index: 1;
-  left: -6px;
-  width: max-content;
   text-align: right;
   line-height: 1.1;
   color: #F1C232;
 }
-.hero h2 {
+.hero .text h2 {
   font-family: "Avenixel";
   font-size: 60px;
 }
-.hero h3 {
+.hero .text h3 {
   font-family: "Pixelify";
   font-size: 47px;
 }
-
-.projects {
-  width: 100%;
-  /*height: 980px;*/
-  background-color: #513d55;
-  margin: 0 auto;
-  padding-bottom: 60px;
+.hero .character {
+  position: relative;
+  top: -150px;
+  left: 150px;
+  width: 0;
+  height: 0;
+  overflow: visible;
+}
+.hero .character img {
+  max-width: initial;
 }
 
-.title {
+.border-overlay {
+  --height: 50px;
+  height: var(--height);
+  margin-top: calc(-1 * 0.9 * var(--height));
+  clip-path: polygon(0% 50%, 36% 0%, 36% 50%, 72% 0%, 72% 50%, 100% 0%, 100% 100%, 0% 100%);
+}
+
+h2.title {
   margin: 0 auto;
   width: max-content;
-  padding-top: 50px;
+  padding-top: 75px;
   font-size: 30px;
   color: white;
 }
 
-.projects-wrapper {
-  display: flex;
-  justify-content: space-evenly;
-  width: 1300px;
-  flex-wrap: wrap;
-  gap: 30px;
-  margin: 0 auto;
-  margin-top: 50px;
+.bg-color-2 {
+  background-color: var(--bg-section-2);
 }
 
-.project-single-wrapper {
+.projects {
+  width: 100%;
+  padding-bottom: 60px;
+  margin: 0 auto;
+  background-color: var(--bg-section-2);
+}
+.projects .projects-grid {
+  display: flex;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  gap: 30px;
+  margin: 0 250px;
+  margin-top: 50px;
+}
+.projects .projects-grid .project {
+  display: flex;
   width: 400px;
   font-size: 15px;
   color: white;
+  flex-shrink: 0;
+  flex-direction: column;
 }
-
-.project-single-wrapper h3 {
+.projects .projects-grid .project h3 {
   font-size: 20px;
 }
-
-.project-img {
+.projects .projects-grid .project img {
   width: 400px;
   height: 300px;
-  border-radius: 15px;
-  /* Project image positioning and sizing. */
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: white;
   margin-bottom: 20px;
+  border-radius: 15px;
+  background-color: white;
   cursor: pointer;
+  object-position: center;
+  object-fit: cover;
+  filter: drop-shadow(0 5px 7px rgba(0, 0, 0, 0.4117647059));
 }
-
-#jester-img {
-  background-image: url("../images/jester_jabs.png");
+.projects .projects-grid .project .text {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex-grow: 1;
 }
-
-#voxel-img {
-  background-image: url("../images/voxel_sandbox.png");
-}
-
-#alchemy-img {
-  /* Altered sizing for different aspect ratio image.*/
-  background-size: contain;
-  background-image: url("../images/alchemy.png");
-}
-
-#shopkeep-img {
-  background-image: url("../images/shopkeep.png");
-}
-
-#sorcerers-img {
-  background-image: url("../images/sorcerers.png");
+.projects .projects-grid .project .text .description {
+  display: flex;
+  margin-top: 5px;
+  flex-grow: 1;
+  text-align: center;
 }
 
 .about {
+  display: none;
   width: 100%;
   height: 420px;
-  background-color: #45294c;
+  background-color: var(--bg-section-3);
   margin: 0 auto;
 }
-
-.about-wrapper {
+.about .about-wrapper {
   /* Flex Center */
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
 }
-
-.about-img {
+.about .about-img {
   position: relative;
   left: -100px;
   width: 300px;
@@ -184,33 +190,31 @@ nav ul li a {
   border-radius: 100%;
   object-fit: cover;
 }
-
-.about-text {
+.about .about-text {
   width: 1000px;
   font-size: 20px;
   color: white;
 }
 
 .contact {
+  display: none;
   width: 100%;
   height: 725px;
-  background-color: #3c2342;
+  background-color: var(--bg-section-4);
   overflow: hidden;
+  /* Change button color on hover and on click. */
 }
-
-.contact-title {
+.contact .contact-title {
   margin-bottom: 25px;
 }
-
-.forms-wrapper {
+.contact .forms-wrapper {
   display: flex;
   align-items: center;
   justify-content: space-evenly;
   flex-direction: column;
   margin-top: 40px;
 }
-
-.form-name {
+.contact .form-name {
   margin-top: 22px;
   margin-bottom: 16px;
   font-size: 16px;
@@ -218,20 +222,17 @@ nav ul li a {
   letter-spacing: 1px;
   color: white;
 }
-
-.form input {
+.contact .form input {
   width: 567px;
   height: 53px;
   background: none;
   border: 3px solid white;
   color: white;
 }
-
-.form .contact-comment {
+.contact .form .contact-comment {
   height: 200px;
 }
-
-.submit-button {
+.contact .submit-button {
   width: 237px;
   height: 53px;
   margin-top: 45px;
@@ -244,35 +245,29 @@ nav ul li a {
   color: white;
   cursor: pointer;
 }
-
-/* Change button color on hover and on click. */
-.submit-button:hover {
+.contact .submit-button:hover {
   background-color: #4c2655;
 }
-
-.submit-button:active {
+.contact .submit-button:active {
   background-color: #9048a1;
 }
 
-.connections-wrapper {
-  position: relative;
-  top: -225px;
-  left: 1270px;
-  width: 600px;
+footer {
+  height: var(--footer-height);
+  background-color: var(--bg-footer);
 }
-
-.connections-flex {
+footer .connections {
   display: flex;
-  flex-wrap: wrap;
   height: 100%;
+  flex-wrap: wrap;
   justify-content: space-evenly;
+  align-items: center;
   margin: 0 auto;
 }
-
-.connect-button {
+footer .connections .connect-button {
   display: inline-block;
-  width: 150px;
-  height: 100%;
+  aspect-ratio: 50/20;
+  width: 125px;
   padding: 10px;
   background-color: white;
   border: lightgray solid;
@@ -284,14 +279,8 @@ nav ul li a {
   color: white;
   cursor: pointer;
 }
-
-.connect-button img {
+footer .connections .connect-button img {
   height: 100%;
-}
-
-footer {
-  height: 50px;
-  background-color: #2a152f;
 }
 
 /*# sourceMappingURL=styles.css.map */

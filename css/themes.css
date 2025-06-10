@@ -1,0 +1,13 @@
+:root[data-theme=dark] {
+  --text-primary: #e9ffe4;
+  --link-color: #aef;
+  --link-visited-color: #baf;
+  --bg-navbar: #767;
+  --bg-section-1: #565676BF;
+  --bg-section-2: #3f3246;
+  --bg-section-3: #503b55;
+  --bg-section-4: #2e2339;
+  --bg-footer: #201b28;
+}
+
+/*# sourceMappingURL=themes.css.map */

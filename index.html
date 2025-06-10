@@ -1,16 +1,14 @@
 <!DOCTYPE html>
-<html lang="en"><head>
+<html lang="en" data-theme="dark"><head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haven Hamelin</title>
     <link rel="icon" type="image/x-icon" href="/images/favicon.png">
-    <link rel="stylesheet" href="css/global.css">
-    <!-- Link to the file hosted on your server, -->
     <link rel="stylesheet" href="node_modules/@splidejs/splide/dist/css/splide.min.css">
-    <link rel="stylesheet" href="css/reactivity.css">
-    <link rel="stylesheet" href="css/styles.css">
     <script src="node_modules/@splidejs/splide/dist/js/splide.min.js" defer=""></script>
+    <link rel="stylesheet" href="css/global.css">
+    <link rel="stylesheet" href="css/styles.css">
     <script src="scripts/script.js" defer=""></script>
 </head>
 <body>
@@ -31,76 +29,91 @@
         </div>
     </div>
     <nav>
-        <div class="name">Haven Hamelin</div>
+        <h1 class="name">Haven Hamelin</h1>
         <ul>
             <li><a onClick="scrollToAchor('home')">Home</a></li>
             <li><a onClick="scrollToAchor('projects')">Projects</a></li>
             <li><a onClick="scrollToAchor('about')">About</a></li>
             <li><a onClick="scrollToAchor('contact')">Contact</a></li>
         </ul>
+        <div class="navicon" style="width:50px;height:50px;background-color:black;"></div>
     </nav>
     <section class="hero" id="home">
         <div class="text-and-character">
-            <!-- Pixel art character behind the text. -->
-            <img src="images/character.png" alt="Pixel art character." class="character">
             <div class="text">
                 <h2>Haven  Hamelin</h2>
-                <h3>Web and Game<br> <span style="font-size:40px;">Design/Developer</span></h3>
+                <h3>Experience Developer<br> <span style="font-size:40px;">Web, XR, and Game</span></h3>
             </div>
+            <div class="character"><img src="images/character.png" alt="Pixel art character."></div>
         </div>
     </section>
-    <section class="projects" id="projects">
-        <div class="title">Project Showcase</div>
-        <div class="projects-wrapper">
-            <div class="project-single-wrapper">
+    <div class="border-overlay bg-color-2"></div>
+    <section class="projects bg-color-2" id="projects">
+        <h2 class="title">Projects Showcase</h2>
+        <div class="projects-grid">
+            <div class="project">
                 <h3>Alchemy Calculator</h3>
-                <div title="Alchemy Calculator" class="project-img" id="alchemy-img" onclick="startSlideshow('alchemy')"></div>
-                <p>A recreation of the alchemy crafting system featured in a popular piece of online media. It involves a series of complex math operations that involve a “Captchalogue Code”, used as a unique identifier. This code is then represented as a punch card, which can be combined with other punch cards through bitwise operations. The original only had ‘and’ and ‘or’, but I ended up adding ‘xor’ and ‘abjunction’.
-                    <br>
-                    <br>Tools Used: HTML, JS, Aseprite
-                    <br>Live Demo: <a href="https://wasworld.xyz/projects/SburbAlchemy/">Alchemy Crafting</a>
-                    <br>Source Code: <a href="https://github.com/soko7awen/SburbAlchemy">GitHub</a>
-                </p>
+                <img title="Alchemy Calculator" src="images/alchemy.png" onclick="startSlideshow('alchemy')">
+                <div class="text">
+                    <div class="links">
+                        <a href="https://wasworld.xyz/projects/SburbAlchemy/">Live Demo</a>
+                        <a href="https://github.com/soko7awen/SburbAlchemy">Source Code</a>
+                    </div>
+                    <div class="description">
+                        <p>A recreation of the alchemy crafting system featured in a popular piece of online media. It involves a series of complex math operations that involve a “Captchalogue Code”, used as a unique identifier. This code is then represented as a punch card, which can be combined with other punch cards through bitwise operations. The original only had ‘and’ and ‘or’, but I ended up adding ‘xor’ and ‘abjunction’.</p>
+                    </div>
+                    <div class="tools-used">
+                        Tools Used: HTML, JS, Aseprite
+                    </div>
+                </div>
             </div>
-            <div class="project-single-wrapper">
+            <div class="project">
                 <h3>Jester Jabs</h3>
-                <div title="Jester Jabs" class="project-img" id="jester-img"></div>
-                <p>A multiplayer party game themed around jesters, created with a team for a game jam. It consists of a variety of minigames in which you attempt to best the other players through fun challenges. The minigames are joke-based, like creating the punchline for a set-up, or visa versa. This ended up with a familiar, yet distinct experience to popular party games like Jackbox.
-                    <br>
-                    <br>Tools Used: Godot, Aseprite
-                    <br>Live Demo: <a href="https://sircatsalot1.itch.io/jester-jabs">Jester Jabs</a>
-                    <br>Source Code: <a href="https://github.com/soko7awen/GGJ24">GitHub</a>
-                </p>
+                <img title="Jester Jabs" src="images/jester_jabs.png">
+                <div class="text">
+                    <div class="description"><p>A multiplayer party game themed around jesters, created with a team for a game jam. It consists of a variety of minigames in which you attempt to best the other players through fun challenges. The minigames are joke-based, like creating the punchline for a set-up, or visa versa. This ended up with a familiar, yet distinct experience to popular party games like Jackbox.</p></div>
+                    <div class="tools-used">
+                        Tools Used: Godot, Aseprite
+                        <br>Live Demo: <a href="https://sircatsalot1.itch.io/jester-jabs">Jester Jabs</a>
+                        <br>Source Code: <a href="https://github.com/soko7awen/GGJ24">GitHub</a>
+                    </div>
+                </div>
             </div>
-            <div class="project-single-wrapper">
+            <div class="project">
                 <h3>Shopkeep Keepaway</h3>
-                <div class="project-img" id="shopkeep-img" title=""></div>
-                <p>	A fun arcade-style alt.ctrl game, where the player has to fulfill their “shopping” list without catching the attention of the shopkeep. Move a ruler back and forth (or a mouse if that’s all you’ve got) to take your aim in this wacky game, Shopkeep Keepaway!
-                    <br>
-                    <br>Tools Used: Godot
-                    <br>Live Demo: <a href="https://abitofkake.itch.io/shopkeep-keepaway">Shopkeep Keepaway</a>
-                    <br>Source Code: <a href="https://github.com/soko7awen/N330Project2">GitHub</a>
-                </p>
+                <img src="images/shopkeep.png">
+                <div class="text">
+                    <div class="description"><p>A fun arcade-style alt.ctrl game, where the player has to fulfill their “shopping” list without catching the attention of the shopkeep. Move a ruler back and forth (or a mouse if that’s all you’ve got) to take your aim in this wacky game, Shopkeep Keepaway!</p></div>
+                    <div class="tools-used">
+                        Tools Used: Godot
+                        <br>Live Demo: <a href="https://abitofkake.itch.io/shopkeep-keepaway">Shopkeep Keepaway</a>
+                        <br>Source Code: <a href="https://github.com/soko7awen/N330Project2">GitHub</a>
+                    </div>
+                </div>
             </div>
-            <div class="project-single-wrapper">
+            <div class="project">
                 <h3>Snatching Sorcerers</h3>
-                <div class="project-img" id="sorcerers-img" title="" ></div>
-                <p>A two player infinite arcade-style action game, in which one player controls the character on the top with the mouse and the other player controls the bottom player using the arrow keys. The top player has to do their best to catch the elements falling from the top of the screen, and if they fail then the elements will turn into enemies for the bottom player to avoid.
-                    <br>
-                    <br>Tools Used: Godot
-                    <br>Live Demo: <a href="https://sircatsalot1.itch.io/snatching-sorcerers" data-label="game:2663233:title" data-action="game_grid">Shopkeep Keepaway</a>
-                    <br>Source Code: <a href="https://github.com/soko7awen/ContinueJam">GitHub</a>
-                </p>
+                <img src="images/sorcerers.png">
+                <div class="text">
+                    <div class="description"><p>Two player infinite arcade-style action game, in which one player controls the character on the top with the mouse and the other player controls the bottom player using the arrow keys. The top player has to do their best to catch the elements falling from the top of the screen, and if they fail then the elements will turn into enemies for the bottom player to avoid.</p></div>
+                    <div class="tools-used">
+                        Tools Used: Godot
+                        <br>Live Demo: <a href="https://sircatsalot1.itch.io/snatching-sorcerers" data-label="game:2663233:title" data-action="game_grid">Shopkeep Keepaway</a>
+                        <br>Source Code: <a href="https://github.com/soko7awen/ContinueJam">GitHub</a>
+                    </div>
+                </div>
             </div>
-            <div class="project-single-wrapper">
+            <div class="project">
                 <h3>Voxel Sandbox</h3>
-                <div title="Voxel Sandbox" class="project-img" id="voxel-img"></div>
-                <p>A 3D voxel-based sandbox simulation, similar in functionality to the game Minecraft. The goal was not to create a fully featured game experience, but instead to illustrate my ability to create such a game within the Godot game engine. Kickstarted by the discovery of an open-source voxel engine that I could implement within the project.
-                <br>
-                <br>Tools Used: Godot
-                <br>Live Demo: <a href="https://abitofkake.itch.io/shopkeep-keepaway">Voxel Sandbox</a>
-                <br>Source Code: <a href="https://github.iu.edu/hhamelin/N232-Project3">GitHub</a>
-                </p>
+                <img src="images/voxel_sandbox.png">
+                <div class="text">
+                    <div class="description"><p>3D voxel-based sandbox simulation, similar in functionality to the game Minecraft. The goal was not to create a fully featured game experience, but instead to illustrate my ability to create such a game within the Godot game engine. Kickstarted by the discovery of an open-source voxel engine that I could implement within the project.</p></div>
+                    <div class="tools-used">
+                        Tools Used: Godot
+                        <br>Live Demo: <a href="https://abitofkake.itch.io/shopkeep-keepaway">Voxel Sandbox</a>
+                        <br>Source Code: <a href="https://github.iu.edu/hhamelin/N232-Project3">GitHub</a>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -135,11 +148,11 @@
             </div>
     </section>
     <footer>
-	    <div class="connections-flex">
-	    <a class="connect-button" href="mailto:hhamelin@iu.edu"><img src="images/logos/connections/email.svg" alt=""></a>
-	    <a class="connect-button" href="https://www.linkedin.com/in/havenhamelin/"><img src="images/logos/connections/linked_in.png" alt=""></a>
-	    <a class="connect-button" href="https://soko7awen.itch.io/"><img src="images/logos/connections/itch_io.svg" alt=""></a>
-	    <a class="connect-button" href="https://github.com/soko7awen"><img src="images/logos/connections/git_hub.svg" alt=""></a>
+	    <div class="connections">
+            <a class="connect-button" href="mailto:hhamelin@iu.edu"><img src="images/logos/connections/email.svg" alt=""></a>
+            <a class="connect-button" href="https://www.linkedin.com/in/havenhamelin/"><img src="images/logos/connections/linked_in.png" alt=""></a>
+            <a class="connect-button" href="https://soko7awen.itch.io/"><img src="images/logos/connections/itch_io.svg" alt=""></a>
+            <a class="connect-button" href="https://github.com/soko7awen"><img src="images/logos/connections/git_hub.svg" alt=""></a>
 	    </div>
     </footer>
     </body>

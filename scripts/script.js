@@ -20,9 +20,14 @@ Array.from(clickOverrides).forEach(element => {
 });
 
 function scrollToAchor(where) {
+  var style = window.getComputedStyle(document.body)
+  var navbarHeight = parseInt(style.getPropertyValue('--navbar-height'), 10);
   var element = document.getElementById(where);
   var position = element.offsetTop;
-  window.scrollTo({top:(position-100), behavior: 'smooth'});
+  var offset
+  where == 'projects' ? offset = 66 : offset = 0;
+  var scrollDistance = navbarHeight - offset
+  window.scrollTo({top:(position-scrollDistance), behavior: 'smooth'});
 }
 
 /*
