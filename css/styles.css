@@ -56,13 +56,18 @@ nav ul li a {
   color: #F1C232;
 }
 
+section {
+  box-sizing: content-box;
+  padding-bottom: 60px;
+}
+
 .hero {
   display: flex;
   min-height: 579px;
   height: 100vh;
-  padding-top: var(--navbar-height);
+  padding: var(--navbar-height) 0 0 0;
   /* Hero image with color overlay */
-  background-image: linear-gradient(var(--bg-section-1), var(--bg-section-1)), url("../images/hero.png");
+  background-image: linear-gradient(var(--bg-section-1), var(--bg-section-1)), url("../img/hero.png");
   /* Hero image parallax. */
   background-position: top;
   background-size: cover;
@@ -106,9 +111,9 @@ nav ul li a {
 }
 
 h2.title {
-  margin: 0 auto;
   width: max-content;
-  padding-top: 75px;
+  padding: 9px 0 36px 0;
+  margin: 0 auto;
   font-size: 30px;
   color: white;
 }
@@ -123,6 +128,9 @@ h2.title {
   margin: 0 auto;
   background-color: var(--bg-section-2);
 }
+.projects h2.title {
+  padding-top: 75px;
+}
 .projects .projects-grid {
   display: flex;
   width: 100%;
@@ -131,7 +139,6 @@ h2.title {
   flex-wrap: wrap;
   gap: 30px;
   margin: 0 auto;
-  margin-top: 50px;
 }
 .projects .projects-grid .project {
   display: flex;
@@ -144,7 +151,7 @@ h2.title {
 .projects .projects-grid .project h3 {
   font-size: 20px;
 }
-.projects .projects-grid .project img {
+.projects .projects-grid .project .image {
   width: 400px;
   height: 300px;
   margin-bottom: 20px;
@@ -167,102 +174,90 @@ h2.title {
   flex-grow: 1;
   text-align: center;
 }
+.projects .projects-grid .softwares {
+  display: flex;
+  align-items: center;
+}
+.projects .projects-grid .softwares .icon {
+  display: inline;
+  height: 3em;
+}
 
 .about {
-  display: none;
   width: 100%;
-  height: 420px;
-  background-color: var(--bg-section-3);
   margin: 0 auto;
+  background-color: var(--bg-section-3);
 }
-.about .about-wrapper {
-  /* Flex Center */
+.about .about-flex {
   display: flex;
   align-items: center;
   justify-content: center;
   margin: 0 auto;
 }
-.about .about-img {
+.about .about-flex img {
   position: relative;
   left: -100px;
   width: 300px;
   height: 300px;
-  border-radius: 100%;
+  border-radius: 25%;
   object-fit: cover;
 }
-.about .about-text {
+.about .about-flex p {
   width: 1000px;
   font-size: 20px;
   color: white;
 }
 
 .contact {
-  display: none;
-  width: 100%;
-  height: 725px;
   background-color: var(--bg-section-4);
-  overflow: hidden;
-  /* Change button color on hover and on click. */
 }
-.contact .contact-title {
-  margin-bottom: 25px;
-}
-.contact .forms-wrapper {
+.contact form {
   display: flex;
-  align-items: center;
-  justify-content: space-evenly;
+  width: 98vw;
+  max-width: 570px;
+  margin: 0 auto;
   flex-direction: column;
-  margin-top: 40px;
 }
-.contact .form-name {
-  margin-top: 22px;
-  margin-bottom: 16px;
-  font-size: 16px;
-  font-weight: bold;
-  letter-spacing: 1px;
-  color: white;
-}
-.contact .form input {
-  width: 567px;
+.contact form input, .contact form textarea {
   height: 53px;
   background: none;
+  margin: 5px 0;
   border: 3px solid white;
+  border-radius: 5px;
   color: white;
 }
-.contact .form .contact-comment {
-  height: 200px;
-}
-.contact .submit-button {
-  width: 237px;
-  height: 53px;
-  margin-top: 45px;
-  background: none;
-  border: white solid;
-  border-radius: 27px;
+.contact form .submit {
+  width: 135px;
+  height: 45px;
+  border-radius: 16px;
+  margin-right: -5px;
+  align-self: end;
   font-size: 18px;
   font-weight: bold;
   letter-spacing: 2px;
   color: white;
   cursor: pointer;
 }
-.contact .submit-button:hover {
+.contact form .submit:hover {
   background-color: #4c2655;
 }
-.contact .submit-button:active {
+.contact form .submit:active {
   background-color: #9048a1;
 }
 
 footer {
-  height: var(--footer-height);
+  display: flex;
+  min-height: var(--footer-height);
   background-color: var(--bg-footer);
 }
 footer .connections {
   display: flex;
   height: 100%;
+  width: 35%;
   flex-wrap: wrap;
   justify-content: space-evenly;
   align-items: center;
-  margin: 0 auto;
+  margin-left: auto;
 }
 footer .connections .connect-button {
   display: inline-block;

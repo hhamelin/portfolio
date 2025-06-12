@@ -66,18 +66,23 @@ nav {
     }
 }
 
+section {
+    box-sizing: content-box;
+    padding-bottom: 60px;
+}
+
 .hero {
     display: flex;
     min-height: 579px;
     height: 100vh;
-    padding-top: var(--navbar-height);
+    padding: var(--navbar-height) 0 0 0;
     /* Hero image with color overlay */
     background-image: 
     linear-gradient(
       var(--bg-section-1), 
       var(--bg-section-1)
     ),
-    url("../images/hero.png");
+    url("../img/hero.png");
     /* Hero image parallax. */
     background-position: top;
     background-size: cover;
@@ -127,9 +132,9 @@ nav {
 }
 
 h2.title {
-    margin: 0 auto;
     width: max-content;
-    padding-top: 75px;
+    padding: 9px 0 36px 0;
+    margin: 0 auto;
     font-size: 30px;
     color: white;
 }
@@ -144,6 +149,10 @@ h2.title {
     margin: 0 auto;
     background-color: var(--bg-section-2);
 
+    h2.title {
+        padding-top: 75px;
+    }
+
     .projects-grid {
         display: flex;
         width: 100%;
@@ -152,7 +161,6 @@ h2.title {
         flex-wrap: wrap;
         gap: 30px;
         margin: 0 auto;
-        margin-top: 50px;
 
         .project {
             display: flex;
@@ -166,7 +174,7 @@ h2.title {
                 font-size: 20px;
             }
             
-            img {
+            .image {
                 width: 400px;
                 height: 300px;
                 margin-bottom: 20px;
@@ -195,115 +203,101 @@ h2.title {
                 }
             }
         }
-}
+        
+        .softwares {
+            display: flex;
+            align-items: center;
+
+            .icon {
+                display: inline;
+                height: 3em;
+            }
+        }
+    }
 }
 
 .about {
-    display: none;
     width: 100%;
-    height: 420px;
-    background-color: var(--bg-section-3);
     margin: 0 auto;
+    background-color: var(--bg-section-3);
 
-    .about-wrapper {
-        /* Flex Center */
+    .about-flex {
         display: flex;
         align-items: center;
         justify-content: center;
         margin: 0 auto;
-    }
 
-    .about-img {
-        position: relative;
-        left: -100px;
-        width: 300px;
-        height: 300px;
-        border-radius: 100%;
-        object-fit: cover;
-    }
+        img {
+            position: relative;
+            left: -100px;
+            width: 300px;
+            height: 300px;
+            border-radius: 25%;
+            object-fit: cover;
+        }
 
-    .about-text {
-        width: 1000px;
-        font-size: 20px;
-        color: white;
+        p {
+            width: 1000px;
+            font-size: 20px;
+            color: white;
+        }
     }
 }
 
 .contact {
-    display: none;
-    width: 100%;
-    height: 725px;
     background-color: var(--bg-section-4);
-    overflow: hidden;
 
-    .contact-title {
-    margin-bottom: 25px;
-    }
-
-    .forms-wrapper {
+    form {
         display: flex;
-        align-items: center;
-        justify-content: space-evenly;
+        width: 98vw;
+        max-width: 570px;
+        margin: 0 auto;
         flex-direction: column;
-        margin-top: 40px;
-    }
 
-    .form-name {
-        margin-top: 22px;
-        margin-bottom: 16px;
-        font-size: 16px;
-        font-weight: bold;
-        letter-spacing: 1px;
-        color: white;
-    }
+        input, textarea {
+            height: 53px;
+            background: none;
+            margin: 5px 0;
+            border: 3px solid white;
+            border-radius: 5px;
+            color: white;
+        }
+            .submit {
+                width: 135px;
+                height: 45px;
+                border-radius: 16px;
+                margin-right: -5px;
+                align-self: end;
+                font-size: 18px;
+                font-weight: bold;
+                letter-spacing: 2px;
+                color: white;
+                cursor: pointer;
 
-    .form input {
-        width: 567px;
-        height: 53px;
-        background: none;
-        border: 3px solid white;
-        color: white;
-    }
+                &:hover {
+                    background-color: #4c2655;
+                }
 
-    .form .contact-comment {
-        height: 200px;
-    }
-
-    .submit-button {
-        width: 237px;
-        height: 53px;
-        margin-top: 45px;
-        background: none;
-        border: white solid;
-        border-radius: 27px;
-        font-size: 18px;
-        font-weight: bold;
-        letter-spacing: 2px;
-        color: white;
-        cursor: pointer;
-    }
-
-    /* Change button color on hover and on click. */
-    .submit-button:hover {
-        background-color: #4c2655;
-    }
-
-    .submit-button:active {
-        background-color: #9048a1;
+                &:active {
+                    background-color: #9048a1;
+                }
+            }
     }
 }
 
 footer {
-    height: var(--footer-height);
+    display: flex;
+    min-height: var(--footer-height);
     background-color: var(--bg-footer);
 
     .connections {
         display: flex;
         height: 100%;
+        width: 35%;
         flex-wrap: wrap;
         justify-content: space-evenly;
         align-items: center;
-        margin: 0 auto;
+        margin-left: auto;
 
         .connect-button {
             display: inline-block;
