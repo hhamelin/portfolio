@@ -69,6 +69,10 @@ nav {
 section {
     box-sizing: content-box;
     padding-bottom: 60px;
+
+    .section-container {
+        width: 98vw;
+    }
 }
 
 .hero {
@@ -144,7 +148,6 @@ h2.title {
 }
 
 .projects {
-    width: 100%;
     padding-bottom: 60px;
     margin: 0 auto;
     background-color: var(--bg-section-2);
@@ -153,9 +156,8 @@ h2.title {
         padding-top: 75px;
     }
 
-    .projects-grid {
+    .section-container {
         display: flex;
-        width: 100%;
         max-width: 1420px;
         justify-content: space-evenly;
         flex-wrap: wrap;
@@ -217,23 +219,23 @@ h2.title {
 }
 
 .about {
-    width: 100%;
     margin: 0 auto;
     background-color: var(--bg-section-3);
 
-    .about-flex {
+    .section-container {
         display: flex;
+        max-width: 1200px;
+        margin: 0 auto;
         align-items: center;
         justify-content: center;
-        margin: 0 auto;
 
         img {
-            position: relative;
-            left: -100px;
             width: 300px;
             height: 300px;
+            margin-right: 60px;
             border-radius: 25%;
             object-fit: cover;
+            align-self: start;
         }
 
         p {
@@ -249,7 +251,6 @@ h2.title {
 
     form {
         display: flex;
-        width: 98vw;
         max-width: 570px;
         margin: 0 auto;
         flex-direction: column;
@@ -289,6 +290,7 @@ footer {
     display: flex;
     min-height: var(--footer-height);
     background-color: var(--bg-footer);
+    align-items: center;
 
     .connections {
         display: flex;

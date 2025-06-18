@@ -60,6 +60,9 @@ section {
   box-sizing: content-box;
   padding-bottom: 60px;
 }
+section .section-container {
+  width: 98vw;
+}
 
 .hero {
   display: flex;
@@ -123,7 +126,6 @@ h2.title {
 }
 
 .projects {
-  width: 100%;
   padding-bottom: 60px;
   margin: 0 auto;
   background-color: var(--bg-section-2);
@@ -131,16 +133,15 @@ h2.title {
 .projects h2.title {
   padding-top: 75px;
 }
-.projects .projects-grid {
+.projects .section-container {
   display: flex;
-  width: 100%;
   max-width: 1420px;
   justify-content: space-evenly;
   flex-wrap: wrap;
   gap: 30px;
   margin: 0 auto;
 }
-.projects .projects-grid .project {
+.projects .section-container .project {
   display: flex;
   width: 400px;
   font-size: 15px;
@@ -148,10 +149,10 @@ h2.title {
   flex-shrink: 0;
   flex-direction: column;
 }
-.projects .projects-grid .project h3 {
+.projects .section-container .project h3 {
   font-size: 20px;
 }
-.projects .projects-grid .project .image {
+.projects .section-container .project .image {
   width: 400px;
   height: 300px;
   margin-bottom: 20px;
@@ -162,11 +163,11 @@ h2.title {
   object-fit: cover;
   filter: drop-shadow(0 5px 7px rgba(0, 0, 0, 0.4117647059));
 }
-.projects .projects-grid .project .text .links {
+.projects .section-container .project .text .links {
   display: flex;
   justify-content: space-between;
 }
-.projects .projects-grid .project .text .description {
+.projects .section-container .project .text .description {
   line-height: 1.5;
   max-height: 7.5em;
   margin-top: 5px;
@@ -174,35 +175,35 @@ h2.title {
   flex-grow: 1;
   text-align: center;
 }
-.projects .projects-grid .softwares {
+.projects .section-container .softwares {
   display: flex;
   align-items: center;
 }
-.projects .projects-grid .softwares .icon {
+.projects .section-container .softwares .icon {
   display: inline;
   height: 3em;
 }
 
 .about {
-  width: 100%;
   margin: 0 auto;
   background-color: var(--bg-section-3);
 }
-.about .about-flex {
+.about .section-container {
   display: flex;
+  max-width: 1200px;
+  margin: 0 auto;
   align-items: center;
   justify-content: center;
-  margin: 0 auto;
 }
-.about .about-flex img {
-  position: relative;
-  left: -100px;
+.about .section-container img {
   width: 300px;
   height: 300px;
+  margin-right: 60px;
   border-radius: 25%;
   object-fit: cover;
+  align-self: start;
 }
-.about .about-flex p {
+.about .section-container p {
   width: 1000px;
   font-size: 20px;
   color: white;
@@ -213,7 +214,6 @@ h2.title {
 }
 .contact form {
   display: flex;
-  width: 98vw;
   max-width: 570px;
   margin: 0 auto;
   flex-direction: column;
@@ -249,6 +249,7 @@ footer {
   display: flex;
   min-height: var(--footer-height);
   background-color: var(--bg-footer);
+  align-items: center;
 }
 footer .connections {
   display: flex;
