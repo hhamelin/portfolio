@@ -36,7 +36,7 @@
             <li><a onClick="scrollToAchor('about')">About</a></li>
             <li><a onClick="scrollToAchor('contact')">Contact</a></li>
         </ul>
-        <div class="navicon" style="width:50px;height:50px;background-color:black;"></div>
+        <a class="navicon" href="javascript:void(0)" onclick="myFunction()"></a>
     </nav>
     <section class="hero" id="home">
         <div class="text-and-character">
@@ -135,7 +135,9 @@
         <div class="section-container">
             <!-- About photo, moved with a negative left property. -->
             <img src="img/haven.png" alt="An image of me.">
-            <p style="transform: scaleY(-1);">My name is Haven Hamelin, and I am currently pursuing a degree in Game Design at IU Indianapolis. I am passionate about creating engaging digital experiences and have been working with computers for as long as I can remember. My skill set includes strong proficiency in various programming languages such as Java, JavaScript, Python, C#, and GDscript (for the Godot game engine). I am also experienced with Linux and have developed a growing talent for digital art, particularly pixel art, along with an emerging interest in music composition.<br>
+            <p>My name is Haven Hamelin, and I am currently pursuing a degree in Game Design at IU Indianapolis. I am passionate about creating engaging digital experiences and have been working with computers for as long as I can remember. My skill set includes strong proficiency in various programming languages such as Java, JavaScript, Python, C#, and GDscript (for the Godot game engine). 
+                <br>
+                <br>I am also experienced with Linux and have developed a growing talent for digital art, particularly pixel art, along with an emerging interest in music composition.<br>
 		I pride myself on being a dedicated and focused individual. When I am passionate about something, I am committed to seeing it through to its fullest potential. I believe strongly in the importance of investing time in developing one's skills and passions, and I aim to build a career that allows me to do exactly that. My drive to continuously learn and create fuels my ambition to contribute to the game design industry.</p>
         </div>
     </section>
@@ -144,17 +146,22 @@
         <form class="section-container" action="">
             <input type="text" id="name" name="name" placeholder="Your name..">
             <input type="email" id="email" name="email" placeholder="Your email..">
-            <textarea id="subject" name="subject" placeholder="Write something.." style="height:200px"></textarea>
+            <textarea id="subject" name="subject" placeholder="Write something.."></textarea>
             <input class="submit" type="submit" value="Submit">
         </form>
     </section>
     <footer>
-        <span>WasWorld Industries © Haven Hamelin</span>
+        <div class="copyright">
+            <span>WasWorld Industries © </span>
+            <span>Haven Hamelin</span>
+        </div>
 	    <div class="connections">
-            <a class="connect-button" href="mailto:hhamelin@iu.edu"><img src="img/icons/connections/email.svg" alt=""></a>
-            <a class="connect-button" href="https://www.linkedin.com/in/havenhamelin/"><img src="img/icons/connections/linked_in.png" alt=""></a>
-            <a class="connect-button" href="https://soko7awen.itch.io/"><img src="img/icons/connections/itch_io.svg" alt=""></a>
-            <a class="connect-button" href="https://github.com/soko7awen"><img src="img/icons/connections/git_hub.svg" alt=""></a>
+            <div class="flexbox">
+                <a class="connect-button" href="mailto:hhamelin@iu.edu"><img src="img/icons/connections/email.svg" alt=""></a>
+                <a class="connect-button" href="https://www.linkedin.com/in/havenhamelin/"><img src="img/icons/connections/linked_in.png" alt=""></a>
+                <a class="connect-button" href="https://soko7awen.itch.io/"><img src="img/icons/connections/itch_io.svg" alt=""></a>
+                <a class="connect-button" href="https://github.com/soko7awen"><img src="img/icons/connections/git_hub.svg" alt=""></a>
+            </div>
 	    </div>
     </footer>
     </body>

@@ -1,14 +1,78 @@
+@media only screen and (max-width: 360px) {
+  nav h1 {
+    font-size: 35px;
+  }
+}
 /*
 Device ranges from W3Schools:
 https://www.w3schools.com/css/css_rwd_mediaqueries.asp
 */
 /* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+  .about .section-container p {
+    font-size: 17px;
+  }
+  footer .copyright {
+    padding: 0;
+  }
+  footer .connections .flexbox {
+    width: 325px;
+    max-width: 98vw;
+    margin: 0 auto;
+    justify-content: space-between;
+    gap: 10px 5px;
+    flex-wrap: wrap;
+  }
+}
 /* Small devices (portrait tablets and large phones, 600px and up) */
 /* Medium devices (landscape tablets, 768px and up) */
 /* Large devices (laptops/desktops, 992px and up) */
 @media only screen and (min-width: 992px) {
-  .navicon {
+  :root {
+    --navbar-height: 90px;
+  }
+  nav {
+    padding: 0 var(--text-gap);
+  }
+  nav h1 {
+    font-size: 60px;
+  }
+  nav ul {
+    display: flex;
+  }
+  nav .navicon {
     display: none;
+  }
+  .hero {
+    align-items: center;
+    justify-content: center;
+  }
+  .hero .text-and-character {
+    flex-direction: row;
+  }
+  .hero .text-and-character .text {
+    text-align: right;
+  }
+  .hero .text-and-character .text h2 {
+    display: initial;
+  }
+  .hero .text-and-character .character {
+    top: -150px;
+    left: calc((100vw - 100%) / 2 * 0.33);
+  }
+  h2.title {
+    padding: 9px 0 28px 0;
+  }
+  .projects h2.title {
+    padding-top: 75px;
+  }
+  .about .section-container {
+    flex-direction: row;
+  }
+  .about .section-container img {
+    width: 333px;
+    margin-right: 60px;
+    align-self: start;
   }
 }
 /* Extra large devices (large laptops and desktops, 1200px and up) */
