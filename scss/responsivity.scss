@@ -6,6 +6,56 @@
     }   
 }
 
+@media screen and (max-width: 992px) {
+    nav.responsive {
+        padding: 0;
+
+        h1 {
+            display: none;
+        }
+
+        .navicon {
+            position: absolute;
+            right: 0;
+            top: 0;
+        }
+        
+        > ul {
+            float: none;
+        }
+
+        ul {
+            display: block;
+            width: 100%;
+            text-align: left;
+        }
+
+        li {
+            height: var(--navbar-height);
+            padding: 0 10px;
+            line-height: var(--navbar-height);
+
+            &:hover {
+                background-color: #9AB3;
+            }
+
+            a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+        }
+
+        li.active {
+            background-color: #754f75;
+
+            &:hover {
+                background-color: #766793;
+            }
+        }
+    }
+}
+
 /*
 Device ranges from W3Schools:
 https://www.w3schools.com/css/css_rwd_mediaqueries.asp

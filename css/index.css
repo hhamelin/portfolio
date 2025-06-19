@@ -21,9 +21,8 @@ nav {
   position: fixed;
   z-index: 2;
   width: 100%;
-  height: var(--navbar-height);
+  min-height: var(--navbar-height);
   padding: 0 0 0 1vw;
-  overflow: auto;
   background-color: var(--bg-navbar);
   box-shadow: 0 10px 15px rgba(0, 0, 0, 0.2);
 }
@@ -47,17 +46,25 @@ nav ul {
   list-style: none;
 }
 nav ul li a {
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 20px;
+  font-size: 24px;
+  line-height: var(--navbar-height);
   font-weight: bold;
   color: #F1C232;
+  text-decoration: none;
+  cursor: pointer;
 }
 nav .navicon {
   float: right;
   width: var(--navbar-height);
   height: var(--navbar-height);
-  background-color: black;
+  text-align: center;
+  line-height: var(--navbar-height);
+  font-size: 38px;
+  color: white;
+  text-decoration: none;
+}
+nav .navicon:hover {
+  background-color: rgba(153, 170, 187, 0.2);
 }
 
 section {

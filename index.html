@@ -9,7 +9,8 @@
     <script src="node_modules/@splidejs/splide/dist/js/splide.min.js" defer=""></script>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/styles.css">
-    <script src="scripts/script.js" defer=""></script>
+    <script src="scripts/slides.js" defer=""></script>
+    <script src="scripts/index.js" defer=""></script>
 </head>
 <body>
     <div id="overlay" onclick="overlayOff()">
@@ -28,15 +29,15 @@
             </p>
         </div>
     </div>
-    <nav>
+    <nav id="navbar">
         <h1 class="name">Haven Hamelin</h1>
         <ul>
-            <li><a onClick="scrollToAchor('home')">Home</a></li>
+            <li class="active"><a onClick="scrollToAchor('home')">Home</a></li>
             <li><a onClick="scrollToAchor('projects')">Projects</a></li>
             <li><a onClick="scrollToAchor('about')">About</a></li>
             <li><a onClick="scrollToAchor('contact')">Contact</a></li>
         </ul>
-        <a class="navicon" href="javascript:void(0)" onclick="myFunction()"></a>
+        <a class="navicon" href="javascript:void(0)" onclick="toggleNav()">&#9776;</a>
     </nav>
     <section class="hero" id="home">
         <div class="text-and-character">

@@ -3,6 +3,46 @@
     font-size: 35px;
   }
 }
+@media screen and (max-width: 992px) {
+  nav.responsive {
+    padding: 0;
+  }
+  nav.responsive h1 {
+    display: none;
+  }
+  nav.responsive .navicon {
+    position: absolute;
+    right: 0;
+    top: 0;
+  }
+  nav.responsive > ul {
+    float: none;
+  }
+  nav.responsive ul {
+    display: block;
+    width: 100%;
+    text-align: left;
+  }
+  nav.responsive li {
+    height: var(--navbar-height);
+    padding: 0 10px;
+    line-height: var(--navbar-height);
+  }
+  nav.responsive li:hover {
+    background-color: rgba(153, 170, 187, 0.2);
+  }
+  nav.responsive li a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  nav.responsive li.active {
+    background-color: #754f75;
+  }
+  nav.responsive li.active:hover {
+    background-color: #766793;
+  }
+}
 /*
 Device ranges from W3Schools:
 https://www.w3schools.com/css/css_rwd_mediaqueries.asp
