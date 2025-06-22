@@ -23,6 +23,7 @@ nav {
     --text-gap: 40px;
     position: fixed;
     z-index: 2;
+    min-width: 273px;
     width: 100%;
     min-height: var(--navbar-height);
     padding: 0 0 0 1vw;
@@ -323,16 +324,7 @@ footer {
     align-items: center;
     justify-content: center;
     flex-wrap: wrap;
-
-    /*
-    &::after {
-        content: '';
-        flex: 0 1 auto;
-    }
-
-    > * {
-        flex: 0 1 auto;
-    }*/
+    row-gap: 5px;
 
     .copyright {
         span {
