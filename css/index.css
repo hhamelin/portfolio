@@ -115,7 +115,7 @@ section .section-container {
   display: none;
   font-family: "Avenixel";
   font-size: 60px;
-  font-weight: normal;
+  font-weight: normal !important;
 }
 .hero .text-and-character .text h3 {
   font-family: "Pixelify";
