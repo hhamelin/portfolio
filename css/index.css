@@ -33,7 +33,7 @@ nav h1 {
   font-family: "Avenixel";
   font-size: 45px;
   font-weight: normal;
-  color: #F1C232;
+  color: var(--accent-gold);
   text-wrap: nowrap;
   user-select: none;
 }
@@ -50,9 +50,11 @@ nav ul li a {
   font-size: 24px;
   line-height: var(--navbar-height);
   font-weight: bold;
-  color: #F1C232;
   text-decoration: none;
   cursor: pointer;
+}
+nav ul li a, nav ul li a:link, nav ul li a:visited {
+  color: var(--accent-gold);
 }
 nav .navicon {
   float: right;
@@ -62,7 +64,10 @@ nav .navicon {
   line-height: var(--navbar-height);
   font-size: 38px;
   color: white;
+  background: none;
+  border: none;
   text-decoration: none;
+  cursor: pointer;
 }
 nav .navicon:hover {
   background-color: rgba(153, 170, 187, 0.2);
@@ -83,8 +88,6 @@ section .section-container {
   padding-top: var(--navbar-height);
   box-sizing: border-box;
   /* Fixed hero image with color overlay */
-  align-items: flex-start;
-  justify-content: flex-start;
 }
 .hero::before {
   content: "";
@@ -100,6 +103,10 @@ section .section-container {
   pointer-events: none;
   will-change: transform;
 }
+.hero {
+  align-items: flex-start;
+  justify-content: flex-start;
+}
 .hero .text-and-character {
   display: flex;
   margin-top: 15px;
@@ -109,7 +116,7 @@ section .section-container {
 .hero .text-and-character .text {
   text-align: initial;
   line-height: 1.1;
-  color: #F1C232;
+  color: var(--accent-gold);
 }
 .hero .text-and-character .text h2 {
   display: none;
@@ -194,6 +201,15 @@ h2.title {
   display: flex;
   justify-content: space-between;
 }
+.projects .section-container .project .text .links a, .projects .section-container .project .text .links .private-repo {
+  font-size: 14px;
+  font-weight: bold;
+  text-decoration: none;
+}
+.projects .section-container .project .text .links .private-repo {
+  color: #999;
+  user-select: none;
+}
 .projects .section-container .project .text .description {
   line-height: 1.5;
   margin-top: 5px;
@@ -268,10 +284,10 @@ h2.title {
   cursor: pointer;
 }
 .contact form .submit:hover {
-  background-color: #4c2655;
+  background-color: var(--bg-hover);
 }
 .contact form .submit:active {
-  background-color: #9048a1;
+  background-color: var(--bg-active);
 }
 
 footer {

@@ -47,10 +47,10 @@
         }
 
         li.active {
-            background-color: #754f75;
+            background-color: var(--bg-active);
 
             &:hover {
-                background-color: #766793;
+                background-color: var(--bg-hover);
             }
         }
     }

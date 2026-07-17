@@ -5,8 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Haven Hamelin</title>
     <link rel="icon" type="image/x-icon" href="/img/favicon.png">
-    <link rel="stylesheet" href="node_modules/@splidejs/splide/dist/css/splide.min.css">
-    <script src="node_modules/@splidejs/splide/dist/js/splide.min.js" defer=""></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/js/splide.min.js" defer=""></script>
     <link rel="stylesheet" href="css/global.css">
     <link rel="stylesheet" href="css/styles.css">
     <script src="scripts/slides.js" defer=""></script>
@@ -18,32 +18,30 @@
             <section class="splide" aria-label="Slideshow">
                 <div class="splide__track">
                       <ul class="splide__list">
-                          <li class="splide__slide"><img src="img/alchemy.png" alt=""></li>
-                          <li class="splide__slide"><img src="img/alchemy.png" alt=""></li>
-                          <li class="splide__slide"><img src="img/alchemy.png" alt=""></li>
+                          <!-- Dynamic Slides -->
                       </ul>
                 </div>
               </section>
             <p class="click-overrider">
-                An interesting project, that evolved with me. When I first started it, I was learning this (at the time) new game engine, "Godot". I had a fun time learning the in's and out's of its UI systems. But at some point, I decided I wanted to move it on to the web, where it would be more useful. Godot at that time was not well-equipped to handle web exports, so I decided to rewrite the code in JavaScript. This gave me a chance to dust off my JavaScript skills, and find out how to create this kind of reactive embeddable application in vanilla JS.
+                <!-- Dynamic Description -->
             </p>
         </div>
     </div>
     <nav id="navbar">
         <h1 class="name">Haven Hamelin</h1>
         <ul>
-            <li class="active"><a onClick="scrollToAchor('home')">Home</a></li>
-            <li><a onClick="scrollToAchor('projects')">Projects</a></li>
-            <li><a onClick="scrollToAchor('about')">About</a></li>
-            <li><a onClick="scrollToAchor('contact')">Contact</a></li>
+            <li class="active"><a href="#home" data-target="home">Home</a></li>
+            <li><a href="#projects" data-target="projects">Projects</a></li>
+            <li><a href="#about" data-target="about">About</a></li>
+            <li><a href="#contact" data-target="contact">Contact</a></li>
         </ul>
-        <a class="navicon" href="javascript:void(0)" onclick="toggleNav()">&#9776;</a>
+        <button class="navicon" aria-label="Toggle navigation" onclick="toggleNav()">&#9776;</button>
     </nav>
     <section class="hero" id="home">
         <div class="text-and-character">
             <div class="text">
                 <h2>Haven  Hamelin</h2>
-                <h3>Experience Developer<br> <span style="font-size:40px;">Web, XR, and Game</span></h3>
+                <h3>Experienced Developer<br> <span style="font-size:40px;">Web, XR, and Game</span></h3>
             </div>
             <div class="character"><img src="img/character.png" alt="Pixel art character."></div>
         </div>
@@ -52,6 +50,36 @@
     <section class="projects bg-color-2" id="projects">
         <h2 class="title">Projects Showcase</h2>
         <div class="section-container">
+            <div class="project">
+                <h3>travellin' sweet</h3>
+                <img class="image" title="travellin' sweet" src="img/placeholder.svg" onclick="startSlideshow('travellin')">
+                <div class="text">
+                    <div class="links">
+                        <a href="https://wasworldindustries.itch.io/travellin-sweet">Live Demo</a>
+                        <span class="private-repo">Private Repo</span>
+                    </div>
+                    <p class="description">Managed a team of 8 recent graduates of varying disciplines to create an enjoyable, unified adventure game as a Senior Capstone project. Built with careful attention to intentional design for maximum player enjoyment and retention.</p>
+                    <div class="softwares">
+                        Software Used: 
+                        <img class="icon" src="img/icons/godot.svg" alt="Godot">
+                    </div>
+                </div>
+            </div>
+            <div class="project">
+                <h3>LUDDYVerse</h3>
+                <img class="image" title="LUDDYVerse" src="img/placeholder.svg" onclick="startSlideshow('luddyverse')">
+                <div class="text">
+                    <div class="links">
+                        <span class="private-repo">Museum Demo</span>
+                        <span class="private-repo">Private Repo</span>
+                    </div>
+                    <p class="description">Worked diligently within a tight schedule on a demo for an XR digital museum experience for our school’s museum. Learned quickly and adapted often to conquer the many hurdles placed in our way, keeping up to date with our client’s expectations.</p>
+                    <div class="softwares">
+                        Software Used: 
+                        <img class="icon" src="img/icons/unity.svg" alt="Unity">
+                    </div>
+                </div>
+            </div>
             <div class="project">
                 <h3>Alchemy Calculator</h3>
                 <img class="image" title="Alchemy Calculator" src="img/alchemy.png" onclick="startSlideshow('alchemy')">
@@ -71,7 +99,7 @@
             </div>
             <div class="project">
                 <h3>Jester Jabs</h3>
-                <img class="image" title="Jester Jabs" src="img/jester_jabs.png">
+                <img class="image" title="Jester Jabs" src="img/jester_jabs.png" onclick="startSlideshow('jester')">
                 <div class="text">
                     <div class="links">
                         <a href="https://sircatsalot1.itch.io/jester-jabs">Live Demo</a>
@@ -85,44 +113,14 @@
                 </div>
             </div>
             <div class="project">
-                <h3>Shopkeep Keepaway</h3>
-                <img class="image" src="img/shopkeep.png">
-                <div class="text">
-                    <div class="links">
-                        <a href="https://abitofkake.itch.io/shopkeep-keepaway">Live Demo</a>
-                        <a href="https://github.com/soko7awen/N330Project2">Source Code</a>
-                    </div>
-                    <p class="description">A fun arcade-style alt.ctrl game, where the player has to fulfill their “shopping” list without catching the attention of the shopkeep. Move a ruler back and forth (or a mouse if that’s all you’ve got) to take your aim in this wacky game, Shopkeep Keepaway!</p>
-                    <div class="softwares">
-                        Software Used: 
-                        <img class="icon" src="img/icons/godot.svg" alt="Godot">
-                    </div>
-                </div>
-            </div>
-            <div class="project">
                 <h3>Snatching Sorcerers</h3>
-                <img class="image" src="img/sorcerers.png">
+                <img class="image" title="Snatching Sorcerers" src="img/sorcerers.png" onclick="startSlideshow('sorcerers')">
                 <div class="text">
                     <div class="links">
-                        <a href="https://sircatsalot1.itch.io/snatching-sorcerers" data-label="game:2663233:title" data-action="game_grid">Live Demo</a>
+                        <a href="https://sircatsalot1.itch.io/snatching-sorcerers">Live Demo</a>
                         <a href="https://github.com/soko7awen/ContinueJam">Source Code</a>
                     </div>
                     <p class="description">Two player infinite arcade-style action game where one player controls the top character with the mouse and the other player controls the bottom player using the arrow keys. The top player catches the falling elements and if they fail the elements become enemies for the bottom player.</p>
-                    <div class="softwares">
-                        Software Used: 
-                        <img class="icon" src="img/icons/godot.svg" alt="Godot">
-                    </div>
-                </div>
-            </div>
-            <div class="project">
-                <h3>Voxel Sandbox</h3>
-                <img class="image" src="img/voxel_sandbox.png">
-                <div class="text">
-                    <div class="links">
-                        <a href="https://abitofkake.itch.io/shopkeep-keepaway">Live Demo</a>
-                        <a href="https://github.iu.edu/hhamelin/N232-Project3">Source Code</a>
-                    </div>
-                    <p class="description">3D voxel-based sandbox simulation, similar in functionality to the game Minecraft. The goal was to illustrate my ability to create such a game within the Godot game engine. Kickstarted by the discovery of an open-source voxel engine that I could base the project around.</p>
                     <div class="softwares">
                         Software Used: 
                         <img class="icon" src="img/icons/godot.svg" alt="Godot">
@@ -136,7 +134,7 @@
         <div class="section-container">
             <!-- About photo, moved with a negative left property. -->
             <img src="img/haven.png" alt="An image of me.">
-            <p>Heya, I'm Haven! I have a strong passion for video game history and the stories behind digital media. I am currently growing my skills as a creator of interactive experiences through my schooling as a student of Game Design and Web Development at IU Indy- and through my work on personal projects like creating this portfolio website or working on games with my colleagues.
+            <p>Heya, I'm Haven! I have a strong passion for video game history and the stories behind digital media. I am a graduate of Game Design and Web Development from IU Indy, and I love creating interactive experiences through personal projects, collaborative games, and web apps.
                 <br>
                 <br>I have been making eccentric personal websites since I first cracked open an index.html through the terminal on my webserver in high school. I love spinning up server-based projects and using Linux to create IOT gadgets. I often use Godot to spin up simple fun game-ish projects, but am also comfortable in both Unreal and Unity, and have experience in Meta's XR toolkit within Unity.
                 <br>
@@ -146,9 +144,9 @@
     <section class="contact" id="contact">
         <h2 class="title contact-title">Contact</h2>
         <form class="section-container" action="">
-            <input type="text" id="name" name="name" placeholder="Your name..">
-            <input type="email" id="email" name="email" placeholder="Your email..">
-            <textarea id="subject" name="subject" placeholder="Write something.."></textarea>
+            <input type="text" id="name" name="name" placeholder="Your name.." required>
+            <input type="email" id="email" name="email" placeholder="Your email.." required>
+            <textarea id="subject" name="subject" placeholder="Write something.." required></textarea>
             <input class="submit" type="submit" value="Submit">
         </form>
     </section>
@@ -159,10 +157,10 @@
         </div>
 	    <div class="connections">
             <div class="flexbox">
-                <a class="connect-button" href="mailto:hhamelin@iu.edu"><img src="img/icons/connections/email.svg" alt=""></a>
-                <a class="connect-button" href="https://www.linkedin.com/in/havenhamelin/"><img src="img/icons/connections/linked_in.png" alt=""></a>
-                <a class="connect-button" href="https://soko7awen.itch.io/"><img src="img/icons/connections/itch_io.svg" alt=""></a>
-                <a class="connect-button" href="https://github.com/soko7awen"><img src="img/icons/connections/git_hub.svg" alt=""></a>
+                <a class="connect-button" href="mailto:hamelinhaven@gmail.com"><img src="img/icons/connections/email.svg" alt="Email"></a>
+                <a class="connect-button" href="https://www.linkedin.com/in/havenhamelin/"><img src="img/icons/connections/linked_in.png" alt="LinkedIn"></a>
+                <a class="connect-button" href="https://soko7awen.itch.io/"><img src="img/icons/connections/itch_io.svg" alt="Itch.io"></a>
+                <a class="connect-button" href="https://github.com/soko7awen"><img src="img/icons/connections/git_hub.svg" alt="GitHub"></a>
             </div>
 	    </div>
     </footer>

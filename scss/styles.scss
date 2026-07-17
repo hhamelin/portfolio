@@ -1,4 +1,6 @@
-@import url(slides.css);
-@import url(themes.css);
-@import url(index.css);
-@import url(responsivity.css);
+@use "reset";
+@use "themes";
+@use "global";
+@use "index";
+@use "slides";
+@use "responsivity";

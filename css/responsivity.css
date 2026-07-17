@@ -37,10 +37,10 @@
     text-align: left;
   }
   nav.responsive li.active {
-    background-color: #754f75;
+    background-color: var(--bg-active);
   }
   nav.responsive li.active:hover {
-    background-color: #766793;
+    background-color: var(--bg-hover);
   }
 }
 /*
@@ -90,11 +90,11 @@ https://www.w3schools.com/css/css_rwd_mediaqueries.asp
   .hero .text-and-character {
     flex-direction: row;
   }
-  .hero .text-and-character .text {
-    text-align: right;
-  }
   .hero .text-and-character .text h2 {
     display: initial;
+  }
+  .hero .text-and-character .text {
+    text-align: right;
   }
   .hero .text-and-character .character {
     top: -150px;

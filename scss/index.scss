@@ -36,7 +36,7 @@ nav {
         font-family: "Avenixel";
         font-size: 45px;
         font-weight: normal;
-        color: #F1C232;
+        color: var(--accent-gold);
         text-wrap: nowrap;
         user-select: none;
     }
@@ -55,9 +55,12 @@ nav {
                 font-size: 24px;
                 line-height: var(--navbar-height);
                 font-weight: bold;
-                color: #F1C232;
                 text-decoration:none;
                 cursor: pointer;
+
+                &, &:link, &:visited {
+                    color: var(--accent-gold);
+                }
             }
         }
     }
@@ -70,7 +73,10 @@ nav {
         line-height: var(--navbar-height);
         font-size: 38px;
         color: white;
+        background: none;
+        border: none;
         text-decoration: none;
+        cursor: pointer;
 
         &:hover {
             background-color: #9AB3;
@@ -127,7 +133,7 @@ section {
         .text {
             text-align: initial;
             line-height: 1.1;
-            color: #F1C232;
+            color: var(--accent-gold);
 
             h2 {
                 display: none;
@@ -221,6 +227,17 @@ h2.title {
                 .links {
                     display: flex;
                     justify-content: space-between;
+
+                    a, .private-repo {
+                        font-size: 14px;
+                        font-weight: bold;
+                        text-decoration: none;
+                    }
+
+                    .private-repo {
+                        color: #999;
+                        user-select: none;
+                    }
                 }
 
                 .description {
@@ -307,11 +324,11 @@ h2.title {
                 cursor: pointer;
 
                 &:hover {
-                    background-color: #4c2655;
+                    background-color: var(--bg-hover);
                 }
 
                 &:active {
-                    background-color: #9048a1;
+                    background-color: var(--bg-active);
                 }
             }
     }

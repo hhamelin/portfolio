@@ -1,5 +1,13 @@
 {
   "dependencies": {
     "@splidejs/splide": "^4.1.4"
+  },
+  "devDependencies": {
+    "sass": "^1.92.1"
+  },
+  "scripts": {
+    "build:css": "sass scss:css",
+    "watch:css": "sass --watch scss:css",
+    "postinstall": "npm run build:css"
   }
 }
