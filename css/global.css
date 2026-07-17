@@ -21,5 +21,8 @@
   font-family: "Pixelify";
   src: url("../fonts/pixelify-sans/PixelifySans-Regular.ttf");
 }
+body.overlay-active {
+  overflow: hidden;
+}
 
 /*# sourceMappingURL=global.css.map */

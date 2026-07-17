@@ -3,7 +3,9 @@ From Josh Comeau's Blog:
 https://www.joshwcomeau.com/css/custom-css-reset/
 */
 /* 1. Use a more-intuitive box-sizing model */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -20,18 +22,31 @@ body {
 }
 
 /* 5. Improve media defaults */
-img, picture, video, canvas, svg {
+img,
+picture,
+video,
+canvas,
+svg {
   display: block;
   max-width: 100%;
 }
 
 /* 6. Inherit fonts for form controls */
-input, button, textarea, select {
+input,
+button,
+textarea,
+select {
   font: inherit;
 }
 
 /* 7. Avoid text overflows */
-p, h1, h2, h3, h4, h5, h6 {
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   overflow-wrap: break-word;
 }
 
@@ -40,28 +55,35 @@ p {
   text-wrap: pretty;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
   text-wrap: balance;
 }
 
 /*
   9. Create a root stacking context
 */
-#root, #__next {
+#root,
+#__next {
   isolation: isolate;
 }
 
 :root[data-theme=dark] {
-  --text-primary: #F5F2F7;
+  --text-primary: #f5f2f7;
   --link-color: #52c5c2;
   --link-visited-color: #b19cd9;
   --bg-navbar: #1a1221;
-  --bg-section-1: #2b1b35BF;
+  --bg-section-1: #2b1b35bf;
   --bg-section-2: #211428;
   --bg-section-3: #2d1a37;
   --bg-section-4: #1e1125;
   --bg-footer: #150a1b;
-  --accent-gold: #c5a14c;
+  --accent-light-gold: #c5a14c;
+  --accent-gold: #d7a634;
   --bg-hover: #5b367c;
   --bg-active: #8b56bd;
 }
@@ -89,6 +111,10 @@ h1, h2, h3, h4, h5, h6 {
   font-family: "Pixelify";
   src: url("../fonts/pixelify-sans/PixelifySans-Regular.ttf");
 }
+body.overlay-active {
+  overflow: hidden;
+}
+
 :root {
   --navbar-height: 70px;
   --slideshow-height: 800px;
@@ -124,7 +150,7 @@ nav h1 {
   font-family: "Avenixel";
   font-size: 45px;
   font-weight: normal;
-  color: var(--accent-gold);
+  color: var(--accent-light-gold);
   text-wrap: nowrap;
   user-select: none;
 }
@@ -145,7 +171,7 @@ nav ul li a {
   cursor: pointer;
 }
 nav ul li a, nav ul li a:link, nav ul li a:visited {
-  color: var(--accent-gold);
+  color: var(--accent-light-gold);
 }
 nav .navicon {
   float: right;
@@ -193,6 +219,8 @@ section .section-container {
   z-index: -1;
   pointer-events: none;
   will-change: transform;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 .hero {
   align-items: flex-start;
@@ -212,12 +240,15 @@ section .section-container {
 .hero .text-and-character .text h2 {
   display: none;
   font-family: "Avenixel";
-  font-size: 60px;
+  font-size: 115px;
   font-weight: normal !important;
 }
 .hero .text-and-character .text h3 {
   font-family: "Pixelify";
   font-size: 47px;
+}
+.hero .text-and-character .text h3 span {
+  font-size: 40px;
 }
 .hero .text-and-character .character {
   position: relative;
@@ -229,6 +260,8 @@ section .section-container {
 }
 .hero .text-and-character .character img {
   max-width: initial;
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .border-overlay {
@@ -292,7 +325,8 @@ h2.title {
   display: flex;
   justify-content: space-between;
 }
-.projects .section-container .project .text .links a, .projects .section-container .project .text .links .private-repo {
+.projects .section-container .project .text .links a,
+.projects .section-container .project .text .links .private-repo {
   font-size: 14px;
   font-weight: bold;
   text-decoration: none;
@@ -308,11 +342,11 @@ h2.title {
   flex-grow: 1;
   text-align: center;
 }
-.projects .section-container .softwares {
+.projects .section-container .project .text .softwares {
   display: flex;
   align-items: center;
 }
-.projects .section-container .softwares .icon {
+.projects .section-container .project .text .softwares .icon {
   display: inline;
   height: 3em;
 }
@@ -351,7 +385,8 @@ h2.title {
   margin: 0 auto;
   flex-direction: column;
 }
-.contact form input, .contact form textarea {
+.contact form input,
+.contact form textarea {
   height: 53px;
   background: none;
   margin: 5px 0;
@@ -379,6 +414,15 @@ h2.title {
 }
 .contact form .submit:active {
   background-color: var(--bg-active);
+}
+.contact form .submit.sent {
+  background-color: #2b7c46 !important;
+}
+.contact form .success-message {
+  color: #76ff76;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
 }
 
 footer {
@@ -422,31 +466,25 @@ footer .connections .connect-button img {
 }
 
 #overlay {
-  position: fixed; /* Sit on top of the page content */
-  display: none; /* Hidden by default */
-  width: 100%; /* Full width (cover the whole page) */
-  height: 100%; /* Full height (cover the whole page) */
+  position: fixed;
+  display: none;
+  width: 100%;
+  height: 100%;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(211, 211, 211, 0.8); /* White background with opacity */
-  z-index: 3; /* Specify a stack order in case you're using a different order for other elements */
-  cursor: pointer; /* Add a pointer on hover */
+  background-color: rgba(211, 211, 211, 0.8);
+  z-index: 3;
+  cursor: pointer;
   overflow: auto;
 }
-
-#frame {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1024px;
-  height: 600px;
-  transform: translate(-50%, -50%);
-  overflow: hidden;
+#overlay.active {
+  display: block;
 }
 
-.click-overrider, .is-active {
+.click-overrider,
+.is-active {
   cursor: initial;
 }
 

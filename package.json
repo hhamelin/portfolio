@@ -3,11 +3,13 @@
     "@splidejs/splide": "^4.1.4"
   },
   "devDependencies": {
+    "prettier": "^3.9.5",
     "sass": "^1.92.1"
   },
   "scripts": {
     "build:css": "sass scss:css",
     "watch:css": "sass --watch scss:css",
-    "postinstall": "npm run build:css"
+    "postinstall": "npm run build:css",
+    "format": "prettier --write \"**/*.{html,js,scss}\""
   }
 }
