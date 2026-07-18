@@ -5,3 +5,9 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 .agents/
+
+# Compiled CSS and map files
+css/*.css
+css/*.css.map
+css/themes/*.map
+

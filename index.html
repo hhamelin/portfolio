@@ -114,6 +114,7 @@
             title="Alchemy Calculator"
             src="img/alchemy.png"
             data-project="alchemy"
+            data-images="img/alchemy.png,img/alchemy.png,img/alchemy.png"
           />
           <div class="text">
             <div class="links">
@@ -206,8 +207,11 @@
     <section class="contact" id="contact">
       <h2 class="title contact-title">Contact</h2>
       <form class="section-container" action="">
+        <label for="name" class="visually-hidden">Name</label>
         <input type="text" id="name" name="name" placeholder="Your name.." required />
+        <label for="email" class="visually-hidden">Email Address</label>
         <input type="email" id="email" name="email" placeholder="Your email.." required />
+        <label for="message" class="visually-hidden">Message</label>
         <textarea id="message" name="message" placeholder="Write something.." required></textarea>
         <input class="submit" type="submit" value="Submit" />
       </form>

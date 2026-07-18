@@ -1,39 +1,6 @@
 (() => {
   'use strict';
 
-  const projectData = {
-    travellin: {
-      title: "travellin' sweet",
-      description:
-        'Managed a team of 8 recent graduates of varying disciplines to create an enjoyable, unified experience. Paid careful attention to create a game with intentional design for most player enjoyment and retention.',
-      images: ['img/placeholder.svg']
-    },
-    luddyverse: {
-      title: 'LUDDYVerse',
-      description:
-        'Worked diligently within a tight schedule on a demo for an XR experience for our school’s museum. Learned quickly and adapted often to conquer the many hurdles placed in our way. Kept up to date with our client’s expectations.',
-      images: ['img/placeholder.svg']
-    },
-    alchemy: {
-      title: 'Alchemy Calculator',
-      description:
-        'An interesting project, that evolved with me. When I first started it, I was learning this (at the time) new game engine, "Godot". I had a fun time learning the ins and outs of its UI systems. But at some point, I decided I wanted to move it on to the web, where it would be more useful. Godot at that time was not well-equipped to handle web exports, so I decided to rewrite the code in JavaScript. This gave me a chance to dust off my JavaScript skills, and find out how to create this kind of reactive embeddable application in vanilla JS.',
-      images: ['img/alchemy.png', 'img/alchemy.png', 'img/alchemy.png']
-    },
-    jester: {
-      title: 'Jester Jabs',
-      description:
-        'Crafted a social experience using vibrant art and a publicly available dataset. Resolved bugs and merge conflicts in time-sensitive situations.',
-      images: ['img/jester_jabs.png']
-    },
-    sorcerers: {
-      title: 'Snatching Sorcerers',
-      description:
-        'Planned/executed the successful creation of a game with a small team in a short time span. Created an engaging and memorable experience based on a provided theme.',
-      images: ['img/sorcerers.png']
-    }
-  };
-
   let splideInstance = null;
   const overlayElement = document.getElementById('overlay');
   const slideshowWrapper = document.querySelector('.slideshow-wrapper');
@@ -54,30 +21,29 @@
     document.body.classList.remove('overlay-active');
   }
 
-  function startSlideshow(projectId) {
-    const data = projectData[projectId];
-    if (!data || !splideList || !descriptionElement) return;
+  function startSlideshow(title, description, images) {
+    if (!splideList || !descriptionElement) return;
 
     // Populate slides
-    splideList.innerHTML = data.images
+    splideList.innerHTML = images
       .map(
         (imgSrc) => `
       <li class="splide__slide">
-        <img src="${imgSrc}" alt="${data.title} screenshot">
+        <img src="${imgSrc}" alt="${title} screenshot">
       </li>
     `
       )
       .join('');
 
     // Populate description
-    descriptionElement.textContent = data.description;
+    descriptionElement.textContent = description;
 
     // Mount/remount Splide
     if (splideInstance) {
       splideInstance.destroy();
     }
 
-    const hasMultiple = data.images.length > 1;
+    const hasMultiple = images.length > 1;
     splideInstance = new Splide('.splide', {
       type: hasMultiple ? 'loop' : 'slide',
       arrows: hasMultiple,
@@ -118,10 +84,24 @@
   // Bind project image clicks to launch the slideshow
   document.querySelectorAll('.project img.image[data-project]').forEach((img) => {
     img.addEventListener('click', () => {
-      const projectId = img.getAttribute('data-project');
-      if (projectId) {
-        startSlideshow(projectId);
-      }
+      const projectContainer = img.closest('.project');
+      if (!projectContainer) return;
+
+      // Extract title from h3
+      const titleEl = projectContainer.querySelector('h3');
+      const title = titleEl ? titleEl.textContent.trim() : '';
+
+      // Extract description from the .description paragraph
+      const descEl = projectContainer.querySelector('.description');
+      const description = descEl ? descEl.textContent.trim() : '';
+
+      // Extract images: read data-images (comma separated), or fallback to the src
+      const dataImages = img.getAttribute('data-images');
+      const images = dataImages
+        ? dataImages.split(',').map((src) => src.trim())
+        : [img.getAttribute('src')];
+
+      startSlideshow(title, description, images);
     });
   });
 })();
