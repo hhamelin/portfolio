@@ -15,7 +15,7 @@
     const element = document.getElementById(targetId);
     if (!element) return;
 
-    const position = element.offsetTop;
+    const position = element.getBoundingClientRect().top + window.scrollY;
     const offset = targetId === 'projects' ? 66 : 0;
     const scrollDistance = navbarHeight - offset;
 

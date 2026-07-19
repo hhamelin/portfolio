@@ -1,15 +1,22 @@
 :root[data-theme='dark'] {
   --text-primary: #f5f2f7;
-  --link-color: #52c5c2;
+  --text-muted: #a39bb0;
+  --link-color: #c5a14c;
   --link-visited-color: #b19cd9;
-  --bg-navbar: #1a1221;
-  --bg-section-1: #2b1b35bf;
-  --bg-section-2: #211428;
-  --bg-section-3: #2d1a37;
-  --bg-section-4: #1e1125;
-  --bg-footer: #150a1b;
+  --bg-main: #120917;
+  --bg-navbar: rgba(18, 9, 23, 0.9);
+  --bg-section-1: rgba(18, 9, 23, 0.75);
+  --bg-footer: #0a040d;
   --accent-light-gold: #c5a14c;
   --accent-gold: #d7a634;
-  --bg-hover: #5b367c;
-  --bg-active: #8b56bd;
+  --bg-hover: #4c286b;
+  --bg-active: #6e3d9e;
+
+  /* Grounded, warm card & badge designs */
+  --bg-card: #1b1022;
+  --border-card: #271932;
+  --border-card-hover: rgba(215, 166, 52, 0.35);
+  --shadow-card-hover: rgba(0, 0, 0, 0.4);
+  --bg-badge: #261730;
+  --border-badge: #382447;
 }
