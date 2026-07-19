@@ -423,63 +423,6 @@ h2.title {
   }
 }
 
-.contact {
-  background-color: var(--bg-section-4);
-
-  form {
-    display: flex;
-    width: 95vw;
-    max-width: 570px;
-    margin: 0 auto;
-    flex-direction: column;
-
-    input,
-    textarea {
-      height: 53px;
-      background: none;
-      margin: 5px 0;
-      border: 3px solid white;
-      border-radius: 5px;
-      color: white;
-    }
-
-    textarea {
-      height: 200px;
-    }
-    .submit {
-      width: 135px;
-      height: 45px;
-      border-radius: 16px;
-      margin-right: -5px;
-      align-self: end;
-      font-size: 18px;
-      font-weight: bold;
-      letter-spacing: 2px;
-      color: white;
-      cursor: pointer;
-
-      &:hover {
-        background-color: var(--bg-hover);
-      }
-
-      &:active {
-        background-color: var(--bg-active);
-      }
-
-      &.sent {
-        background-color: #2b7c46 !important;
-      }
-    }
-
-    .success-message {
-      color: #76ff76;
-      margin-top: 15px;
-      text-align: center;
-      font-weight: bold;
-    }
-  }
-}
-
 footer {
   display: flex;
   min-height: var(--footer-height);
