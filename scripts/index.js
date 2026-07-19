@@ -8,6 +8,9 @@
   const navItems = document.querySelectorAll('nav ul li');
   const contactForm = document.querySelector('section.contact form');
 
+  let isScrollingProgrammatically = false;
+  let scrollTimeout = null;
+
   // Smooth Scroll to Anchor with Navbar Offset
   function scrollToAnchor(targetId) {
     const style = window.getComputedStyle(document.body);
@@ -19,12 +22,31 @@
     const offset = targetId === 'projects' ? 66 : 0;
     const scrollDistance = navbarHeight - offset;
 
+    // Immediately highlight correct navigation item and lock scroll-spy updates
+    isScrollingProgrammatically = true;
+    navItems.forEach((item) => {
+      const link = item.querySelector('a');
+      if (link && link.getAttribute('data-target') === targetId) {
+        item.classList.add('active');
+      } else {
+        item.classList.remove('active');
+      }
+    });
+
     window.scrollTo({
       top: position - scrollDistance,
       behavior: 'smooth'
     });
 
     closeNav();
+
+    // Reset lock after smooth scrolling completes
+    if (scrollTimeout) {
+      clearTimeout(scrollTimeout);
+    }
+    scrollTimeout = setTimeout(() => {
+      isScrollingProgrammatically = false;
+    }, 800);
   }
 
   // Navigation menu toggling
@@ -64,6 +86,9 @@
   };
 
   const observer = new IntersectionObserver((entries) => {
+    // Skip updates during programmatic smooth scrolls to prevent flashing animations on intermediate links
+    if (isScrollingProgrammatically) return;
+
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         const activeId = entry.target.getAttribute('id');
