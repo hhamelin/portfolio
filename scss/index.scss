@@ -3,10 +3,6 @@
 @use 'global';
 @use 'navbar';
 @use 'slides';
-
-// Parallax Styles & Separate Nav Utilities
-
-
 :root {
   --navbar-height: 70px;
   --slideshow-height: 800px;
@@ -798,7 +794,9 @@ footer {
   -webkit-backdrop-filter: blur(12px);
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.3s ease, visibility 0.3s ease;
+  transition:
+    opacity 0.3s ease,
+    visibility 0.3s ease;
 
   &.active {
     opacity: 1;
@@ -869,4 +867,3 @@ footer {
     }
   }
 }
-

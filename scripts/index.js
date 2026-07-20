@@ -80,12 +80,12 @@
   // Intersection Observer for scroll-spy functionality
   const observerOptions = {
     root: null,
-    rootMargin: '-50% 0px -50% 0px', // Trigger when section occupies the middle of viewport
+    rootMargin: '-50% 0px -50% 0px',
     threshold: 0
   };
 
   const observer = new IntersectionObserver((entries) => {
-    // Skip updates during programmatic smooth scrolls to prevent flashing animations on intermediate links
+    // Skip updates during smooth scroll
     if (isScrollingProgrammatically) return;
 
     entries.forEach((entry) => {
@@ -137,7 +137,7 @@
       isParallaxUserDisabled = false;
     }
 
-    // Depth and fade configurations for layers 1 (sky) through 6 (foreground)
+    // Layer depth and fade settings
     const layersConfig = [
       { scrollFactor: 0.02, mouseFactorX: -2, mouseFactorY: -1, fadeDist: 1300 },
       { scrollFactor: 0.05, mouseFactorX: -4, mouseFactorY: -2, fadeDist: 1150 },
@@ -182,20 +182,26 @@
     let smoothedX = null;
     let smoothedY = null;
 
-    // Handle DeviceMotion Accelerometer Gravity Vector (100% continuous, wrap-free motion)
+    // Handle device tilt motion
     function handleMotion(e) {
       const acc = e.accelerationIncludingGravity;
-      if (!acc || typeof acc.x !== 'number' || typeof acc.y !== 'number' || isNaN(acc.x) || isNaN(acc.y)) {
+      if (
+        !acc ||
+        typeof acc.x !== 'number' ||
+        typeof acc.y !== 'number' ||
+        isNaN(acc.x) ||
+        isNaN(acc.y)
+      ) {
         return;
       }
 
-      // acc.x measures physical left/right tilt force (-9.8 to +9.8 m/s2)
-      // acc.y measures physical top/bottom tilt force (-9.8 to +9.8 m/s2)
+      // Device tilt axes
       let rawX = acc.x;
       let rawY = acc.y;
 
-      // Adapt to screen orientation changes (portrait vs landscape)
-      const orientation = window.orientation || (screen.orientation && screen.orientation.angle) || 0;
+      // Adapt to screen orientation
+      const orientation =
+        window.orientation || (screen.orientation && screen.orientation.angle) || 0;
       if (orientation === 90) {
         rawX = -acc.y;
         rawY = acc.x;
@@ -207,7 +213,7 @@
         rawY = -acc.y;
       }
 
-      // Apply low-pass exponential moving average filter for smooth sensor response
+      // Smooth motion data
       if (smoothedX === null || smoothedY === null) {
         smoothedX = rawX;
         smoothedY = rawY;
@@ -218,7 +224,7 @@
 
       isGyroActive = true;
 
-      // Accelerometer gravity vector tilt scaling with amplified 4.5x gain for diffY > 0
+      // Amplifies the gain
       const diffY = smoothedY - 5.0;
       const normY = diffY > 0 ? (diffY / 3.5) * 4.5 : (diffY / 5.0) * 2.0;
 
@@ -251,20 +257,28 @@
     };
 
     function initGyro() {
-      if (typeof window.DeviceMotionEvent !== 'undefined' || typeof window.DeviceOrientationEvent !== 'undefined') {
-        if (typeof window.DeviceOrientationEvent !== 'undefined' && typeof window.DeviceOrientationEvent.requestPermission === 'function') {
-          // iOS 13+ requires user permission gesture. Check if permission was previously granted
+      if (
+        typeof window.DeviceMotionEvent !== 'undefined' ||
+        typeof window.DeviceOrientationEvent !== 'undefined'
+      ) {
+        if (
+          typeof window.DeviceOrientationEvent !== 'undefined' &&
+          typeof window.DeviceOrientationEvent.requestPermission === 'function'
+        ) {
+          // Check motion permission
           let motionPermission = null;
-          try { motionPermission = localStorage.getItem('motion-permission'); } catch {}
+          try {
+            motionPermission = localStorage.getItem('motion-permission');
+          } catch {}
 
           if (motionPermission === 'granted') {
             window.addEventListener('devicemotion', handleMotion, true);
           } else if (motionPermission !== 'dismissed' && window.innerWidth <= 992) {
-            // Show non-intrusive motion permission modal on mobile
+            // Show motion prompt
             window.testIOSMotionPrompt();
           }
         } else {
-          // Non-iOS devices (Android Chrome, etc.) with automatic motion support
+          // Automatic motion support
           window.addEventListener('devicemotion', handleMotion, true);
         }
       }
@@ -273,19 +287,28 @@
     if (motionEnableBtn) {
       motionEnableBtn.addEventListener('click', () => {
         closeMotionPrompt();
-        if (typeof window.DeviceOrientationEvent !== 'undefined' && typeof window.DeviceOrientationEvent.requestPermission === 'function') {
+        if (
+          typeof window.DeviceOrientationEvent !== 'undefined' &&
+          typeof window.DeviceOrientationEvent.requestPermission === 'function'
+        ) {
           window.DeviceOrientationEvent.requestPermission()
             .then((response) => {
               if (response === 'granted') {
-                try { localStorage.setItem('motion-permission', 'granted'); } catch {}
+                try {
+                  localStorage.setItem('motion-permission', 'granted');
+                } catch {}
                 window.addEventListener('devicemotion', handleMotion, true);
                 startLoop();
               } else {
-                try { localStorage.setItem('motion-permission', 'dismissed'); } catch {}
+                try {
+                  localStorage.setItem('motion-permission', 'dismissed');
+                } catch {}
               }
             })
             .catch(() => {
-              try { localStorage.setItem('motion-permission', 'dismissed'); } catch {}
+              try {
+                localStorage.setItem('motion-permission', 'dismissed');
+              } catch {}
             });
         }
       });
@@ -294,7 +317,9 @@
     if (motionSkipBtn) {
       motionSkipBtn.addEventListener('click', () => {
         closeMotionPrompt();
-        try { localStorage.setItem('motion-permission', 'dismissed'); } catch {}
+        try {
+          localStorage.setItem('motion-permission', 'dismissed');
+        } catch {}
       });
     }
 
@@ -352,7 +377,7 @@
       'mousemove',
       (e) => {
         isMouseActive = true;
-        // Normalize coordinate offsets to range [-1, 1] relative to viewport center
+        // Normalize viewport coordinates
         targetMouseX = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
         targetMouseY = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
         if (scrollY <= heroHeight) {
@@ -373,7 +398,7 @@
       { passive: true }
     );
 
-    // Smoothly return layers to center when cursor leaves viewport
+    // Reset coordinates on leave
     document.addEventListener('mouseleave', () => {
       targetMouseX = 0;
       targetMouseY = 0;
@@ -404,7 +429,7 @@
         return;
       }
 
-      // Lerp mouse and gyro coordinates to introduce organic damping/fluidity
+      // Smooth mouse and gyro values
       if (isMouseActive) {
         mouseX += (targetMouseX - mouseX) * 0.08;
         mouseY += (targetMouseY - mouseY) * 0.08;
@@ -425,10 +450,13 @@
         const config = layersConfig[index];
         if (!config) return;
 
-        const transY = -scrollY * config.scrollFactor + (mouseY * config.mouseFactorY + gyroY * config.mouseFactorX * 1.1) * scaleFactor;
-        const transX = (mouseX * config.mouseFactorX + gyroX * config.mouseFactorX * 1.6) * scaleFactor;
+        const transY =
+          -scrollY * config.scrollFactor +
+          (mouseY * config.mouseFactorY + gyroY * config.mouseFactorX * 1.1) * scaleFactor;
+        const transX =
+          (mouseX * config.mouseFactorX + gyroX * config.mouseFactorX * 1.6) * scaleFactor;
 
-        // Calculate individual fade opacity based on scroll position
+        // Calculate layer opacity
         const opacity = Math.max(0, 1 - scrollY / config.fadeDist);
 
         layer.style.transform = `translate3d(${transX.toFixed(2)}px, ${transY.toFixed(2)}px, 0)`;

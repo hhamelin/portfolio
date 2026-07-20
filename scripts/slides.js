@@ -86,8 +86,7 @@
   // Prevent clicks on interactive slideshow elements from closing the overlay
   if (slideshowWrapper) {
     slideshowWrapper.addEventListener('click', (event) => {
-      // Only stop propagation if clicking interactive components:
-      // individual slide elements, control arrows, pagination dots, or the description box.
+      // Prevent overlay close on interactive slideshow elements
       const isInteractive =
         event.target.closest('.splide__slide') ||
         event.target.closest('.splide__arrow') ||

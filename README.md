@@ -21,7 +21,9 @@ A responsive, professional portfolio website showcasing game design, web develop
 ├── css/             # Compiled CSS sheets and source maps
 ├── fonts/           # Local font assets (Roboto, Pixelify Sans, Avenixel)
 ├── img/             # Images and project screenshot assets
-│   └── icons/       # Skills, tools, and social SVG/PNG icons
+│   ├── hero/        # Parallax hero background layers
+│   ├── icons/       # Skills, tools, and social SVG/PNG icons
+│   └── projects/    # Project preview screenshots grouped by project
 ├── scripts/         # JS logic files (index.js, slides.js)
 ├── scss/            # Raw Sass source files (index.scss, _navbar.scss, _global.scss, _themes.scss, etc.)
 ├── index.html       # Primary webpage markup entry
