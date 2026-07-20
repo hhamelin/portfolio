@@ -149,14 +149,14 @@ section {
       }
 
       h3 {
-        font-family: 'Pixelify';
-        font-size: 47px;
+        font-family: 'Sandy-Forest';
+        font-size: 72px;
         text-shadow:
           3px 3px 0px rgba(10, 5, 13, 0.6),
           0px 6px 18px rgba(0, 0, 0, 0.7);
 
         span {
-          font-size: 40px;
+          font-size: 58px;
           text-shadow:
             2px 2px 0px rgba(10, 5, 13, 0.6),
             0px 4px 12px rgba(0, 0, 0, 0.7);
@@ -190,10 +190,10 @@ section {
 
       .text {
         h3 {
-          font-size: 32px;
+          font-size: 48px;
 
           span {
-            font-size: 24px;
+            font-size: 38px;
           }
         }
       }
@@ -275,8 +275,8 @@ h2.title {
   width: max-content;
   padding: 9px 0;
   margin: 0 auto;
-  font-size: 32px;
-  font-family: 'Pixelify';
+  font-size: 52px;
+  font-family: 'Habbo';
   color: var(--text-primary);
   text-align: center;
 
@@ -333,8 +333,8 @@ h2.title {
       }
 
       h3 {
-        font-family: 'Pixelify';
-        font-size: 22px;
+        font-family: 'Habbo';
+        font-size: 36px;
         color: var(--accent-light-gold);
         margin-bottom: 16px;
         font-weight: 600;
@@ -526,8 +526,8 @@ h2.title {
       flex-grow: 1;
 
       .about-tagline {
-        font-family: 'Pixelify';
-        font-size: 24px;
+        font-family: 'Habbo';
+        font-size: 32px;
         line-height: 1.4;
         color: var(--accent-gold);
         margin-bottom: 8px;
@@ -546,8 +546,8 @@ h2.title {
         padding-top: 24px;
 
         .skills-heading {
-          font-family: 'Pixelify';
-          font-size: 20px;
+          font-family: 'Habbo';
+          font-size: 34px;
           color: var(--text-primary);
           margin-bottom: 16px;
           font-weight: 600;
@@ -570,7 +570,8 @@ h2.title {
             }
 
             h5 {
-              font-size: 15px;
+              font-family: 'Habbo';
+              font-size: 22px;
               color: var(--accent-light-gold);
               margin-bottom: 12px;
               font-weight: 600;
@@ -814,8 +815,8 @@ footer {
     color: var(--text-primary);
 
     h3 {
-      font-family: 'Pixelify';
-      font-size: 24px;
+      font-family: 'Habbo';
+      font-size: 38px;
       color: var(--accent-gold);
       margin-bottom: 12px;
     }
