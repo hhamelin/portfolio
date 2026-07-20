@@ -3,9 +3,9 @@
 
   const navbar = document.getElementById('navbar');
   const navToggleBtn = document.getElementById('nav-toggle');
-  const navLinks = document.querySelectorAll('nav ul li a[data-target]');
+  const navLinks = document.querySelectorAll('nav ul.nav-links li a[data-target]');
   const sections = document.querySelectorAll('section[id]');
-  const navItems = document.querySelectorAll('nav ul li');
+  const navItems = document.querySelectorAll('nav ul.nav-links li');
 
   let isScrollingProgrammatically = false;
   let scrollTimeout = null;
@@ -108,6 +108,7 @@
   // Parallax Background Effect
   const heroParallax = document.querySelector('.hero-parallax');
   const parallaxLayers = document.querySelectorAll('.parallax-layer');
+  const parallaxToggleBtn = document.getElementById('parallax-toggle');
 
   if (heroParallax && parallaxLayers.length > 0) {
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
@@ -122,6 +123,13 @@
     let scaleFactor = 1;
     let isAnimating = false;
 
+    let isParallaxUserDisabled = false;
+    try {
+      isParallaxUserDisabled = localStorage.getItem('parallax-disabled') === 'true';
+    } catch {
+      isParallaxUserDisabled = false;
+    }
+
     // Depth and fade configurations for layers 1 (sky) through 6 (foreground)
     const layersConfig = [
       { scrollFactor: 0.02, mouseFactorX: -2, mouseFactorY: -1, fadeDist: 1300 },
@@ -131,6 +139,38 @@
       { scrollFactor: 0.5, mouseFactorX: -35, mouseFactorY: -18, fadeDist: 700 },
       { scrollFactor: 0.75, mouseFactorX: -55, mouseFactorY: -28, fadeDist: 600 }
     ];
+
+    function updateToggleButtonUI() {
+      if (!parallaxToggleBtn) return;
+      if (isParallaxUserDisabled) {
+        parallaxToggleBtn.classList.add('disabled');
+        parallaxToggleBtn.setAttribute('aria-checked', 'false');
+      } else {
+        parallaxToggleBtn.classList.remove('disabled');
+        parallaxToggleBtn.setAttribute('aria-checked', 'true');
+      }
+    }
+
+    updateToggleButtonUI();
+
+    if (parallaxToggleBtn) {
+      parallaxToggleBtn.addEventListener('click', () => {
+        isParallaxUserDisabled = !isParallaxUserDisabled;
+        try {
+          localStorage.setItem('parallax-disabled', isParallaxUserDisabled ? 'true' : 'false');
+        } catch {
+          // Fallback if localStorage is restricted
+        }
+        updateToggleButtonUI();
+
+        if (isParallaxUserDisabled) {
+          stopLoop();
+          resetParallax();
+        } else {
+          startLoop();
+        }
+      });
+    }
 
     function updateDimensions() {
       const parent = heroParallax.parentElement;
@@ -148,7 +188,7 @@
     }
 
     function startLoop() {
-      if (!isAnimating && !prefersReducedMotion.matches) {
+      if (!isAnimating && !prefersReducedMotion.matches && !isParallaxUserDisabled) {
         isAnimating = true;
         requestAnimationFrame(updateParallax);
       }
@@ -214,7 +254,7 @@
     function updateParallax() {
       if (!isAnimating) return;
 
-      if (prefersReducedMotion.matches) {
+      if (prefersReducedMotion.matches || isParallaxUserDisabled) {
         resetParallax();
         stopLoop();
         return;
@@ -248,9 +288,9 @@
       requestAnimationFrame(updateParallax);
     }
 
-    if (!prefersReducedMotion.matches && scrollY <= heroHeight) {
+    if (!prefersReducedMotion.matches && !isParallaxUserDisabled && scrollY <= heroHeight) {
       startLoop();
-    } else if (prefersReducedMotion.matches) {
+    } else if (prefersReducedMotion.matches || isParallaxUserDisabled) {
       resetParallax();
     }
   }

@@ -60,11 +60,29 @@
     </div>
     <nav id="navbar">
       <h1 class="name">Haven Hamelin</h1>
-      <ul>
-        <li class="active"><a href="#home" data-target="home">Home</a></li>
-        <li><a href="#projects" data-target="projects">Projects</a></li>
-        <li><a href="#about" data-target="about">About</a></li>
-      </ul>
+      <div class="nav-right">
+        <ul class="nav-links">
+          <li class="active"><a href="#home" data-target="home">Home</a></li>
+          <li><a href="#projects" data-target="projects">Projects</a></li>
+          <li><a href="#about" data-target="about">About</a></li>
+        </ul>
+        <div class="nav-separator" aria-hidden="true"></div>
+        <div class="nav-utilities">
+          <button
+            id="parallax-toggle"
+            class="parallax-toggle-btn"
+            role="switch"
+            aria-checked="true"
+            aria-label="Toggle Parallax Effect"
+            title="Toggle Parallax Animation"
+          >
+            <span class="toggle-text">Parallax</span>
+            <span class="ios-switch" aria-hidden="true">
+              <span class="switch-handle"></span>
+            </span>
+          </button>
+        </div>
+      </div>
       <button class="navicon" id="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
     </nav>
     <section class="hero" id="home">
