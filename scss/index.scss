@@ -58,10 +58,11 @@ section {
   min-height: 579px;
   height: 100vh;
   padding-top: var(--navbar-height);
+  padding-bottom: 0;
   box-sizing: border-box;
   position: relative;
   overflow: hidden;
-  align-items: center;
+  align-items: flex-start;
   justify-content: center;
 
   .hero-parallax {
@@ -95,7 +96,7 @@ section {
         background-image: url('../img/hero/hero-2.png');
         background-repeat: repeat-x;
         z-index: 2;
-        animation: cloudDrift 1250s linear infinite;
+        animation: cloudDrift 300s linear infinite;
       }
       &.layer-3 {
         background-image: url('../img/hero/hero-3.png');
@@ -128,13 +129,13 @@ section {
 
   .text-and-character {
     display: flex;
-    margin-top: 15px;
-    margin-left: 0;
     flex-direction: column;
     align-items: center;
     width: 100%;
+    height: auto;
     padding: 0 8vw;
     box-sizing: border-box;
+    margin-top: 85px;
 
     .text {
       text-align: center;
@@ -169,7 +170,7 @@ section {
 
     .character {
       position: relative;
-      top: 15px;
+      top: 70px;
       left: 0;
       width: 140px;
       height: 340px;
@@ -188,6 +189,9 @@ section {
 
   @media only screen and (max-width: 600px) {
     .text-and-character {
+      margin-top: 75px;
+      padding: 0 6vw;
+
       .text {
         h3 {
           font-size: 32px;
@@ -197,15 +201,25 @@ section {
           }
         }
       }
+
+      .character {
+        top: 60px;
+      }
     }
   }
 
   @media only screen and (min-width: 992px) {
+    align-items: center;
+
     .text-and-character {
       flex-direction: row;
       align-items: center;
+      justify-content: flex-start;
       width: auto;
+      height: auto;
+      min-height: initial;
       padding: 0;
+      margin-top: 15px;
 
       .text {
         h2 {
@@ -756,7 +770,7 @@ footer {
     background-position-x: 0px;
   }
   100% {
-    background-position-x: -10000px;
+    background-position-x: -2400px;
   }
 }
 

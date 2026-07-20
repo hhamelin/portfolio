@@ -210,6 +210,17 @@
     );
 
     window.addEventListener(
+      'touchmove',
+      () => {
+        scrollY = window.scrollY;
+        if (scrollY <= heroHeight) {
+          startLoop();
+        }
+      },
+      { passive: true }
+    );
+
+    window.addEventListener(
       'mousemove',
       (e) => {
         isMouseActive = true;
