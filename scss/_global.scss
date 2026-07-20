@@ -26,6 +26,18 @@
   src: url('../fonts/pixelify-sans/PixelifySans-Regular.ttf');
 }
 
+@font-face {
+  font-family: 'Unageo';
+  src: url('../fonts/unageo/Unageo-Regular.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'Unageo';
+  src: url('../fonts/unageo/Unageo-Bold.ttf');
+  font-weight: bold;
+}
+
 body.overlay-active {
   overflow: hidden;
 }

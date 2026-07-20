@@ -4,8 +4,27 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Haven Hamelin</title>
+    <title>Haven Hamelin | Web, XR, and Game Developer</title>
     <link rel="icon" type="image/x-icon" href="/img/favicon.png" />
+
+    <!-- Open Graph SEO Meta Tags -->
+    <meta property="og:title" content="Haven Hamelin | Web, XR, and Game Developer" />
+    <meta
+      property="og:description"
+      content="Portfolio of Haven Hamelin, showcasing Web, XR, and Game projects built with Godot, Unity, and modern JS."
+    />
+    <meta property="og:image" content="https://hhamelin.wasworld.xyz/img/photo.webp" />
+    <meta property="og:url" content="https://hhamelin.wasworld.xyz" />
+    <meta property="og:type" content="website" />
+
+    <!-- Twitter Card Meta Tags -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="Haven Hamelin | Web, XR, and Game Developer" />
+    <meta
+      name="twitter:description"
+      content="Portfolio of Haven Hamelin showcasing Web, XR, and Game projects."
+    />
+    <meta name="twitter:image" content="https://hhamelin.wasworld.xyz/img/photo.webp" />
     <link
       rel="stylesheet"
       href="https://cdn.jsdelivr.net/npm/@splidejs/splide@4.1.4/dist/css/splide.min.css"
@@ -19,7 +38,13 @@
     <script src="scripts/index.js" defer></script>
   </head>
   <body>
-    <div id="overlay">
+    <div
+      id="overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+      aria-label="Project screenshot slideshow"
+    >
       <div class="slideshow-wrapper">
         <section class="splide" aria-label="Slideshow">
           <div class="splide__track">
@@ -43,6 +68,15 @@
       <button class="navicon" id="nav-toggle" aria-label="Toggle navigation">&#9776;</button>
     </nav>
     <section class="hero" id="home">
+      <div class="hero-parallax" aria-hidden="true">
+        <div class="parallax-layer layer-1"></div>
+        <div class="parallax-layer layer-2"></div>
+        <div class="parallax-layer layer-3"></div>
+        <div class="parallax-layer layer-4"></div>
+        <div class="parallax-layer layer-5"></div>
+        <div class="parallax-layer layer-6"></div>
+        <div class="parallax-overlay"></div>
+      </div>
       <div class="text-and-character">
         <div class="text">
           <h2>Haven Hamelin</h2>
@@ -54,7 +88,18 @@
         <div class="character"><img src="img/character.png" alt="Pixel art character." /></div>
       </div>
     </section>
-    <div class="border-overlay"></div>
+    <div class="border-overlay" aria-hidden="true">
+      <div class="border-overlay-bg"></div>
+      <svg viewBox="0 0 1000 50" preserveAspectRatio="none">
+        <path
+          d="M 0 25 L 360 0 L 360 25 L 720 0 L 720 25 L 1000 0"
+          fill="none"
+          stroke="rgba(255, 255, 255, 0.04)"
+          stroke-width="1.5"
+          vector-effect="non-scaling-stroke"
+        />
+      </svg>
+    </div>
     <main class="main-content-wrapper">
       <section class="projects bg-color-2" id="projects">
         <h2 class="title">Projects Showcase</h2>
@@ -109,13 +154,17 @@
           </div>
           <div class="project">
             <h3>Alchemy Calculator</h3>
-            <img
-              class="image"
-              title="Alchemy Calculator"
-              src="img/alchemy.png"
-              data-project="alchemy"
-              data-images="img/alchemy.png,img/alchemy.png,img/alchemy.png"
-            />
+            <picture>
+              <source srcset="img/alchemy.jxl" type="image/jxl" />
+              <source srcset="img/alchemy.webp" type="image/webp" />
+              <img
+                class="image"
+                title="Alchemy Calculator"
+                src="img/alchemy.png"
+                data-project="alchemy"
+                data-images="img/alchemy.png"
+              />
+            </picture>
             <div class="text">
               <div class="links">
                 <a href="https://wasworld.xyz/projects/SburbAlchemy/">Live Demo</a>
@@ -137,12 +186,16 @@
           </div>
           <div class="project">
             <h3>Jester Jabs</h3>
-            <img
-              class="image"
-              title="Jester Jabs"
-              src="img/jester_jabs.png"
-              data-project="jester"
-            />
+            <picture>
+              <source srcset="img/jester_jabs.jxl" type="image/jxl" />
+              <source srcset="img/jester_jabs.webp" type="image/webp" />
+              <img
+                class="image"
+                title="Jester Jabs"
+                src="img/jester_jabs.png"
+                data-project="jester"
+              />
+            </picture>
             <div class="text">
               <div class="links">
                 <a href="https://sircatsalot1.itch.io/jester-jabs">Live Demo</a>
@@ -162,12 +215,16 @@
           </div>
           <div class="project">
             <h3>Snatching Sorcerers</h3>
-            <img
-              class="image"
-              title="Snatching Sorcerers"
-              src="img/sorcerers.png"
-              data-project="sorcerers"
-            />
+            <picture>
+              <source srcset="img/sorcerers.jxl" type="image/jxl" />
+              <source srcset="img/sorcerers.webp" type="image/webp" />
+              <img
+                class="image"
+                title="Snatching Sorcerers"
+                src="img/sorcerers.png"
+                data-project="sorcerers"
+              />
+            </picture>
             <div class="text">
               <div class="links">
                 <a href="https://sircatsalot1.itch.io/snatching-sorcerers">Live Demo</a>
@@ -273,8 +330,14 @@
       </section>
       <footer>
         <div class="copyright">
-          <span>WasWorld Industries © </span>
-          <span>Haven Hamelin</span>
+          <span>© Haven Hamelin</span>
+          <br />
+          <span class="attribution">
+            Hero art by
+            <a href="https://craftpix.net/" target="_blank" rel="noopener noreferrer"
+              >CraftPix.net</a
+            >
+          </span>
         </div>
         <div class="connections">
           <div class="flexbox">

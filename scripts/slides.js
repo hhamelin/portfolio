@@ -7,9 +7,25 @@
   const splideList = document.querySelector('.splide__list');
   const descriptionElement = document.querySelector('.click-overrider');
 
+  let detectedFormats = [];
+
+  function createPictureMarkup(imgSrc, altText) {
+    if (imgSrc.endsWith('.svg')) {
+      return `<img src="${imgSrc}" alt="${altText}">`;
+    }
+    const base = imgSrc.substring(0, imgSrc.lastIndexOf('.'));
+    let markup = '\n      <picture>';
+    detectedFormats.forEach((f) => {
+      markup += `\n        <source srcset="${base}${f.ext}" type="${f.type}">`;
+    });
+    markup += `\n        <img src="${imgSrc}" alt="${altText}">\n      </picture>\n    `;
+    return markup;
+  }
+
   function overlayOn() {
     if (overlayElement) {
       overlayElement.classList.add('active');
+      overlayElement.setAttribute('aria-hidden', 'false');
     }
     document.body.classList.add('overlay-active');
   }
@@ -17,6 +33,7 @@
   function overlayOff() {
     if (overlayElement) {
       overlayElement.classList.remove('active');
+      overlayElement.setAttribute('aria-hidden', 'true');
     }
     document.body.classList.remove('overlay-active');
   }
@@ -29,7 +46,7 @@
       .map(
         (imgSrc) => `
       <li class="splide__slide">
-        <img src="${imgSrc}" alt="${title} screenshot">
+        ${createPictureMarkup(imgSrc, `${title} screenshot`)}
       </li>
     `
       )
@@ -81,6 +98,13 @@
     overlayElement.addEventListener('click', overlayOff);
   }
 
+  // Close overlay on Escape key press
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape' && overlayElement && overlayElement.classList.contains('active')) {
+      overlayOff();
+    }
+  });
+
   // Bind project image clicks to launch the slideshow
   document.querySelectorAll('.project img.image[data-project]').forEach((img) => {
     img.addEventListener('click', () => {
@@ -94,6 +118,20 @@
       // Extract description from the .description paragraph
       const descEl = projectContainer.querySelector('.description');
       const description = descEl ? descEl.textContent.trim() : '';
+
+      // Extract formats from the main image's parent <picture> element if it exists
+      detectedFormats = [];
+      const parentPicture = img.parentElement;
+      if (parentPicture && parentPicture.tagName.toLowerCase() === 'picture') {
+        parentPicture.querySelectorAll('source').forEach((source) => {
+          const type = source.getAttribute('type');
+          const srcset = source.getAttribute('srcset');
+          if (type && srcset) {
+            const ext = srcset.substring(srcset.lastIndexOf('.'));
+            detectedFormats.push({ type, ext });
+          }
+        });
+      }
 
       // Extract images: read data-images (comma separated), or fallback to the src
       const dataImages = img.getAttribute('data-images');

@@ -6,7 +6,6 @@
   const navLinks = document.querySelectorAll('nav ul li a[data-target]');
   const sections = document.querySelectorAll('section[id]');
   const navItems = document.querySelectorAll('nav ul li');
-  const contactForm = document.querySelector('section.contact form');
 
   let isScrollingProgrammatically = false;
   let scrollTimeout = null;
@@ -106,45 +105,111 @@
 
   sections.forEach((section) => observer.observe(section));
 
-  // Contact Form submission handling
-  if (contactForm) {
-    contactForm.addEventListener('submit', (event) => {
-      event.preventDefault();
+  // Parallax Background Effect
+  const heroParallax = document.querySelector('.hero-parallax');
+  const parallaxLayers = document.querySelectorAll('.parallax-layer');
 
-      // Get field values
-      const name = document.getElementById('name').value;
-      const email = document.getElementById('email').value;
-      const message = document.getElementById('message').value;
+  if (heroParallax && parallaxLayers.length > 0) {
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)');
 
-      // Select submit button and cache original text
-      const submitBtn = contactForm.querySelector('input.submit');
-      if (!submitBtn) return;
+    let scrollY = window.scrollY;
+    let mouseX = 0;
+    let mouseY = 0;
+    let targetMouseX = 0;
+    let targetMouseY = 0;
+    let isMouseActive = false;
+    let scaleFactor = Math.min(1, window.innerWidth / 1440);
 
-      const originalBtnText = submitBtn.value;
-      submitBtn.value = 'Sending...';
-      submitBtn.disabled = true;
+    // Depth and fade configurations for layers 1 (sky) through 6 (foreground)
+    const layersConfig = [
+      { scrollFactor: 0.02, mouseFactorX: -2, mouseFactorY: -1, fadeDist: 1300 },
+      { scrollFactor: 0.05, mouseFactorX: -4, mouseFactorY: -2, fadeDist: 1150 },
+      { scrollFactor: 0.15, mouseFactorX: -10, mouseFactorY: -5, fadeDist: 1000 },
+      { scrollFactor: 0.3, mouseFactorX: -20, mouseFactorY: -10, fadeDist: 850 },
+      { scrollFactor: 0.5, mouseFactorX: -35, mouseFactorY: -18, fadeDist: 700 },
+      { scrollFactor: 0.75, mouseFactorX: -55, mouseFactorY: -28, fadeDist: 600 }
+    ];
 
-      // Simulate sending email (async delay)
-      setTimeout(() => {
-        submitBtn.value = 'Sent!';
-        submitBtn.classList.add('sent');
+    window.addEventListener(
+      'scroll',
+      () => {
+        scrollY = window.scrollY;
+      },
+      { passive: true }
+    );
 
-        // Create clean success message element styled purely via CSS
-        const successMsg = document.createElement('p');
-        successMsg.className = 'success-message';
-        successMsg.textContent = `Thank you, ${name}! Your message has been sent.`;
+    window.addEventListener(
+      'mousemove',
+      (e) => {
+        isMouseActive = true;
+        // Normalize coordinate offsets to range [-1, 1] relative to viewport center
+        targetMouseX = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
+        targetMouseY = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+      },
+      { passive: true }
+    );
 
-        contactForm.appendChild(successMsg);
-        contactForm.reset();
+    window.addEventListener(
+      'resize',
+      () => {
+        scaleFactor = Math.min(1, window.innerWidth / 1440);
+      },
+      { passive: true }
+    );
 
-        // Remove message and reset button after 5 seconds
-        setTimeout(() => {
-          successMsg.remove();
-          submitBtn.value = originalBtnText;
-          submitBtn.disabled = false;
-          submitBtn.classList.remove('sent');
-        }, 5000);
-      }, 1000);
+    // Smoothly return layers to center when cursor leaves viewport
+    document.addEventListener('mouseleave', () => {
+      targetMouseX = 0;
+      targetMouseY = 0;
     });
+
+    function updateParallax() {
+      if (prefersReducedMotion.matches) {
+        // Reset transforms and opacities to static layout for accessibility
+        parallaxLayers.forEach((layer) => {
+          layer.style.transform = '';
+          layer.style.opacity = '';
+          layer.style.backgroundPositionX = '';
+        });
+        requestAnimationFrame(updateParallax);
+        return;
+      }
+
+      const heroHeight = heroParallax.parentElement
+        ? heroParallax.parentElement.offsetHeight
+        : window.innerHeight;
+      if (scrollY <= heroHeight) {
+        // Lerp mouse coordinates to introduce organic damping/fluidity
+        if (isMouseActive) {
+          mouseX += (targetMouseX - mouseX) * 0.08;
+          mouseY += (targetMouseY - mouseY) * 0.08;
+        }
+
+        parallaxLayers.forEach((layer, index) => {
+          const config = layersConfig[index];
+          if (!config) return;
+
+          const transY =
+            -scrollY * config.scrollFactor + mouseY * config.mouseFactorY * scaleFactor;
+          const transX = mouseX * config.mouseFactorX * scaleFactor;
+
+          // Calculate individual fade opacity based on scroll position
+          const opacity = Math.max(0, 1 - scrollY / config.fadeDist);
+
+          layer.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0)`;
+          layer.style.opacity = opacity.toFixed(2);
+
+          // Apply slow horizontal wind drift to Layer 2 (clouds)
+          if (index === 1) {
+            const cloudOffset = -(Date.now() * 0.008) % 10000;
+            layer.style.backgroundPositionX = `calc(50% + ${cloudOffset.toFixed(1)}px)`;
+          }
+        });
+      }
+
+      requestAnimationFrame(updateParallax);
+    }
+
+    requestAnimationFrame(updateParallax);
   }
 })();

@@ -42,9 +42,12 @@ nav {
       position: relative;
 
       a {
-        font-size: 18px;
+        font-family: 'Unageo', sans-serif;
+        font-size: 15px;
+        font-weight: bold;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
         line-height: var(--navbar-height);
-        font-weight: 500;
         text-decoration: none;
         cursor: pointer;
         transition: color 0.3s ease;
@@ -120,7 +123,7 @@ nav {
       -webkit-backdrop-filter: blur(20px);
 
       h1 {
-        display: none;
+        padding-left: 20px;
       }
 
       .navicon {
@@ -136,6 +139,7 @@ nav {
       ul {
         display: block;
         width: 100%;
+        clear: both;
         text-align: left;
       }
 

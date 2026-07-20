@@ -8,7 +8,6 @@ A responsive, professional portfolio website showcasing game design, web develop
 - **Dynamic Slideshow Showcase**: Populates screenshots, links, and detailed project captions dynamically using Splide.js.
 - **Scroll Spy & Smooth Scroll**: Highlights the active navigation menu item as you scroll through page sections.
 - **Accessible & Semantically Structured**: Improved markup for search engine optimization (SEO) and screen readers.
-- **Contact Form Validation & Confirmation**: Interactive validation and user confirmation logic in Vanilla JS.
 
 ## Tech Stack
 
