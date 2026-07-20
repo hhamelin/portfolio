@@ -36,6 +36,13 @@
       overlayElement.setAttribute('aria-hidden', 'true');
     }
     document.body.classList.remove('overlay-active');
+    if (splideInstance) {
+      splideInstance.destroy();
+      splideInstance = null;
+    }
+    if (splideList) {
+      splideList.innerHTML = '';
+    }
   }
 
   function startSlideshow(title, description, images) {
@@ -102,6 +109,15 @@
   // Close overlay on background click
   if (overlayElement) {
     overlayElement.addEventListener('click', overlayOff);
+  }
+
+  // Close overlay on X button click
+  const closeBtn = document.getElementById('slideshow-close');
+  if (closeBtn) {
+    closeBtn.addEventListener('click', (event) => {
+      event.stopPropagation();
+      overlayOff();
+    });
   }
 
   // Close overlay on Escape key press

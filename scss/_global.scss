@@ -43,6 +43,10 @@
   font-weight: bold;
 }
 
+* {
+  -webkit-tap-highlight-color: transparent;
+}
+
 body.overlay-active {
   overflow: hidden;
 }

@@ -2,6 +2,7 @@
   position: fixed;
   opacity: 0;
   visibility: hidden;
+  pointer-events: none;
   width: 100%;
   height: 100%;
   top: 0;
@@ -14,6 +15,10 @@
   z-index: 100;
   cursor: pointer;
   overflow: auto;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  user-select: none;
+  outline: none;
   transition:
     opacity 0.3s ease,
     visibility 0.3s ease;
@@ -21,6 +26,63 @@
   &.active {
     opacity: 1;
     visibility: visible;
+    pointer-events: auto;
+  }
+}
+
+.slideshow-close-btn {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 102;
+  width: 44px;
+  height: 44px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: #ffffff;
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s ease;
+  padding: 0;
+
+  svg {
+    width: 22px;
+    height: 22px;
+    stroke: #ffffff;
+    transition: transform 0.25s ease, stroke 0.25s ease;
+  }
+
+  &:hover {
+    background: var(--accent-gold);
+    border-color: var(--accent-gold);
+    color: var(--bg-main);
+    transform: scale(1.1);
+    box-shadow: 0 0 20px rgba(215, 166, 52, 0.5);
+
+    svg {
+      stroke: var(--bg-main);
+    }
+  }
+
+  &:active {
+    transform: scale(0.95);
+  }
+
+  @media only screen and (min-width: 769px) {
+    top: 24px;
+    right: 24px;
+    width: 48px;
+    height: 48px;
+
+    svg {
+      width: 24px;
+      height: 24px;
+    }
   }
 }
 
@@ -61,38 +123,51 @@
 }
 
 .splide__arrow {
-  background: rgba(255, 255, 255, 0.08) !important;
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  transition: all 0.3s ease !important;
-  opacity: 0.8 !important;
+  width: 3.25rem !important;
+  height: 3.25rem !important;
+  background: rgba(255, 255, 255, 0.12) !important;
+  border: 1px solid rgba(255, 255, 255, 0.2) !important;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: all 0.25s ease !important;
+  opacity: 0.85 !important;
+  cursor: pointer;
 
   svg {
+    width: 1.5rem !important;
+    height: 1.5rem !important;
     fill: white !important;
+    transition: transform 0.25s ease, fill 0.25s ease !important;
   }
 
   &:hover {
     background: var(--accent-gold) !important;
     border-color: var(--accent-gold) !important;
     opacity: 1 !important;
-    box-shadow: 0 0 15px rgba(215, 166, 52, 0.4);
+    transform: translateY(-50%) scale(1.1) !important;
+    box-shadow: 0 0 20px rgba(215, 166, 52, 0.5);
 
     svg {
       fill: var(--bg-main) !important;
     }
   }
+
+  &:active {
+    transform: translateY(-50%) scale(0.95) !important;
+  }
 }
 
 .splide__arrow--prev {
-  left: 2vw;
+  left: 1rem;
   @media only screen and (min-width: 992px) {
-    left: 12em;
+    left: 2rem;
   }
 }
 
 .splide__arrow--next {
-  right: 2vw;
+  right: 1rem;
   @media only screen and (min-width: 992px) {
-    right: 12em;
+    right: 2rem;
   }
 }
 

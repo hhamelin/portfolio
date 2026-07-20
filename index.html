@@ -45,6 +45,26 @@
       aria-hidden="true"
       aria-label="Project screenshot slideshow"
     >
+      <button
+        id="slideshow-close"
+        class="slideshow-close-btn"
+        aria-label="Close slideshow"
+        title="Close slideshow"
+      >
+        <svg
+          viewBox="0 0 24 24"
+          width="24"
+          height="24"
+          stroke="currentColor"
+          stroke-width="2.5"
+          fill="none"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        >
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
       <div class="slideshow-wrapper">
         <section class="splide" aria-label="Slideshow">
           <div class="splide__track">
@@ -146,12 +166,17 @@
         <div class="section-container">
           <div class="project">
             <h3>travellin' sweet</h3>
-            <img
-              class="image"
-              title="travellin' sweet"
-              src="img/placeholder.svg"
-              data-project="travellin"
-            />
+            <picture>
+              <source srcset="img/projects/travellin-sweet/travellin-sweet.jxl" type="image/jxl" />
+              <source srcset="img/projects/travellin-sweet/travellin-sweet.webp" type="image/webp" />
+              <img
+                class="image"
+                title="travellin' sweet"
+                src="img/projects/travellin-sweet/travellin-sweet.webp"
+                data-project="travellin-sweet"
+                data-images="img/projects/travellin-sweet/travellin-sweet.webp"
+              />
+            </picture>
             <div class="text">
               <div class="links">
                 <a href="https://wasworldindustries.itch.io/travellin-sweet">Live Demo</a>
@@ -170,12 +195,17 @@
           </div>
           <div class="project">
             <h3>LUDDYVerse</h3>
-            <img
-              class="image"
-              title="LUDDYVerse"
-              src="img/placeholder.svg"
-              data-project="luddyverse"
-            />
+            <picture>
+              <source srcset="img/projects/luddyverse/luddyverse-1.jxl" type="image/jxl" />
+              <source srcset="img/projects/luddyverse/luddyverse-1.webp" type="image/webp" />
+              <img
+                class="image"
+                title="LUDDYverse"
+                src="img/projects/luddyverse/luddyverse-1.webp"
+                data-project="luddyverse"
+                data-images="img/projects/luddyverse/luddyverse-1.webp, img/projects/luddyverse/luddyverse-2.webp, img/projects/luddyverse/luddyverse-3.webp"
+              />
+            </picture>
             <div class="text">
               <div class="links">
                 <span class="private-repo">Museum Demo</span>
@@ -200,9 +230,9 @@
               <img
                 class="image"
                 title="Alchemy Calculator"
-                src="img/projects/alchemy/alchemy.png"
+                src="img/projects/alchemy/alchemy.webp"
                 data-project="alchemy"
-                data-images="img/projects/alchemy/alchemy.png"
+                data-images="img/projects/alchemy/alchemy.webp"
               />
             </picture>
             <div class="text">
@@ -232,7 +262,7 @@
               <img
                 class="image"
                 title="Jester Jabs"
-                src="img/projects/jester-jabs/jester-jabs.png"
+                src="img/projects/jester-jabs/jester-jabs.webp"
                 data-project="jester"
               />
             </picture>
@@ -261,7 +291,7 @@
               <img
                 class="image"
                 title="Snatching Sorcerers"
-                src="img/projects/sorcerers/sorcerers.png"
+                src="img/projects/sorcerers/sorcerers.webp"
                 data-project="sorcerers"
               />
             </picture>
