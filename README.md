@@ -24,7 +24,7 @@ A responsive, professional portfolio website showcasing game design, web develop
 ├── img/             # Images and project screenshot assets
 │   └── icons/       # Skills, tools, and social SVG/PNG icons
 ├── scripts/         # JS logic files (index.js, slides.js)
-├── scss/            # Raw Sass source files (styles.scss, index.scss, global.scss, themes.scss, etc.)
+├── scss/            # Raw Sass source files (index.scss, _navbar.scss, _global.scss, _themes.scss, etc.)
 ├── index.html       # Primary webpage markup entry
 ├── package.json     # Node/npm dependency tracking and scripts
 └── README.md        # Documentation
