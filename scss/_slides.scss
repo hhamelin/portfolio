@@ -123,8 +123,8 @@
 }
 
 .splide__arrow {
-  width: 3.25rem !important;
-  height: 3.25rem !important;
+  width: 44px !important;
+  height: 44px !important;
   background: rgba(255, 255, 255, 0.12) !important;
   border: 1px solid rgba(255, 255, 255, 0.2) !important;
   backdrop-filter: blur(8px);
@@ -134,8 +134,8 @@
   cursor: pointer;
 
   svg {
-    width: 1.5rem !important;
-    height: 1.5rem !important;
+    width: 22px !important;
+    height: 22px !important;
     fill: white !important;
     transition: transform 0.25s ease, fill 0.25s ease !important;
   }
@@ -145,7 +145,7 @@
     border-color: var(--accent-gold) !important;
     opacity: 1 !important;
     transform: translateY(-50%) scale(1.1) !important;
-    box-shadow: 0 0 20px rgba(215, 166, 52, 0.5);
+    box-shadow: 0 0 15px rgba(215, 166, 52, 0.5);
 
     svg {
       fill: var(--bg-main) !important;
@@ -155,19 +155,29 @@
   &:active {
     transform: translateY(-50%) scale(0.95) !important;
   }
+
+  @media only screen and (min-width: 769px) {
+    width: 48px !important;
+    height: 48px !important;
+
+    svg {
+      width: 24px !important;
+      height: 24px !important;
+    }
+  }
 }
 
 .splide__arrow--prev {
-  left: 1rem;
+  left: 0.5rem;
   @media only screen and (min-width: 992px) {
-    left: 2rem;
+    left: 12em;
   }
 }
 
 .splide__arrow--next {
-  right: 1rem;
+  right: 0.5rem;
   @media only screen and (min-width: 992px) {
-    right: 2rem;
+    right: 12em;
   }
 }
 
