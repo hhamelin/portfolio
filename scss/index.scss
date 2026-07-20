@@ -92,6 +92,7 @@ section {
         background-image: url('../img/hero/hero-2.png');
         background-repeat: repeat-x;
         z-index: 2;
+        animation: cloudDrift 1250s linear infinite;
       }
       &.layer-3 {
         background-image: url('../img/hero/hero-3.png');
@@ -744,5 +745,20 @@ footer {
   }
   100% {
     transform: translateY(0px);
+  }
+}
+
+@keyframes cloudDrift {
+  0% {
+    background-position-x: 0px;
+  }
+  100% {
+    background-position-x: -10000px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-parallax .parallax-layer {
+    animation: none !important;
   }
 }

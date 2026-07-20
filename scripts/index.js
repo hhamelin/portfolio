@@ -118,7 +118,9 @@
     let targetMouseX = 0;
     let targetMouseY = 0;
     let isMouseActive = false;
-    let scaleFactor = Math.min(1, window.innerWidth / 1440);
+    let heroHeight = 0;
+    let scaleFactor = 1;
+    let isAnimating = false;
 
     // Depth and fade configurations for layers 1 (sky) through 6 (foreground)
     const layersConfig = [
@@ -130,10 +132,39 @@
       { scrollFactor: 0.75, mouseFactorX: -55, mouseFactorY: -28, fadeDist: 600 }
     ];
 
+    function updateDimensions() {
+      const parent = heroParallax.parentElement;
+      heroHeight = parent ? parent.offsetHeight : window.innerHeight;
+      scaleFactor = Math.min(1, window.innerWidth / 1440);
+    }
+
+    updateDimensions();
+
+    function resetParallax() {
+      parallaxLayers.forEach((layer) => {
+        layer.style.transform = '';
+        layer.style.opacity = '';
+      });
+    }
+
+    function startLoop() {
+      if (!isAnimating && !prefersReducedMotion.matches) {
+        isAnimating = true;
+        requestAnimationFrame(updateParallax);
+      }
+    }
+
+    function stopLoop() {
+      isAnimating = false;
+    }
+
     window.addEventListener(
       'scroll',
       () => {
         scrollY = window.scrollY;
+        if (scrollY <= heroHeight) {
+          startLoop();
+        }
       },
       { passive: true }
     );
@@ -145,6 +176,9 @@
         // Normalize coordinate offsets to range [-1, 1] relative to viewport center
         targetMouseX = (e.clientX - window.innerWidth / 2) / (window.innerWidth / 2);
         targetMouseY = (e.clientY - window.innerHeight / 2) / (window.innerHeight / 2);
+        if (scrollY <= heroHeight) {
+          startLoop();
+        }
       },
       { passive: true }
     );
@@ -152,7 +186,10 @@
     window.addEventListener(
       'resize',
       () => {
-        scaleFactor = Math.min(1, window.innerWidth / 1440);
+        updateDimensions();
+        if (scrollY <= heroHeight) {
+          startLoop();
+        }
       },
       { passive: true }
     );
@@ -163,53 +200,58 @@
       targetMouseY = 0;
     });
 
+    if (prefersReducedMotion.addEventListener) {
+      prefersReducedMotion.addEventListener('change', (e) => {
+        if (e.matches) {
+          stopLoop();
+          resetParallax();
+        } else {
+          startLoop();
+        }
+      });
+    }
+
     function updateParallax() {
+      if (!isAnimating) return;
+
       if (prefersReducedMotion.matches) {
-        // Reset transforms and opacities to static layout for accessibility
-        parallaxLayers.forEach((layer) => {
-          layer.style.transform = '';
-          layer.style.opacity = '';
-          layer.style.backgroundPositionX = '';
-        });
-        requestAnimationFrame(updateParallax);
+        resetParallax();
+        stopLoop();
         return;
       }
 
-      const heroHeight = heroParallax.parentElement
-        ? heroParallax.parentElement.offsetHeight
-        : window.innerHeight;
-      if (scrollY <= heroHeight) {
-        // Lerp mouse coordinates to introduce organic damping/fluidity
-        if (isMouseActive) {
-          mouseX += (targetMouseX - mouseX) * 0.08;
-          mouseY += (targetMouseY - mouseY) * 0.08;
-        }
-
-        parallaxLayers.forEach((layer, index) => {
-          const config = layersConfig[index];
-          if (!config) return;
-
-          const transY =
-            -scrollY * config.scrollFactor + mouseY * config.mouseFactorY * scaleFactor;
-          const transX = mouseX * config.mouseFactorX * scaleFactor;
-
-          // Calculate individual fade opacity based on scroll position
-          const opacity = Math.max(0, 1 - scrollY / config.fadeDist);
-
-          layer.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0)`;
-          layer.style.opacity = opacity.toFixed(2);
-
-          // Apply slow horizontal wind drift to Layer 2 (clouds)
-          if (index === 1) {
-            const cloudOffset = -(Date.now() * 0.008) % 10000;
-            layer.style.backgroundPositionX = `calc(50% + ${cloudOffset.toFixed(1)}px)`;
-          }
-        });
+      if (scrollY > heroHeight) {
+        stopLoop();
+        return;
       }
+
+      // Lerp mouse coordinates to introduce organic damping/fluidity
+      if (isMouseActive) {
+        mouseX += (targetMouseX - mouseX) * 0.08;
+        mouseY += (targetMouseY - mouseY) * 0.08;
+      }
+
+      parallaxLayers.forEach((layer, index) => {
+        const config = layersConfig[index];
+        if (!config) return;
+
+        const transY = -scrollY * config.scrollFactor + mouseY * config.mouseFactorY * scaleFactor;
+        const transX = mouseX * config.mouseFactorX * scaleFactor;
+
+        // Calculate individual fade opacity based on scroll position
+        const opacity = Math.max(0, 1 - scrollY / config.fadeDist);
+
+        layer.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0)`;
+        layer.style.opacity = opacity.toFixed(2);
+      });
 
       requestAnimationFrame(updateParallax);
     }
 
-    requestAnimationFrame(updateParallax);
+    if (!prefersReducedMotion.matches && scrollY <= heroHeight) {
+      startLoop();
+    } else if (prefersReducedMotion.matches) {
+      resetParallax();
+    }
   }
 })();
