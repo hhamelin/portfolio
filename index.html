@@ -58,6 +58,28 @@
         </p>
       </div>
     </div>
+
+    <!-- Motion Permission Modal for iOS -->
+    <div
+      id="motion-prompt"
+      class="motion-prompt-overlay"
+      role="dialog"
+      aria-modal="true"
+      aria-hidden="true"
+      aria-labelledby="motion-prompt-title"
+      aria-describedby="motion-prompt-desc"
+    >
+      <div class="motion-prompt-card">
+        <h3 id="motion-prompt-title">Enable Motion Parallax?</h3>
+        <p id="motion-prompt-desc">
+          This portfolio uses device tilt to add a subtle 3D parallax effect to the hero background. Motion access is used purely for visual effects and is completely optional.
+        </p>
+        <div class="motion-prompt-actions">
+          <button id="motion-prompt-enable" class="motion-btn primary">Enable Motion Effect</button>
+          <button id="motion-prompt-skip" class="motion-btn secondary">Skip</button>
+        </div>
+      </div>
+    </div>
     <nav id="navbar">
       <h1 class="name">Haven Hamelin</h1>
       <div class="nav-right">

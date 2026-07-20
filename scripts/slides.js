@@ -66,23 +66,30 @@
       arrows: hasMultiple,
       pagination: hasMultiple,
       perPage: 1,
+      focus: 'center',
       autoWidth: true,
       gap: '8%',
       trimSpace: false,
-      padding: { left: '18%', right: '20%' }
+      padding: hasMultiple ? { left: '10%', right: '10%' } : 0,
+      breakpoints: {
+        768: {
+          padding: 0,
+          gap: '1rem'
+        }
+      }
     });
 
-    splideInstance.mount();
     overlayOn();
+    splideInstance.mount();
   }
 
   // Prevent clicks on interactive slideshow elements from closing the overlay
   if (slideshowWrapper) {
     slideshowWrapper.addEventListener('click', (event) => {
       // Only stop propagation if clicking interactive components:
-      // the slide viewport track, control arrows, pagination dots, or the description box.
+      // individual slide elements, control arrows, pagination dots, or the description box.
       const isInteractive =
-        event.target.closest('.splide__track') ||
+        event.target.closest('.splide__slide') ||
         event.target.closest('.splide__arrow') ||
         event.target.closest('.splide__pagination') ||
         event.target.closest('.click-overrider');

@@ -119,6 +119,13 @@
     let targetMouseX = 0;
     let targetMouseY = 0;
     let isMouseActive = false;
+
+    let gyroX = 0;
+    let gyroY = 0;
+    let targetGyroX = 0;
+    let targetGyroY = 0;
+    let isGyroActive = false;
+
     let heroHeight = 0;
     let scaleFactor = 1;
     let isAnimating = false;
@@ -171,6 +178,127 @@
         }
       });
     }
+
+    let smoothedX = null;
+    let smoothedY = null;
+
+    // Handle DeviceMotion Accelerometer Gravity Vector (100% continuous, wrap-free motion)
+    function handleMotion(e) {
+      const acc = e.accelerationIncludingGravity;
+      if (!acc || typeof acc.x !== 'number' || typeof acc.y !== 'number' || isNaN(acc.x) || isNaN(acc.y)) {
+        return;
+      }
+
+      // acc.x measures physical left/right tilt force (-9.8 to +9.8 m/s2)
+      // acc.y measures physical top/bottom tilt force (-9.8 to +9.8 m/s2)
+      let rawX = acc.x;
+      let rawY = acc.y;
+
+      // Adapt to screen orientation changes (portrait vs landscape)
+      const orientation = window.orientation || (screen.orientation && screen.orientation.angle) || 0;
+      if (orientation === 90) {
+        rawX = -acc.y;
+        rawY = acc.x;
+      } else if (orientation === -90 || orientation === 270) {
+        rawX = acc.y;
+        rawY = -acc.x;
+      } else if (orientation === 180) {
+        rawX = -acc.x;
+        rawY = -acc.y;
+      }
+
+      // Apply low-pass exponential moving average filter for smooth sensor response
+      if (smoothedX === null || smoothedY === null) {
+        smoothedX = rawX;
+        smoothedY = rawY;
+      } else {
+        smoothedX += (rawX - smoothedX) * 0.12;
+        smoothedY += (rawY - smoothedY) * 0.12;
+      }
+
+      isGyroActive = true;
+
+      // Accelerometer gravity vector tilt scaling with amplified 4.5x gain for diffY > 0
+      const diffY = smoothedY - 5.0;
+      const normY = diffY > 0 ? (diffY / 3.5) * 4.5 : (diffY / 5.0) * 2.0;
+
+      targetGyroX = (-smoothedX / 5.0) * 5.0;
+      targetGyroY = normY;
+
+      if (scrollY <= heroHeight) {
+        startLoop();
+      }
+    }
+
+    // iOS Motion Permission Modal Handling
+    const motionPrompt = document.getElementById('motion-prompt');
+    const motionEnableBtn = document.getElementById('motion-prompt-enable');
+    const motionSkipBtn = document.getElementById('motion-prompt-skip');
+
+    function closeMotionPrompt() {
+      if (motionPrompt) {
+        motionPrompt.classList.remove('active');
+        motionPrompt.setAttribute('aria-hidden', 'true');
+      }
+    }
+
+    // Testing helper to preview iOS motion permission modal on Android / Desktop
+    window.testIOSMotionPrompt = function () {
+      if (motionPrompt) {
+        motionPrompt.classList.add('active');
+        motionPrompt.setAttribute('aria-hidden', 'false');
+      }
+    };
+
+    function initGyro() {
+      if (typeof window.DeviceMotionEvent !== 'undefined' || typeof window.DeviceOrientationEvent !== 'undefined') {
+        if (typeof window.DeviceOrientationEvent !== 'undefined' && typeof window.DeviceOrientationEvent.requestPermission === 'function') {
+          // iOS 13+ requires user permission gesture. Check if permission was previously granted
+          let motionPermission = null;
+          try { motionPermission = localStorage.getItem('motion-permission'); } catch {}
+
+          if (motionPermission === 'granted') {
+            window.addEventListener('devicemotion', handleMotion, true);
+          } else if (motionPermission !== 'dismissed' && window.innerWidth <= 992) {
+            // Show non-intrusive motion permission modal on mobile
+            window.testIOSMotionPrompt();
+          }
+        } else {
+          // Non-iOS devices (Android Chrome, etc.) with automatic motion support
+          window.addEventListener('devicemotion', handleMotion, true);
+        }
+      }
+    }
+
+    if (motionEnableBtn) {
+      motionEnableBtn.addEventListener('click', () => {
+        closeMotionPrompt();
+        if (typeof window.DeviceOrientationEvent !== 'undefined' && typeof window.DeviceOrientationEvent.requestPermission === 'function') {
+          window.DeviceOrientationEvent.requestPermission()
+            .then((response) => {
+              if (response === 'granted') {
+                try { localStorage.setItem('motion-permission', 'granted'); } catch {}
+                window.addEventListener('devicemotion', handleMotion, true);
+                startLoop();
+              } else {
+                try { localStorage.setItem('motion-permission', 'dismissed'); } catch {}
+              }
+            })
+            .catch(() => {
+              try { localStorage.setItem('motion-permission', 'dismissed'); } catch {}
+            });
+        }
+      });
+    }
+
+    if (motionSkipBtn) {
+      motionSkipBtn.addEventListener('click', () => {
+        closeMotionPrompt();
+        try { localStorage.setItem('motion-permission', 'dismissed'); } catch {}
+      });
+    }
+
+    initGyro();
 
     function updateDimensions() {
       const parent = heroParallax.parentElement;
@@ -276,23 +404,34 @@
         return;
       }
 
-      // Lerp mouse coordinates to introduce organic damping/fluidity
+      // Lerp mouse and gyro coordinates to introduce organic damping/fluidity
       if (isMouseActive) {
         mouseX += (targetMouseX - mouseX) * 0.08;
         mouseY += (targetMouseY - mouseY) * 0.08;
       }
 
+      if (isGyroActive && !isNaN(targetGyroX) && !isNaN(targetGyroY)) {
+        gyroX += (targetGyroX - gyroX) * 0.07;
+        gyroY += (targetGyroY - gyroY) * 0.07;
+      } else {
+        gyroX = 0;
+        gyroY = 0;
+      }
+
+      const combinedX = mouseX + gyroX;
+      const combinedY = mouseY + gyroY;
+
       parallaxLayers.forEach((layer, index) => {
         const config = layersConfig[index];
         if (!config) return;
 
-        const transY = -scrollY * config.scrollFactor + mouseY * config.mouseFactorY * scaleFactor;
-        const transX = mouseX * config.mouseFactorX * scaleFactor;
+        const transY = -scrollY * config.scrollFactor + (mouseY * config.mouseFactorY + gyroY * config.mouseFactorX * 1.1) * scaleFactor;
+        const transX = (mouseX * config.mouseFactorX + gyroX * config.mouseFactorX * 1.6) * scaleFactor;
 
         // Calculate individual fade opacity based on scroll position
         const opacity = Math.max(0, 1 - scrollY / config.fadeDist);
 
-        layer.style.transform = `translate3d(${transX.toFixed(1)}px, ${transY.toFixed(1)}px, 0)`;
+        layer.style.transform = `translate3d(${transX.toFixed(2)}px, ${transY.toFixed(2)}px, 0)`;
         layer.style.opacity = opacity.toFixed(2);
       });
 
