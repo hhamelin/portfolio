@@ -142,6 +142,8 @@ section {
         display: none;
         font-family: 'Avenixel';
         font-size: 115px;
+        line-height: 0.85;
+        margin-bottom: -10px;
         font-weight: normal !important;
         text-shadow:
           4px 4px 0px rgba(10, 5, 13, 0.6),
@@ -150,13 +152,14 @@ section {
 
       h3 {
         font-family: 'Sandy-Forest';
-        font-size: 72px;
+        font-size: 56px;
         text-shadow:
           3px 3px 0px rgba(10, 5, 13, 0.6),
           0px 6px 18px rgba(0, 0, 0, 0.7);
 
         span {
-          font-size: 58px;
+          font-family: 'Habbo';
+          font-size: 64px;
           text-shadow:
             2px 2px 0px rgba(10, 5, 13, 0.6),
             0px 4px 12px rgba(0, 0, 0, 0.7);
@@ -183,6 +186,20 @@ section {
     }
   }
 
+  @media only screen and (max-width: 991px) {
+    .text-and-character {
+      .text {
+        h3 {
+          font-size: 46px;
+
+          span {
+            font-size: 52px;
+          }
+        }
+      }
+    }
+  }
+
   @media only screen and (max-width: 600px) {
     .text-and-character {
       margin-top: 75px;
@@ -190,16 +207,30 @@ section {
 
       .text {
         h3 {
-          font-size: 48px;
+          font-size: 36px;
 
           span {
-            font-size: 38px;
+            font-size: 42px;
           }
         }
       }
 
       .character {
         top: 60px;
+      }
+    }
+  }
+
+  @media only screen and (max-width: 380px) {
+    .text-and-character {
+      .text {
+        h3 {
+          font-size: 28px;
+
+          span {
+            font-size: 34px;
+          }
+        }
       }
     }
   }
@@ -315,7 +346,7 @@ h2.title {
       background-color: var(--bg-card);
       border: 1px solid var(--border-card);
       border-radius: 20px;
-      padding: 24px;
+      padding: 18px 24px 24px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
       transition:
         transform 0.3s cubic-bezier(0.25, 0.8, 0.25, 1),
@@ -334,7 +365,8 @@ h2.title {
 
       h3 {
         font-family: 'Habbo';
-        font-size: 36px;
+        font-size: 38px;
+        line-height: 1.1;
         color: var(--accent-light-gold);
         margin-bottom: 16px;
         font-weight: 600;
@@ -439,7 +471,7 @@ h2.title {
 
   @media only screen and (min-width: 992px) {
     h2.title {
-      padding-top: 75px;
+      padding-top: 10px;
     }
   }
 }
@@ -508,7 +540,11 @@ h2.title {
           color: var(--text-primary);
 
           .stat-icon {
-            font-size: 18px;
+            width: 22px;
+            height: 22px;
+            object-fit: contain;
+            image-rendering: pixelated;
+            flex-shrink: 0;
           }
 
           .stat-text {
