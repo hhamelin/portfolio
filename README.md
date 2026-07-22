@@ -1,54 +1,91 @@
-# Haven Hamelin's Developer Portfolio
+# Portfolio — Haven Hamelin
 
-A responsive, professional portfolio website showcasing game design, web development, and XR projects. Built with semantic HTML5, Sass (SCSS) styling, and dynamic Vanilla JavaScript.
+Responsive, single-page developer portfolio showcasing game design, web development, and XR projects. Built with semantic HTML5, modular Sass (SCSS) compiled to CSS, and Vanilla JavaScript (ES6), featuring a multi-layered parallax header, DeviceMotion orientation support, scroll-spy section tracking, and an interactive Splide.js media modal.
 
-## Features
+## Live Deployment
 
-- **Responsive Design**: Adapts beautifully to mobile, tablet, and desktop viewports.
-- **Dynamic Slideshow Showcase**: Populates screenshots, links, and detailed project captions dynamically using Splide.js.
-- **Scroll Spy & Smooth Scroll**: Highlights the active navigation menu item as you scroll through page sections.
-- **Accessible & Semantically Structured**: Improved markup for search engine optimization (SEO) and screen readers.
+- [Portfolio Live Preview](https://havenhamelin.work)
+
+## Key Features
+
+- **Multi-Layered Parallax Hero**: Interactive 2.5D hero background engine with multi-depth layer translation reacting to cursor movement and viewport scroll position. Includes a user toggle setting (`localStorage`) and `prefers-reduced-motion` compliance.
+- **DeviceMotion Gyroscope Orientation**: Mobile tilt interactivity via the DeviceMotionEvent API with orientation compensation and an explicit iOS motion permission request modal dialog.
+- **Dynamic Media Lightbox Showcase**: Full-screen modal overlay powered by Splide.js. Dynamically populates project media (supporting `<picture>` sources, SVG assets, and inline WEBM/MP4/MOV videos with autoplay pause handling), titles, live demo links, and GitHub repository references.
+- **Scroll-Spy & Smooth Navigation**: `IntersectionObserver`-backed navigation bar highlighting current section viewports (`#about`, `#projects`, `#connections`) with offset-adjusted programmatic smooth scrolling.
+- **Modular SCSS Architecture**: Organized Sass structure utilizing Dart Sass with design tokens, CSS custom properties, layout reset rules, theme definitions, and component stylesheets.
+- **Responsive Layout & Typography**: Mobile drawer menu navigation toggle, responsive grid breakpoints, and web font integration (Pixelify Sans, Roboto, and Avenixel).
+
+---
+
+## Technical Highlights
+
+### Parallax & Motion Engine (`scripts/index.js`)
+- **Render Loop**: Utilizes `requestAnimationFrame` for high-frequency layer transformations (`translate3d`), minimizing layout thrashing during scroll, cursor move, and orientation updates.
+- **Multi-Input Motion Layering**: Combines scaled cursor offset vectors with smoothed device tilt vectors (`DeviceMotionEvent.accelerationIncludingGravity`) to calculate per-layer translation deltas (`transX`, `transY`) and distance-based opacity fading.
+- **iOS Motion Permission Handling**: Detects iOS `DeviceOrientationEvent.requestPermission` requirements and presents an interactive permission modal, persisting user preferences to `localStorage`.
+
+### Lightbox & Media Engine (`scripts/slides.js`)
+- **Dynamic DOM Injection**: Reads data attributes (`data-images`, `data-project`) and markup components from project cards on click, building custom slide markup on demand.
+- **HTML5 Video Lifecycle Management**: Automatically detects video file extensions (`.webm`, `.mp4`, `.ogg`, `.mov`), injects `<video>` tags with proper MIME types, and synchronizes `play()` / `pause()` events across Splide slide transitions and overlay dismissals.
+- **Accessibility & Event Bubbling**: Handles `Escape` key listeners, background overlay click dismissal, interactive slide click propagation overrides, and `aria-hidden` state toggles.
+
+---
 
 ## Tech Stack
 
-- **Core**: HTML5, Vanilla JavaScript (ES6)
-- **Styling**: Sass (SCSS) compiled to CSS
-- **Libraries**: [Splide.js](https://splidejs.com/) (loaded via CDN)
+- **Markup & Structure**: HTML5 (Semantic elements, `<picture>` art direction)
+- **Styling**: Sass / SCSS (Compiled via Dart Sass)
+- **Scripting**: Vanilla JavaScript (ES6 Modules & Async Browser APIs)
+- **Dependencies**:
+  - `@splidejs/splide`: Lightbox slideshow carousel library
+  - `prettier`: Code formatting
+  - `sass`: Sass compiler
+
+---
 
 ## Directory Structure
 
-```text
-├── css/             # Compiled CSS sheets and source maps
-├── fonts/           # Local font assets (Roboto, Pixelify Sans, Avenixel)
-├── img/             # Images and project screenshot assets
-│   ├── hero/        # Parallax hero background layers
-│   ├── icons/       # Skills, tools, and social SVG/PNG icons
-│   └── projects/    # Project preview screenshots grouped by project
-├── scripts/         # JS logic files (index.js, slides.js)
-├── scss/            # Raw Sass source files (index.scss, _navbar.scss, _global.scss, _themes.scss, etc.)
-├── index.html       # Primary webpage markup entry
-├── package.json     # Node/npm dependency tracking and scripts
-└── README.md        # Documentation
+- `index.html` – Primary webpage markup entry point and content sections.
+- `scripts/index.js` – Navigation scroll-spy, smooth anchor scrolling, parallax render loop, and mobile orientation handlers.
+- `scripts/slides.js` – Dynamic Splide lightbox creation, DOM extraction, and HTML5 video lifecycle manager.
+- `scss/index.scss` – Main Sass entry compiling all stylesheets.
+- `scss/_global.scss` – Global CSS custom properties, layout rules, and base styles.
+- `scss/_navbar.scss` – Navigation bar layout, link styles, and mobile responsive menu rules.
+- `scss/_slides.scss` – Lightbox overlay, slide dimensions, and Splide UI customizations.
+- `scss/_themes.scss` – Theme tokens and color variables.
+- `scss/_reset.scss` – CSS reset rules.
+- `css/` – Compiled CSS outputs generated by Dart Sass.
+- `fonts/` – Local typography assets (Pixelify Sans, Roboto, Avenixel).
+- `img/` – Image assets including multi-layer hero artwork (`img/hero/`), skill icons (`img/icons/`), and project previews (`img/projects/`).
+
+---
+
+## Local Setup
+
+### 1. Install Dependencies
+```bash
+npm install
+```
+*(Runs `postinstall` script automatically to compile SCSS to CSS).*
+
+### 2. SCSS Build Scripts
+```bash
+# One-time compilation of SCSS to CSS
+npm run build:css
+
+# Watch SCSS files for live compilation on change
+npm run watch:css
+
+# Format project files with Prettier
+npm run format
 ```
 
-## Local Development & Styling
+### 3. Run Web Server
+Preview `index.html` directly in a browser or launch a local HTTP server:
+```bash
+# Python local server
+python3 -m http.server 8000
 
-To run the site locally and compile Sass style updates, follow these steps:
-
-1. **Install Dependencies**:
-   Ensure you have [Node.js](https://nodejs.org/) installed, then run:
-   ```bash
-   npm install
-   ```
-
-2. **Compile Sass**:
-   Compile the `.scss` files into optimized CSS inside the `css/` directory:
-   ```bash
-   npm run build:css
-   ```
-
-3. **Watch SCSS (Live Updates)**:
-   Keep Sass running in the background to automatically compile CSS on file change:
-   ```bash
-   npm run watch:css
-   ```
+# Node.js server
+npx serve .
+```
