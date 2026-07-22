@@ -5,21 +5,61 @@
   const overlayElement = document.getElementById('overlay');
   const slideshowWrapper = document.querySelector('.slideshow-wrapper');
   const splideList = document.querySelector('.splide__list');
-  const descriptionElement = document.querySelector('.click-overrider');
+  const slideshowLinksElement = document.querySelector('.slideshow-links');
+  const slideshowDescElement = document.querySelector('.slideshow-description');
 
   let detectedFormats = [];
 
-  function createPictureMarkup(imgSrc, altText) {
-    if (imgSrc.endsWith('.svg')) {
-      return `<img src="${imgSrc}" alt="${altText}">`;
+  function createMediaMarkup(mediaSrc, altText) {
+    const ext = mediaSrc.substring(mediaSrc.lastIndexOf('.')).toLowerCase();
+    if (ext === '.webm' || ext === '.mp4' || ext === '.ogg' || ext === '.mov') {
+      let mimeType = 'video/mp4';
+      if (ext === '.webm') mimeType = 'video/webm';
+      else if (ext === '.ogg') mimeType = 'video/ogg';
+      else if (ext === '.mov') mimeType = 'video/quicktime';
+
+      return `<video controls autoplay muted playsinline preload="auto">
+        <source src="${mediaSrc}" type="${mimeType}">
+        Your browser does not support the video tag.
+      </video>`;
     }
-    const base = imgSrc.substring(0, imgSrc.lastIndexOf('.'));
+
+    if (ext === '.svg') {
+      return `<img src="${mediaSrc}" alt="${altText}">`;
+    }
+
+    const base = mediaSrc.substring(0, mediaSrc.lastIndexOf('.'));
     let markup = '\n      <picture>';
     detectedFormats.forEach((f) => {
       markup += `\n        <source srcset="${base}${f.ext}" type="${f.type}">`;
     });
-    markup += `\n        <img src="${imgSrc}" alt="${altText}">\n      </picture>\n    `;
+    markup += `\n        <img src="${mediaSrc}" alt="${altText}">\n      </picture>\n    `;
     return markup;
+  }
+
+  function pauseAllVideos() {
+    if (splideList) {
+      splideList.querySelectorAll('video').forEach((v) => {
+        v.pause();
+      });
+    }
+  }
+
+  function playActiveSlideVideo() {
+    if (!splideInstance) return;
+    const slideObj = splideInstance.Components.Slides.getAt(splideInstance.index);
+    if (slideObj && slideObj.slide) {
+      const video = slideObj.slide.querySelector('video');
+      if (video) {
+        video.muted = true;
+        const playPromise = video.play();
+        if (playPromise !== undefined) {
+          playPromise.catch(() => {
+            // Silently handle autoplay prevention if any
+          });
+        }
+      }
+    }
   }
 
   function overlayOn() {
@@ -31,6 +71,7 @@
   }
 
   function overlayOff() {
+    pauseAllVideos();
     if (overlayElement) {
       overlayElement.classList.remove('active');
       overlayElement.setAttribute('aria-hidden', 'true');
@@ -43,24 +84,39 @@
     if (splideList) {
       splideList.innerHTML = '';
     }
+    if (slideshowLinksElement) {
+      slideshowLinksElement.innerHTML = '';
+    }
+    if (slideshowDescElement) {
+      slideshowDescElement.textContent = '';
+    }
   }
 
-  function startSlideshow(title, description, images) {
-    if (!splideList || !descriptionElement) return;
+  function startSlideshow(title, description, linksHTML, images) {
+    if (!splideList || !slideshowDescElement) return;
 
     // Populate slides
     splideList.innerHTML = images
       .map(
         (imgSrc) => `
       <li class="splide__slide">
-        ${createPictureMarkup(imgSrc, `${title} screenshot`)}
+        ${createMediaMarkup(imgSrc, `${title} media`)}
       </li>
     `
       )
       .join('');
 
+    // Populate links
+    if (slideshowLinksElement) {
+      slideshowLinksElement.innerHTML = linksHTML;
+      slideshowLinksElement.querySelectorAll('a').forEach((a) => {
+        a.setAttribute('target', '_blank');
+        a.setAttribute('rel', 'noopener noreferrer');
+      });
+    }
+
     // Populate description
-    descriptionElement.textContent = description;
+    slideshowDescElement.textContent = description;
 
     // Mount/remount Splide
     if (splideInstance) {
@@ -75,15 +131,23 @@
       perPage: 1,
       focus: 'center',
       autoWidth: true,
-      gap: '8%',
+      gap: '3%',
       trimSpace: false,
-      padding: hasMultiple ? { left: '10%', right: '10%' } : 0,
+      padding: hasMultiple ? { left: '4%', right: '4%' } : 0,
       breakpoints: {
         768: {
           padding: 0,
           gap: '1rem'
         }
       }
+    });
+
+    splideInstance.on('move', () => {
+      pauseAllVideos();
+    });
+
+    splideInstance.on('mounted moved', () => {
+      playActiveSlideVideo();
     });
 
     overlayOn();
@@ -141,6 +205,10 @@
       const descEl = projectContainer.querySelector('.description');
       const description = descEl ? descEl.textContent.trim() : '';
 
+      // Extract links HTML from .links
+      const linksEl = projectContainer.querySelector('.links');
+      const linksHTML = linksEl ? linksEl.innerHTML : '';
+
       // Extract formats from the main image's parent <picture> element if it exists
       detectedFormats = [];
       const parentPicture = img.parentElement;
@@ -161,7 +229,7 @@
         ? dataImages.split(',').map((src) => src.trim())
         : [img.getAttribute('src')];
 
-      startSlideshow(title, description, images);
+      startSlideshow(title, description, linksHTML, images);
     });
   });
 })();

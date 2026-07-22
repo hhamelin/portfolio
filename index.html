@@ -73,9 +73,14 @@
             </ul>
           </div>
         </section>
-        <p class="click-overrider">
-          <!-- Dynamic Description -->
-        </p>
+        <div class="slideshow-info click-overrider">
+          <div class="slideshow-links">
+            <!-- Dynamic Links -->
+          </div>
+          <p class="slideshow-description">
+            <!-- Dynamic Description -->
+          </p>
+        </div>
       </div>
     </div>
 
@@ -165,10 +170,107 @@
         <h2 class="title">Projects Showcase</h2>
         <div class="section-container">
           <div class="project">
+            <h3>LOREBoards</h3>
+            <picture>
+              <source srcset="img/projects/loreboards/loreboards-1.jxl" type="image/jxl" />
+              <source srcset="img/projects/loreboards/loreboards-1.webp" type="image/webp" />
+              <img
+                class="image"
+                title="LOREBoards"
+                src="img/projects/loreboards/loreboards-1.webp"
+                data-project="loreboards"
+                data-images="img/projects/loreboards/loreboards-1.webp, img/projects/loreboards/loreboards-2.webp, img/projects/loreboards/loreboards-3.webp, img/projects/loreboards/loreboards-4.webp"
+              />
+            </picture>
+            <div class="text">
+              <div class="links">
+                <a href="https://loreboards.projects.havenhamelin.work/">Live Demo</a>
+                <a href="https://github.com/hhamelin-iu/n423-final">Source Code</a>
+              </div>
+              <p class="description">
+                Game completion and leaderboard tracker where players log finished games, high
+                scores, and personal notes. Features IGDB game search integration, Firebase
+                authentication, real-time Firestore database for full CRUD operations, and a
+                responsive web and mobile experience.
+              </p>
+              <div class="softwares">
+                Software Used:
+                <img class="icon" src="img/icons/react.svg" alt="React" />
+                <img class="icon" src="img/icons/firebase.svg" alt="Firebase" />
+                <img class="icon" src="img/icons/js.svg" alt="JavaScript" />
+                <img class="icon" src="img/icons/html5.svg" alt="HTML5" />
+              </div>
+            </div>
+          </div>
+          <div class="project">
+            <h3>LUDDYVerse</h3>
+            <picture>
+              <source srcset="img/projects/luddyverse/luddyverse-1.jxl" type="image/jxl" />
+              <source srcset="img/projects/luddyverse/luddyverse-1.webp" type="image/webp" />
+              <img
+                class="image"
+                title="LUDDYverse"
+                src="img/projects/luddyverse/luddyverse-1.webp"
+                data-project="luddyverse"
+                data-images="img/projects/luddyverse/luddyverse-explained.webm, img/projects/luddyverse/luddyverse-showcase.mp4, img/projects/luddyverse/luddyverse-1.webp, img/projects/luddyverse/luddyverse-2.webp, img/projects/luddyverse/luddyverse-3.webp"
+              />
+            </picture>
+            <div class="text">
+              <div class="links">
+                <span class="private-repo">Museum Demo</span>
+                <span class="private-repo">Private Repo</span>
+              </div>
+              <p class="description">
+                Worked diligently within a tight schedule on a demo for an XR digital museum
+                experience for our school’s museum. Learned quickly and adapted often to conquer the
+                many hurdles placed in our way, keeping up to date with our client’s expectations.
+              </p>
+              <div class="softwares">
+                Software Used:
+                <img class="icon" src="img/icons/unity.svg" alt="Unity" />
+              </div>
+            </div>
+          </div>
+          <div class="project">
+            <h3>MyWorkspace</h3>
+            <picture>
+              <source srcset="img/projects/workspace/workspace-1.jxl" type="image/jxl" />
+              <source srcset="img/projects/workspace/workspace-1.webp" type="image/webp" />
+              <img
+                class="image"
+                title="MyWorkspace"
+                src="img/projects/workspace/workspace-1.webp"
+                data-project="workspace"
+                data-images="img/projects/workspace/workspace-1.webp, img/projects/workspace/workspace-2.webp, img/projects/workspace/workspace-3.webp, img/projects/workspace/workspace-4.webp, img/projects/workspace/workspace-5.webp"
+              />
+            </picture>
+            <div class="text">
+              <div class="links">
+                <a href="https://workspace.projects.havenhamelin.work">Live Demo</a>
+                <a href="https://github.com/hhamelin-iu/n322-final">Source Code</a>
+              </div>
+              <p class="description">
+                Personal productivity workspace application featuring interactive notes management,
+                task tracking, and mood journaling. Built with a responsive layout providing a
+                seamless experience across desktop and mobile devices.
+              </p>
+              <div class="softwares">
+                Software Used:
+                <img class="icon" src="img/icons/react.svg" alt="React" />
+                <img class="icon" src="img/icons/js.svg" alt="JavaScript" />
+                <img class="icon" src="img/icons/html5.svg" alt="HTML5" />
+                <img class="icon" src="img/icons/css3.svg" alt="CSS3" />
+              </div>
+            </div>
+          </div>
+          <div class="project">
             <h3>travellin' sweet</h3>
             <picture>
               <source srcset="img/projects/travellin-sweet/travellin-sweet.jxl" type="image/jxl" />
-              <source srcset="img/projects/travellin-sweet/travellin-sweet.webp" type="image/webp" />
+              <source
+                srcset="img/projects/travellin-sweet/travellin-sweet.webp"
+                type="image/webp"
+              />
               <img
                 class="image"
                 title="travellin' sweet"
@@ -190,35 +292,6 @@
               <div class="softwares">
                 Software Used:
                 <img class="icon" src="img/icons/godot.svg" alt="Godot" />
-              </div>
-            </div>
-          </div>
-          <div class="project">
-            <h3>LUDDYVerse</h3>
-            <picture>
-              <source srcset="img/projects/luddyverse/luddyverse-1.jxl" type="image/jxl" />
-              <source srcset="img/projects/luddyverse/luddyverse-1.webp" type="image/webp" />
-              <img
-                class="image"
-                title="LUDDYverse"
-                src="img/projects/luddyverse/luddyverse-1.webp"
-                data-project="luddyverse"
-                data-images="img/projects/luddyverse/luddyverse-1.webp, img/projects/luddyverse/luddyverse-2.webp, img/projects/luddyverse/luddyverse-3.webp"
-              />
-            </picture>
-            <div class="text">
-              <div class="links">
-                <span class="private-repo">Museum Demo</span>
-                <span class="private-repo">Private Repo</span>
-              </div>
-              <p class="description">
-                Worked diligently within a tight schedule on a demo for an XR digital museum
-                experience for our school’s museum. Learned quickly and adapted often to conquer the
-                many hurdles placed in our way, keeping up to date with our client’s expectations.
-              </p>
-              <div class="softwares">
-                Software Used:
-                <img class="icon" src="img/icons/unity.svg" alt="Unity" />
               </div>
             </div>
           </div>
@@ -324,7 +397,11 @@
             </div>
             <div class="about-stats">
               <div class="stat-item">
-                <img class="stat-icon" src="img/icons/skills/grad-cap-icon.png" alt="Graduation Cap" />
+                <img
+                  class="stat-icon"
+                  src="img/icons/skills/grad-cap-icon.png"
+                  alt="Graduation Cap"
+                />
                 <span class="stat-text">IU Indy Graduate</span>
               </div>
               <div class="stat-item">
@@ -341,7 +418,8 @@
           <!-- Right Column: Bio & Skills Matrix -->
           <div class="about-content">
             <h3 class="about-tagline">
-              Bridging the gap between creative game design<br> and modern web development.
+              Bridging the gap between creative game design<br />
+              and modern web development.
             </h3>
 
             <p class="about-text">
