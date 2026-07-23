@@ -472,4 +472,65 @@
       resetParallax();
     }
   }
+
+  // Live Demo Health Check System for Homelab & External Demos
+  function initHealthChecks() {
+    const checkableLinks = document.querySelectorAll('a[data-health-check]');
+
+    checkableLinks.forEach((link) => {
+      const targetUrl = link.getAttribute('data-health-check');
+      if (!targetUrl) return;
+
+      // Create abort controller for 5 second timeout
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
+
+      fetch(targetUrl, {
+        method: 'GET',
+        signal: controller.signal,
+        cache: 'no-store'
+      })
+        .then((response) => {
+          clearTimeout(timeoutId);
+          if (!response.ok && response.status !== 304) {
+            markAsMaintenance(link);
+          }
+        })
+        .catch(() => {
+          clearTimeout(timeoutId);
+          // Network error, CORS rejection or Abort (timeout) -> server is down/unreachable
+          markAsMaintenance(link);
+        });
+    });
+
+    function markAsMaintenance(linkElement) {
+      linkElement.classList.add('disabled', 'maintenance-mode');
+      linkElement.setAttribute('aria-disabled', 'true');
+      linkElement.setAttribute('tabindex', '-1');
+      linkElement.setAttribute(
+        'title',
+        'Homelab server is currently offline or down for maintenance'
+      );
+      linkElement.innerHTML = `
+        <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" class="maintenance-icon">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span>Down for Maintenance</span>
+      `;
+
+      // Prevent click navigation on disabled link
+      linkElement.addEventListener('click', (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      });
+    }
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initHealthChecks);
+  } else {
+    initHealthChecks();
+  }
 })();

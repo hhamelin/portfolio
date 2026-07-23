@@ -428,6 +428,33 @@ h2.title {
             cursor: not-allowed;
             user-select: none;
           }
+
+          a.disabled,
+          a.maintenance-mode {
+            background-color: rgba(255, 107, 107, 0.08) !important;
+            border: 1px dashed rgba(255, 107, 107, 0.4) !important;
+            color: #ff6b6b !important;
+            cursor: not-allowed;
+            pointer-events: none;
+            opacity: 0.88;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            box-shadow: none !important;
+
+            .maintenance-icon {
+              flex-shrink: 0;
+              stroke: #ff6b6b;
+            }
+
+            &:hover {
+              background-color: rgba(255, 107, 107, 0.08) !important;
+              color: #ff6b6b !important;
+              border-color: rgba(255, 107, 107, 0.4) !important;
+              box-shadow: none !important;
+            }
+          }
         }
 
         .description {
