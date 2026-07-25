@@ -156,12 +156,13 @@
   // Prevent clicks on interactive slideshow elements from closing the overlay
   if (slideshowWrapper) {
     slideshowWrapper.addEventListener('click', (event) => {
-      // Prevent overlay close on interactive slideshow elements
+      // Prevent overlay close on interactive media and controls
       const isInteractive =
-        event.target.closest('.splide__slide') ||
+        event.target.closest('img, video, picture') ||
         event.target.closest('.splide__arrow') ||
         event.target.closest('.splide__pagination') ||
-        event.target.closest('.click-overrider');
+        event.target.closest('.slideshow-description') ||
+        event.target.closest('.slideshow-links');
 
       if (isInteractive) {
         event.stopPropagation();

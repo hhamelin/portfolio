@@ -471,24 +471,82 @@ h2.title {
         .softwares {
           display: flex;
           align-items: center;
-          gap: 8px;
+          gap: 10px;
           font-size: 13px;
           color: var(--text-muted);
           border-top: 1px solid rgba(255, 255, 255, 0.06);
           padding-top: 15px;
 
-          .icon {
-            display: inline-block;
-            height: 28px;
-            width: auto;
-            opacity: 0.8;
-            transition:
-              opacity 0.3s ease,
-              transform 0.3s ease;
+          .icon-wrapper {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
 
-            &:hover {
+            .icon {
+              display: inline-block;
+              height: 28px;
+              width: auto;
+              opacity: 0.8;
+              transition:
+                opacity 0.3s ease,
+                transform 0.3s ease;
+            }
+
+            &:hover .icon {
               opacity: 1;
-              transform: scale(1.1);
+              transform: scale(1.15);
+            }
+
+            &::after {
+              content: attr(data-title);
+              position: absolute;
+              bottom: calc(100% + 8px);
+              left: 50%;
+              transform: translateX(-50%) translateY(4px);
+              background: #181724;
+              color: #e2e8f0;
+              font-size: 11px;
+              font-weight: 500;
+              padding: 4px 8px;
+              border-radius: 6px;
+              border: 1px solid rgba(255, 255, 255, 0.15);
+              white-space: nowrap;
+              pointer-events: none;
+              opacity: 0;
+              visibility: hidden;
+              transition:
+                opacity 0.2s ease,
+                transform 0.2s ease,
+                visibility 0.2s ease;
+              box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+              z-index: 20;
+            }
+
+            &::before {
+              content: '';
+              position: absolute;
+              bottom: calc(100% + 3px);
+              left: 50%;
+              transform: translateX(-50%) translateY(4px);
+              border-width: 5px 5px 0 5px;
+              border-style: solid;
+              border-color: #181724 transparent transparent transparent;
+              pointer-events: none;
+              opacity: 0;
+              visibility: hidden;
+              transition:
+                opacity 0.2s ease,
+                transform 0.2s ease,
+                visibility 0.2s ease;
+              z-index: 21;
+            }
+
+            &:hover::after,
+            &:hover::before {
+              opacity: 1;
+              visibility: visible;
+              transform: translateX(-50%) translateY(0);
             }
           }
         }

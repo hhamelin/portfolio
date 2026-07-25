@@ -88,7 +88,6 @@
   }
 }
 
-.click-overrider,
 .is-active {
   cursor: initial;
 }
@@ -246,6 +245,7 @@
 
 .splide__slide img,
 .splide__slide video {
+  cursor: default;
   width: auto;
   height: auto;
   max-width: min(1150px, 82vw);
@@ -357,6 +357,7 @@
 }
 
 .slideshow-description {
+  cursor: default;
   width: 100%;
   height: auto;
   min-height: 80px;
