@@ -528,9 +528,37 @@
     }
   }
 
+  // Mobile & Keyboard Software Icon Tooltip Handling
+  function initSoftwareIconTooltips() {
+    const iconWrappers = document.querySelectorAll('.softwares .icon-wrapper');
+
+    iconWrappers.forEach((wrapper) => {
+      if (!wrapper.hasAttribute('tabindex')) {
+        wrapper.setAttribute('tabindex', '0');
+      }
+
+      wrapper.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isAlreadyActive = wrapper.classList.contains('active');
+        iconWrappers.forEach((w) => w.classList.remove('active'));
+        if (!isAlreadyActive) {
+          wrapper.classList.add('active');
+        }
+      });
+    });
+
+    document.addEventListener('click', () => {
+      iconWrappers.forEach((w) => w.classList.remove('active'));
+    });
+  }
+
   if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', initHealthChecks);
+    document.addEventListener('DOMContentLoaded', () => {
+      initHealthChecks();
+      initSoftwareIconTooltips();
+    });
   } else {
     initHealthChecks();
+    initSoftwareIconTooltips();
   }
 })();

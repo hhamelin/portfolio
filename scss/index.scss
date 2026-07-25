@@ -482,6 +482,7 @@ h2.title {
             display: inline-flex;
             align-items: center;
             justify-content: center;
+            cursor: pointer;
 
             .icon {
               display: inline-block;
@@ -493,7 +494,9 @@ h2.title {
                 transform 0.3s ease;
             }
 
-            &:hover .icon {
+            &:hover .icon,
+            &.active .icon,
+            &:focus .icon {
               opacity: 1;
               transform: scale(1.15);
             }
@@ -543,7 +546,13 @@ h2.title {
             }
 
             &:hover::after,
-            &:hover::before {
+            &:hover::before,
+            &.active::after,
+            &.active::before,
+            &:focus::after,
+            &:focus::before,
+            &:focus-within::after,
+            &:focus-within::before {
               opacity: 1;
               visibility: visible;
               transform: translateX(-50%) translateY(0);
