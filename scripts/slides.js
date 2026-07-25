@@ -24,7 +24,7 @@
       </video>`;
     }
 
-    if (ext === '.svg') {
+    if (ext === '.svg' || ext === '.gif') {
       return `<img src="${mediaSrc}" alt="${altText}">`;
     }
 
@@ -130,8 +130,7 @@
       pagination: hasMultiple,
       perPage: 1,
       focus: 'center',
-      autoWidth: true,
-      gap: '3%',
+      gap: '2rem',
       trimSpace: false,
       padding: hasMultiple ? { left: '4%', right: '4%' } : 0,
       breakpoints: {
