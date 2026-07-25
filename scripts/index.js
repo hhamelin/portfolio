@@ -236,10 +236,11 @@
       }
     }
 
-    // iOS Motion Permission Modal Handling
+    // Motion Permission & Sensor Notice Handling
     const motionPrompt = document.getElementById('motion-prompt');
     const motionEnableBtn = document.getElementById('motion-prompt-enable');
     const motionSkipBtn = document.getElementById('motion-prompt-skip');
+    let isSensorsDisabledNoticeActive = false;
 
     function closeMotionPrompt() {
       if (motionPrompt) {
@@ -248,13 +249,89 @@
       }
     }
 
-    // Testing helper to preview iOS motion permission modal on Android / Desktop
+    // Testing helper for iOS motion permission modal
     window.testIOSMotionPrompt = function () {
-      if (motionPrompt) {
+      isSensorsDisabledNoticeActive = false;
+      const titleEl = document.getElementById('motion-prompt-title');
+      const descEl = document.getElementById('motion-prompt-desc');
+      const enableBtn = document.getElementById('motion-prompt-enable');
+      const skipBtn = document.getElementById('motion-prompt-skip');
+
+      if (titleEl && descEl && motionPrompt) {
+        titleEl.textContent = 'Enable Motion Parallax?';
+        descEl.textContent =
+          'This portfolio uses device tilt to add a subtle 3D parallax effect to the hero background. Motion access is used purely for visual effects and is completely optional.';
+        if (enableBtn) enableBtn.textContent = 'Enable Motion Effect';
+        if (skipBtn) {
+          skipBtn.style.display = 'inline-block';
+          skipBtn.textContent = 'Skip';
+        }
         motionPrompt.classList.add('active');
         motionPrompt.setAttribute('aria-hidden', 'false');
       }
     };
+
+    // Helper for displaying sensors disabled notice (for Android / Privacy-hardened Chromium)
+    function showSensorsOffPrompt() {
+      let isNoticeDismissed = false;
+      try {
+        isNoticeDismissed = localStorage.getItem('motion-sensors-disabled-dismissed') === 'true';
+      } catch {}
+
+      if (isNoticeDismissed || window.innerWidth > 992) return;
+
+      isSensorsDisabledNoticeActive = true;
+      const titleEl = document.getElementById('motion-prompt-title');
+      const descEl = document.getElementById('motion-prompt-desc');
+      const enableBtn = document.getElementById('motion-prompt-enable');
+      const skipBtn = document.getElementById('motion-prompt-skip');
+
+      if (titleEl && descEl && motionPrompt) {
+        titleEl.textContent = 'Motion Sensors Disabled';
+        descEl.innerHTML =
+          'Your browser currently has motion sensors turned off.<br><br>' +
+          'The 3D tilt effect is optional visual flair, and the portfolio works fully without it. ' +
+          "To enable it, allow <strong>Sensors</strong> in your browser's settings.";
+
+        if (enableBtn) {
+          enableBtn.textContent = 'Got It';
+        }
+        if (skipBtn) {
+          skipBtn.style.display = 'none';
+        }
+
+        motionPrompt.classList.add('active');
+        motionPrompt.setAttribute('aria-hidden', 'false');
+      }
+    }
+
+    // Testing helper for sensors disabled notice
+    window.testSensorsOffPrompt = showSensorsOffPrompt;
+
+    function checkAndroidSensorState() {
+      if ('permissions' in navigator && typeof navigator.permissions.query === 'function') {
+        Promise.all([
+          navigator.permissions.query({ name: 'gyroscope' }).catch(() => null),
+          navigator.permissions.query({ name: 'accelerometer' }).catch(() => null)
+        ])
+          .then(([gyroState, accelState]) => {
+            const isDenied =
+              (gyroState && gyroState.state === 'denied') ||
+              (accelState && accelState.state === 'denied');
+
+            if (isDenied) {
+              showSensorsOffPrompt();
+            } else {
+              window.addEventListener('devicemotion', handleMotion, true);
+            }
+          })
+          .catch(() => {
+            window.addEventListener('devicemotion', handleMotion, true);
+          });
+      } else {
+        window.addEventListener('devicemotion', handleMotion, true);
+      }
+    }
 
     function initGyro() {
       if (
@@ -265,7 +342,7 @@
           typeof window.DeviceOrientationEvent !== 'undefined' &&
           typeof window.DeviceOrientationEvent.requestPermission === 'function'
         ) {
-          // Check motion permission
+          // Check motion permission for iOS
           let motionPermission = null;
           try {
             motionPermission = localStorage.getItem('motion-permission');
@@ -274,12 +351,11 @@
           if (motionPermission === 'granted') {
             window.addEventListener('devicemotion', handleMotion, true);
           } else if (motionPermission !== 'dismissed' && window.innerWidth <= 992) {
-            // Show motion prompt
             window.testIOSMotionPrompt();
           }
         } else {
-          // Automatic motion support
-          window.addEventListener('devicemotion', handleMotion, true);
+          // Check sensor permissions on Android / Chromium
+          checkAndroidSensorState();
         }
       }
     }
@@ -287,6 +363,13 @@
     if (motionEnableBtn) {
       motionEnableBtn.addEventListener('click', () => {
         closeMotionPrompt();
+        if (isSensorsDisabledNoticeActive) {
+          try {
+            localStorage.setItem('motion-sensors-disabled-dismissed', 'true');
+          } catch {}
+          return;
+        }
+
         if (
           typeof window.DeviceOrientationEvent !== 'undefined' &&
           typeof window.DeviceOrientationEvent.requestPermission === 'function'
@@ -318,7 +401,11 @@
       motionSkipBtn.addEventListener('click', () => {
         closeMotionPrompt();
         try {
-          localStorage.setItem('motion-permission', 'dismissed');
+          if (isSensorsDisabledNoticeActive) {
+            localStorage.setItem('motion-sensors-disabled-dismissed', 'true');
+          } else {
+            localStorage.setItem('motion-permission', 'dismissed');
+          }
         } catch {}
       });
     }
