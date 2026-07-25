@@ -2,7 +2,7 @@
 @use 'themes';
 @use 'global';
 @use 'navbar';
-@use 'slides';
+@use 'slides' as *;
 :root {
   --navbar-height: 70px;
   --slideshow-height: 800px;

@@ -7,8 +7,8 @@
     "sass": "^1.92.1"
   },
   "scripts": {
-    "build:css": "sass scss:css",
-    "watch:css": "sass --watch scss:css",
+    "build:css": "sass scss/index.scss css/index.css",
+    "watch:css": "sass --watch scss/index.scss css/index.css",
     "postinstall": "npm run build:css",
     "format": "prettier --write \"**/*.{html,js,scss}\""
   }

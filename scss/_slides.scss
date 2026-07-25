@@ -252,6 +252,8 @@
   border-radius: 16px;
   border: 1px solid rgba(255, 255, 255, 0.12);
   box-shadow: 0 20px 45px rgba(0, 0, 0, 0.6);
+  image-rendering: pixelated;
+  image-rendering: crisp-edges;
 }
 
 .slideshow-info {
