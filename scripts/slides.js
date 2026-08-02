@@ -273,9 +273,40 @@
     }
   }
 
+  function cleanUrlQueryParamsAndSetHash(projectId) {
+    const url = new URL(window.location.href);
+    let searchChanged = false;
+
+    if (url.searchParams.has('project')) {
+      url.searchParams.delete('project');
+      searchChanged = true;
+    }
+    if (url.searchParams.has('p')) {
+      url.searchParams.delete('p');
+      searchChanged = true;
+    }
+    if (url.searchParams.has('slideshow')) {
+      url.searchParams.delete('slideshow');
+      searchChanged = true;
+    }
+
+    const targetHash = `#project-${projectId}`;
+    if (searchChanged || url.hash !== targetHash) {
+      url.hash = targetHash;
+      history.replaceState({ projectId }, '', url.toString());
+    }
+  }
+
   function checkUrlForProjectSlideshow(isInitialLoad = false) {
+    const params = new URLSearchParams(window.location.search);
+    const hasQueryParam = params.has('project') || params.has('p') || params.has('slideshow');
+
     const projectId = getProjectIdFromUrl();
     if (!projectId) return;
+
+    if (hasQueryParam) {
+      cleanUrlQueryParamsAndSetHash(projectId);
+    }
 
     const img = findProjectImage(projectId);
     if (img) {
