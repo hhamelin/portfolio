@@ -103,6 +103,30 @@
   align-items: center;
 }
 
+.slideshow-title {
+  font-family: 'Habbo';
+  font-size: 42px;
+  line-height: 1.1;
+  color: var(--accent-light-gold);
+  margin-bottom: 16px;
+  text-align: center;
+  font-weight: 600;
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
+  cursor: text;
+  text-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+
+  &:empty {
+    display: none;
+  }
+
+  @media only screen and (max-width: 768px) {
+    font-size: 32px;
+    margin-bottom: 10px;
+  }
+}
+
 .splide {
   width: 1400px;
   max-width: 96vw;

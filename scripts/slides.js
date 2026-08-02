@@ -4,12 +4,14 @@
   let splideInstance = null;
   const overlayElement = document.getElementById('overlay');
   const slideshowWrapper = document.querySelector('.slideshow-wrapper');
+  const slideshowTitleElement = document.querySelector('.slideshow-title');
   const splideList = document.querySelector('.splide__list');
   const slideshowLinksElement = document.querySelector('.slideshow-links');
   const slideshowDescElement = document.querySelector('.slideshow-description');
 
   let detectedFormats = [];
 
+  // prettier-ignore
   const projectAliases = {
     'silly-sanctuary': 'pets',
     'sillysanctuary': 'pets',
@@ -96,6 +98,9 @@
     if (splideList) {
       splideList.innerHTML = '';
     }
+    if (slideshowTitleElement) {
+      slideshowTitleElement.textContent = '';
+    }
     if (slideshowLinksElement) {
       slideshowLinksElement.innerHTML = '';
     }
@@ -124,6 +129,11 @@
     `
       )
       .join('');
+
+    // Populate title
+    if (slideshowTitleElement) {
+      slideshowTitleElement.textContent = title;
+    }
 
     // Populate links
     if (slideshowLinksElement) {
@@ -333,6 +343,7 @@
         event.target.closest('img, video, picture') ||
         event.target.closest('.splide__arrow') ||
         event.target.closest('.splide__pagination') ||
+        event.target.closest('.slideshow-title') ||
         event.target.closest('.slideshow-description') ||
         event.target.closest('.slideshow-links');
 
