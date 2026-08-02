@@ -271,6 +271,9 @@
   flex-direction: column;
   align-items: center;
   gap: 12px;
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
 
   @media only screen and (max-width: 768px) {
     width: 100%;
@@ -286,6 +289,9 @@
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
 
   &:empty {
     display: none;
@@ -356,7 +362,10 @@
 }
 
 .slideshow-description {
-  cursor: default;
+  cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
+  -webkit-touch-callout: default;
   width: 100%;
   height: auto;
   min-height: 80px;
