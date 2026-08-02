@@ -12,14 +12,10 @@
 
   const projectAliases = {
     'silly-sanctuary': 'pets',
-    sillysanctuary: 'pets',
-    myworkspace: 'workspace',
-    'little-alchemy': 'alchemy',
-    'little-alchemy-3d': 'alchemy',
-    'jesters-joust': 'jester',
+    'sillysanctuary': 'pets',
+    'myworkspace': 'workspace',
     'jester-jabs': 'jester',
     'snatching-sorcerers': 'sorcerers',
-    'sorcerers-showdown': 'sorcerers',
     'ghools-and-gunkheads': 'ghools-gunkheads',
     'the-corn-popper': 'corn-popper'
   };
@@ -178,25 +174,23 @@
 
   function getProjectIdFromUrl() {
     const params = new URLSearchParams(window.location.search);
-    let id = params.get('project') || params.get('p') || params.get('slideshow');
+    let rawParam = params.get('project') || params.get('p') || params.get('slideshow');
+    let id = null;
 
-    if (!id && window.location.hash) {
-      id = window.location.hash.substring(1);
+    if (rawParam) {
+      id = rawParam.trim().toLowerCase();
+      if (id.startsWith('project-')) {
+        id = id.substring(8);
+      }
+    } else if (window.location.hash) {
+      let hash = window.location.hash.substring(1).trim().toLowerCase();
+      // Must explicitly start with 'project-' format (e.g. #project-multitimer)
+      if (hash.startsWith('project-') && hash !== 'projects') {
+        id = hash.substring(8);
+      }
     }
 
     if (!id) return null;
-
-    id = id.trim().toLowerCase();
-
-    if (['projects', 'home', 'about', 'contact', 'top'].includes(id)) {
-      return null;
-    }
-
-    if (id.startsWith('project-')) {
-      id = id.replace(/^project-/, '');
-    } else if (id.startsWith('slideshow-')) {
-      id = id.replace(/^slideshow-/, '');
-    }
 
     if (projectAliases[id]) {
       id = projectAliases[id];
@@ -211,8 +205,7 @@
     let img = document.querySelector(`.project img.image[data-project="${projectId}"]`);
     if (img) return img;
 
-    const projectDiv =
-      document.getElementById(projectId) || document.getElementById(`project-${projectId}`);
+    const projectDiv = document.getElementById(`project-${projectId}`);
     if (projectDiv) {
       img = projectDiv.querySelector('img.image[data-project]');
       if (img) return img;
@@ -233,7 +226,10 @@
     const projectContainer = img.closest('.project');
     if (!projectContainer) return;
 
-    const projectId = img.getAttribute('data-project') || projectContainer.id;
+    let projectId = img.getAttribute('data-project');
+    if (!projectId && projectContainer.id && projectContainer.id.startsWith('project-')) {
+      projectId = projectContainer.id.substring(8);
+    }
 
     // Extract title from h3
     const titleEl = projectContainer.querySelector('h3');
@@ -270,7 +266,7 @@
     startSlideshow(title, description, linksHTML, images);
 
     if (updateUrl && projectId) {
-      const currentTargetHash = `#${projectId}`;
+      const currentTargetHash = `#project-${projectId}`;
       if (window.location.hash !== currentTargetHash) {
         history.pushState({ projectId }, '', currentTargetHash);
       }
