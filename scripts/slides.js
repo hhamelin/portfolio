@@ -10,6 +10,20 @@
 
   let detectedFormats = [];
 
+  const projectAliases = {
+    'silly-sanctuary': 'pets',
+    sillysanctuary: 'pets',
+    myworkspace: 'workspace',
+    'little-alchemy': 'alchemy',
+    'little-alchemy-3d': 'alchemy',
+    'jesters-joust': 'jester',
+    'jester-jabs': 'jester',
+    'snatching-sorcerers': 'sorcerers',
+    'sorcerers-showdown': 'sorcerers',
+    'ghools-and-gunkheads': 'ghools-gunkheads',
+    'the-corn-popper': 'corn-popper'
+  };
+
   function createMediaMarkup(mediaSrc, altText) {
     const ext = mediaSrc.substring(mediaSrc.lastIndexOf('.')).toLowerCase();
     if (ext === '.webm' || ext === '.mp4' || ext === '.ogg' || ext === '.mov') {
@@ -70,8 +84,10 @@
     document.body.classList.add('overlay-active');
   }
 
-  function overlayOff() {
+  function overlayOff(fromHistory = false) {
     pauseAllVideos();
+    const isAlreadyInactive = !overlayElement || !overlayElement.classList.contains('active');
+
     if (overlayElement) {
       overlayElement.classList.remove('active');
       overlayElement.setAttribute('aria-hidden', 'true');
@@ -89,6 +105,13 @@
     }
     if (slideshowDescElement) {
       slideshowDescElement.textContent = '';
+    }
+
+    if (!fromHistory && !isAlreadyInactive) {
+      const currentProjectId = getProjectIdFromUrl();
+      if (currentProjectId) {
+        history.replaceState(null, '', '#projects');
+      }
     }
   }
 
@@ -153,10 +176,132 @@
     splideInstance.mount();
   }
 
+  function getProjectIdFromUrl() {
+    const params = new URLSearchParams(window.location.search);
+    let id = params.get('project') || params.get('p') || params.get('slideshow');
+
+    if (!id && window.location.hash) {
+      id = window.location.hash.substring(1);
+    }
+
+    if (!id) return null;
+
+    id = id.trim().toLowerCase();
+
+    if (['projects', 'home', 'about', 'contact', 'top'].includes(id)) {
+      return null;
+    }
+
+    if (id.startsWith('project-')) {
+      id = id.replace(/^project-/, '');
+    } else if (id.startsWith('slideshow-')) {
+      id = id.replace(/^slideshow-/, '');
+    }
+
+    if (projectAliases[id]) {
+      id = projectAliases[id];
+    }
+
+    return id;
+  }
+
+  function findProjectImage(projectId) {
+    if (!projectId) return null;
+
+    let img = document.querySelector(`.project img.image[data-project="${projectId}"]`);
+    if (img) return img;
+
+    const projectDiv =
+      document.getElementById(projectId) || document.getElementById(`project-${projectId}`);
+    if (projectDiv) {
+      img = projectDiv.querySelector('img.image[data-project]');
+      if (img) return img;
+    }
+
+    const allImgs = document.querySelectorAll('.project img.image[data-project]');
+    for (const el of allImgs) {
+      const dp = el.getAttribute('data-project').toLowerCase();
+      if (dp === projectId || dp.replace(/-/g, '') === projectId.replace(/-/g, '')) {
+        return el;
+      }
+    }
+
+    return null;
+  }
+
+  function openSlideshowForImage(img, updateUrl = true) {
+    const projectContainer = img.closest('.project');
+    if (!projectContainer) return;
+
+    const projectId = img.getAttribute('data-project') || projectContainer.id;
+
+    // Extract title from h3
+    const titleEl = projectContainer.querySelector('h3');
+    const title = titleEl ? titleEl.textContent.trim() : '';
+
+    // Extract description from the .description paragraph
+    const descEl = projectContainer.querySelector('.description');
+    const description = descEl ? descEl.textContent.trim() : '';
+
+    // Extract links HTML from .links
+    const linksEl = projectContainer.querySelector('.links');
+    const linksHTML = linksEl ? linksEl.innerHTML : '';
+
+    // Extract formats from the main image's parent <picture> element if it exists
+    detectedFormats = [];
+    const parentPicture = img.parentElement;
+    if (parentPicture && parentPicture.tagName.toLowerCase() === 'picture') {
+      parentPicture.querySelectorAll('source').forEach((source) => {
+        const type = source.getAttribute('type');
+        const srcset = source.getAttribute('srcset');
+        if (type && srcset) {
+          const ext = srcset.substring(srcset.lastIndexOf('.'));
+          detectedFormats.push({ type, ext });
+        }
+      });
+    }
+
+    // Extract images: read data-images (comma separated), or fallback to the src
+    const dataImages = img.getAttribute('data-images');
+    const images = dataImages
+      ? dataImages.split(',').map((src) => src.trim())
+      : [img.getAttribute('src')];
+
+    startSlideshow(title, description, linksHTML, images);
+
+    if (updateUrl && projectId) {
+      const currentTargetHash = `#${projectId}`;
+      if (window.location.hash !== currentTargetHash) {
+        history.pushState({ projectId }, '', currentTargetHash);
+      }
+    }
+  }
+
+  function checkUrlForProjectSlideshow(isInitialLoad = false) {
+    const projectId = getProjectIdFromUrl();
+    if (!projectId) return;
+
+    const img = findProjectImage(projectId);
+    if (img) {
+      const container = img.closest('.project');
+      if (container) {
+        const style = window.getComputedStyle(document.body);
+        const navbarHeight = parseInt(style.getPropertyValue('--navbar-height'), 10) || 70;
+        const position = container.getBoundingClientRect().top + window.scrollY;
+
+        window.scrollTo({
+          top: Math.max(0, position - navbarHeight - 20),
+          behavior: isInitialLoad ? 'auto' : 'smooth'
+        });
+      }
+
+      openSlideshowForImage(img, false);
+    }
+  }
+
   // Prevent clicks on interactive slideshow elements from closing the overlay
   if (slideshowWrapper) {
     slideshowWrapper.addEventListener('click', (event) => {
-      // Prevent overlay close on interactive media and controls
       const isInteractive =
         event.target.closest('img, video, picture') ||
         event.target.closest('.splide__arrow') ||
@@ -172,7 +317,7 @@
 
   // Close overlay on background click
   if (overlayElement) {
-    overlayElement.addEventListener('click', overlayOff);
+    overlayElement.addEventListener('click', () => overlayOff(false));
   }
 
   // Close overlay on X button click
@@ -180,56 +325,47 @@
   if (closeBtn) {
     closeBtn.addEventListener('click', (event) => {
       event.stopPropagation();
-      overlayOff();
+      overlayOff(false);
     });
   }
 
   // Close overlay on Escape key press
   window.addEventListener('keydown', (event) => {
     if (event.key === 'Escape' && overlayElement && overlayElement.classList.contains('active')) {
-      overlayOff();
+      overlayOff(false);
     }
   });
 
   // Bind project image clicks to launch the slideshow
   document.querySelectorAll('.project img.image[data-project]').forEach((img) => {
     img.addEventListener('click', () => {
-      const projectContainer = img.closest('.project');
-      if (!projectContainer) return;
-
-      // Extract title from h3
-      const titleEl = projectContainer.querySelector('h3');
-      const title = titleEl ? titleEl.textContent.trim() : '';
-
-      // Extract description from the .description paragraph
-      const descEl = projectContainer.querySelector('.description');
-      const description = descEl ? descEl.textContent.trim() : '';
-
-      // Extract links HTML from .links
-      const linksEl = projectContainer.querySelector('.links');
-      const linksHTML = linksEl ? linksEl.innerHTML : '';
-
-      // Extract formats from the main image's parent <picture> element if it exists
-      detectedFormats = [];
-      const parentPicture = img.parentElement;
-      if (parentPicture && parentPicture.tagName.toLowerCase() === 'picture') {
-        parentPicture.querySelectorAll('source').forEach((source) => {
-          const type = source.getAttribute('type');
-          const srcset = source.getAttribute('srcset');
-          if (type && srcset) {
-            const ext = srcset.substring(srcset.lastIndexOf('.'));
-            detectedFormats.push({ type, ext });
-          }
-        });
-      }
-
-      // Extract images: read data-images (comma separated), or fallback to the src
-      const dataImages = img.getAttribute('data-images');
-      const images = dataImages
-        ? dataImages.split(',').map((src) => src.trim())
-        : [img.getAttribute('src')];
-
-      startSlideshow(title, description, linksHTML, images);
+      openSlideshowForImage(img, true);
     });
   });
+
+  // Listen to popstate and hashchange for deep-linked direct open / navigation
+  window.addEventListener('hashchange', () => {
+    const projectId = getProjectIdFromUrl();
+    if (projectId) {
+      checkUrlForProjectSlideshow(false);
+    } else if (overlayElement && overlayElement.classList.contains('active')) {
+      overlayOff(true);
+    }
+  });
+
+  window.addEventListener('popstate', () => {
+    const projectId = getProjectIdFromUrl();
+    if (projectId) {
+      checkUrlForProjectSlideshow(false);
+    } else if (overlayElement && overlayElement.classList.contains('active')) {
+      overlayOff(true);
+    }
+  });
+
+  // Check URL on page load
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => checkUrlForProjectSlideshow(true));
+  } else {
+    setTimeout(() => checkUrlForProjectSlideshow(true), 50);
+  }
 })();
