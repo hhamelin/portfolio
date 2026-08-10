@@ -22,22 +22,23 @@
     'the-corn-popper': 'corn-popper'
   };
 
-  function createMediaMarkup(mediaSrc, altText) {
+  function createMediaMarkup(mediaSrc, altText, extraAttrs = '') {
     const ext = mediaSrc.substring(mediaSrc.lastIndexOf('.')).toLowerCase();
+    const attrsStr = extraAttrs ? ` ${extraAttrs.trim()}` : '';
     if (ext === '.webm' || ext === '.mp4' || ext === '.ogg' || ext === '.mov') {
       let mimeType = 'video/mp4';
       if (ext === '.webm') mimeType = 'video/webm';
       else if (ext === '.ogg') mimeType = 'video/ogg';
       else if (ext === '.mov') mimeType = 'video/quicktime';
 
-      return `<video controls autoplay muted playsinline preload="auto">
+      return `<video controls autoplay muted playsinline preload="auto"${attrsStr}>
         <source src="${mediaSrc}" type="${mimeType}">
         Your browser does not support the video tag.
       </video>`;
     }
 
     if (ext === '.svg' || ext === '.gif') {
-      return `<img src="${mediaSrc}" alt="${altText}">`;
+      return `<img src="${mediaSrc}" alt="${altText}"${attrsStr}>`;
     }
 
     const base = mediaSrc.substring(0, mediaSrc.lastIndexOf('.'));
@@ -45,7 +46,7 @@
     detectedFormats.forEach((f) => {
       markup += `\n        <source srcset="${base}${f.ext}" type="${f.type}">`;
     });
-    markup += `\n        <img src="${mediaSrc}" alt="${altText}">\n      </picture>\n    `;
+    markup += `\n        <img src="${mediaSrc}" alt="${altText}"${attrsStr}>\n      </picture>\n    `;
     return markup;
   }
 
@@ -116,18 +117,30 @@
     }
   }
 
-  function startSlideshow(title, description, linksHTML, images) {
+  function startSlideshow(title, description, linksHTML, images, pixelSlides = null) {
     if (!splideList || !slideshowDescElement) return;
+
+    const isPixelSlide = (index) => {
+      if (pixelSlides === true) return true;
+      if (Array.isArray(pixelSlides)) return pixelSlides.includes(index);
+      if (pixelSlides instanceof Set) return pixelSlides.has(index);
+      return false;
+    };
 
     // Populate slides
     splideList.innerHTML = images
-      .map(
-        (imgSrc) => `
-      <li class="splide__slide">
-        ${createMediaMarkup(imgSrc, `${title} media`)}
+      .map((imgSrc, idx) => {
+        const usePixelArt = isPixelSlide(idx);
+        const slideClass = usePixelArt ? 'splide__slide pixel-art' : 'splide__slide';
+        const extraAttrs = usePixelArt
+          ? 'style="image-rendering: pixelated; image-rendering: crisp-edges;" data-pixel-art="true"'
+          : '';
+        return `
+      <li class="${slideClass}">
+        ${createMediaMarkup(imgSrc, `${title} media`, extraAttrs)}
       </li>
-    `
-      )
+    `;
+      })
       .join('');
 
     // Populate title
@@ -159,9 +172,9 @@
       pagination: hasMultiple,
       perPage: 1,
       focus: 'center',
-      gap: '2rem',
+      gap: '2.5rem',
       trimSpace: false,
-      padding: hasMultiple ? { left: '4%', right: '4%' } : 0,
+      padding: hasMultiple ? { left: '10%', right: '10%' } : 0,
       breakpoints: {
         768: {
           padding: 0,
@@ -273,7 +286,37 @@
       ? dataImages.split(',').map((src) => src.trim())
       : [img.getAttribute('src')];
 
-    startSlideshow(title, description, linksHTML, images);
+    const rawPixelAttr = (
+      img.getAttribute('data-pixel-art') ||
+      img.getAttribute('data-pixel-slides') ||
+      img.getAttribute('data-pixelated') ||
+      img.style.imageRendering ||
+      (projectContainer.dataset
+        ? projectContainer.dataset.pixelArt || projectContainer.dataset.imageRendering
+        : '') ||
+      ''
+    )
+      .toString()
+      .trim()
+      .toLowerCase();
+
+    let pixelSlides = false;
+    if (
+      rawPixelAttr === 'true' ||
+      rawPixelAttr === 'pixelated' ||
+      rawPixelAttr === 'crisp-edges' ||
+      img.classList.contains('pixel-art') ||
+      img.classList.contains('pixelated')
+    ) {
+      pixelSlides = true;
+    } else if (rawPixelAttr.length > 0 && rawPixelAttr !== 'false') {
+      pixelSlides = rawPixelAttr
+        .split(',')
+        .map((s) => parseInt(s.trim(), 10))
+        .filter((n) => !isNaN(n));
+    }
+
+    startSlideshow(title, description, linksHTML, images, pixelSlides);
 
     if (updateUrl && projectId) {
       const currentTargetHash = `#project-${projectId}`;

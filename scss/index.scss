@@ -406,6 +406,10 @@ h2.title {
             font-weight: bold;
             text-decoration: none;
             transition: all 0.3s ease;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
           }
 
           a {
@@ -413,11 +417,23 @@ h2.title {
             border: 1px solid var(--border-badge);
             color: var(--link-color) !important;
 
+            svg {
+              width: 16px;
+              height: 16px;
+              flex-shrink: 0;
+              stroke: currentColor;
+              transition: transform 0.2s ease;
+            }
+
             &:hover {
               background-color: var(--link-color);
               color: var(--bg-main) !important;
               border-color: var(--link-color);
               box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+
+              svg {
+                transform: translate(1px, -1px);
+              }
             }
           }
 
